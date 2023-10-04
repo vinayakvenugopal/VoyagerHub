@@ -1,0 +1,27 @@
+{
+  "name": "voyager-hub",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node backend/server.js",
+    "server": "nodemon api/index.js",
+    "client": "npm run dev --prefix frontend",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vinayakvenugopal/VoyagerHub.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vinayakvenugopal/VoyagerHub/issues"
+  },
+  "homepage": "https://github.com/vinayakvenugopal/VoyagerHub#readme",
+  "devDependencies": {
+    "concurrently": "^8.2.1"
+  }
+}
