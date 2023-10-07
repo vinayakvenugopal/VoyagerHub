@@ -9,16 +9,13 @@ type UserInfo = {
   };
   
   type AuthState = {
-    auth: {
         userInfo: UserInfo | null;
-      };
+ 
   };
 
   const storedUserInfo = localStorage.getItem('userInfo');
   const initialState: AuthState = {
-    auth: {
       userInfo: storedUserInfo ? JSON.parse(storedUserInfo) : null,
-    },
   };
 
 const userAuthSlice = createSlice ({
@@ -26,11 +23,11 @@ const userAuthSlice = createSlice ({
     initialState,
     reducers:{
         setCredentials:(state,action:PayloadAction<UserInfo>)=>{
-            state.auth.userInfo = action.payload;
+            state.userInfo = action.payload;
             localStorage.setItem('userInfo',JSON.stringify(action.payload))
         },
         logout:(state,action)=>{
-            state.auth.userInfo=null;
+            state.userInfo=null;
             localStorage.removeItem('userInfo')
         }
     }

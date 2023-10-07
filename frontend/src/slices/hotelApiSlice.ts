@@ -1,30 +1,36 @@
 import { apiSlice } from "./apiSlice";
-import { HOTEL_REGISTER,HOTEL_LOGIN } from "../config/api";
+import { HOTEL_REGISTER,HOTEL_LOGIN ,GET_HOTEL_LIST} from "../config/api";
 
 
 export const userApiSlice = apiSlice.injectEndpoints({
     endpoints:(builder)=>({
-        register:builder.mutation({
+        hotelRegister:builder.mutation({
             query:(data)=>({
                url:`${HOTEL_REGISTER}` ,
                method:'POST',
                body:data
             })
         }),
-        login:builder.mutation({
+        hotelLogin:builder.mutation({
             query:(data)=>({
                url:`${HOTEL_LOGIN }` ,
                method:'POST',
                body:data
             })
         }),
-        logout:builder.mutation({
+        hotelLogout:builder.mutation({
             query:()=>({
                url:`api/hotel/logout` ,
+               method:'POST',
+            })
+        }),
+        getHotelData:builder.mutation({
+            query:()=>({
+               url:`${GET_HOTEL_LIST}` ,
                method:'POST',
             })
         })
 
     })
 })
-export const {useRegisterMutation,useLoginMutation,useLogoutMutation} =userApiSlice
+export const {useHotelRegisterMutation,useHotelLoginMutation,useHotelLogoutMutation,useGetHotelDataMutation} =userApiSlice

@@ -1,6 +1,7 @@
 import asyncHandler from 'express-async-handler'
 import Hotelier from '../models/hotelierModel.js';
 import generateToken from '../utils/generateUserToken.js';
+import HotelDetails from '../models/hotelDetails.js';
 import {createError} from '../utils/error.js'
 
 //@desc Register a new User
@@ -67,8 +68,32 @@ const logoutHotelier = async (req,res) =>{
 
 }
 
+
+const createHotel = async (req, res, next) => {
+    const newHotel = new HotelDetails(req.body);
+  
+    try {
+      const savedHotel = await newHotel.save();
+      res.status(200).json(savedHotel);
+    } catch (err) {
+      next(err);
+    }
+  };
+
+  const getHotels = async (req, res, next) => {
+  
+    try {
+      const hotelList = await HotelDetails.find({});
+      res.status(200).json(hotelList);
+    } catch (err) {
+      next(err);
+    }
+  };
+
 export{
     registerHotelier,
     loginHotelier,
-    logoutHotelier
+    logoutHotelier,
+    createHotel,
+    getHotels
 }
