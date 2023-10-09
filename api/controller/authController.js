@@ -1,7 +1,7 @@
 import asyncHandler from 'express-async-handler'
 import User from '../models/userModel.js'
 import generateToken from '../utils/generateUserToken.js';
-import {createError} from '../utils/error.js'
+// import {createError} from '../utils/error.js'
 
 //@desc Register a new User
 //route POST /api/auth/register

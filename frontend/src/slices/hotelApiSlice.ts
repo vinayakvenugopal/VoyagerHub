@@ -1,5 +1,5 @@
 import { apiSlice } from "./apiSlice";
-import { HOTEL_REGISTER,HOTEL_LOGIN ,GET_HOTEL_LIST} from "../config/api";
+import { HOTEL_REGISTER,HOTEL_LOGIN ,GET_HOTEL_LIST,CREATE_HOTEL} from "../config/api";
 
 
 export const userApiSlice = apiSlice.injectEndpoints({
@@ -29,8 +29,19 @@ export const userApiSlice = apiSlice.injectEndpoints({
                url:`${GET_HOTEL_LIST}` ,
                method:'POST',
             })
+        }),
+        createHotel:builder.mutation({
+            query:(formData)=>({
+               url:`${CREATE_HOTEL}` ,
+               method:'POST',
+               body:formData,
+               headers: {
+                
+              }
+            })
         })
+
 
     })
 })
-export const {useHotelRegisterMutation,useHotelLoginMutation,useHotelLogoutMutation,useGetHotelDataMutation} =userApiSlice
+export const {useHotelRegisterMutation,useHotelLoginMutation,useHotelLogoutMutation,useGetHotelDataMutation,useCreateHotelMutation} =userApiSlice

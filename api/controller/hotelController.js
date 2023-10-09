@@ -70,13 +70,25 @@ const logoutHotelier = async (req,res) =>{
 
 
 const createHotel = async (req, res, next) => {
-    const newHotel = new HotelDetails(req.body);
-  
+      let images = []
+      req.files.map((files)=>{
+        images.push()
+      })
+    const {name,city,address,desc,aminities} = req.body
     try {
-      const savedHotel = await newHotel.save();
-      res.status(200).json(savedHotel);
+        const hotelDetais = await HotelDetails.create({
+            name,
+            city,
+            address,
+            desc,
+            aminities
+
+        })
+
+      
+
     } catch (err) {
-      next(err);
+      next(err);  
     }
   };
 

@@ -1,13 +1,23 @@
-import React, { useState, ChangeEvent } from "react";
+import React, { useState, ChangeEvent,useEffect } from "react";
 
-const ImageUploader: React.FC = () => {
-  const [images, setImages] = useState<string[]>([]);
-  const [error, setError] = useState<string>("");
+interface ImageUploaderProps {
+  onImageUpload: (images: File[], error: string) => void; // Update the prop type to accept File objects
+  currentImages: File[]; // Update the type of currentImages to File[]
+  currentError: string;
+}
+
+const ImageUploader: React.FC<ImageUploaderProps> = ({
+  onImageUpload,
+  currentImages,
+  currentError,
+}) => {
+  const [images, setImages] = useState<File[]>(currentImages); // Use File[] for the state
+  const [error, setError] = useState<string>(currentError);
 
   const handleFileUpload = (event: ChangeEvent<HTMLInputElement>) => {
     const fileList = event.target.files;
-    const newImages: string[] = [];
-    const maxSize: number = 800; // in pixels
+    const newImages: File[] = [];
+    const maxSize: number = 2000; // in pixels
 
     for (let i = 0; i < fileList!.length; i++) {
       const file = fileList![i];
@@ -27,7 +37,7 @@ const ImageUploader: React.FC = () => {
               `Image ${file.name} is not a valid file type. Only PNG and JPEG are allowed.`
             );
           } else {
-            newImages.push(reader.result as string);
+            newImages.push(file); // Push the File object directly
             if (newImages.length === fileList!.length) {
               setImages([...images, ...newImages]);
               setError("");
@@ -50,6 +60,12 @@ const ImageUploader: React.FC = () => {
     setImages(newImages);
   };
 
+  useEffect(() => {
+    // Notify the parent component (HotelDetailsForm) about changes in images or errors
+    onImageUpload(images, error);
+  }, [images, error, onImageUpload]);
+
+
   return (
     <div className="row x-gap-20 y-gap-20 pt-15">
       <div className="col-auto">
@@ -63,6 +79,7 @@ const ImageUploader: React.FC = () => {
           <input
             type="file"
             id="uploadGallery"
+            name="images"
             multiple
             accept="image/png, image/jpeg"
             className="d-none"
@@ -78,7 +95,7 @@ const ImageUploader: React.FC = () => {
       {images.map((image, index) => (
         <div className="col-auto" key={index}>
           <div className="d-flex ratio ratio-1:1 w-200">
-            <img src={image} alt="image" className="img-ratio rounded-4" />
+            <img src={URL.createObjectURL(image)}  alt="image" className="img-ratio rounded-4" />
             <div
               className="d-flex justify-end px-10 py-10 h-100 w-1/1 absolute"
               onClick={() => handleRemoveImage(index)}
