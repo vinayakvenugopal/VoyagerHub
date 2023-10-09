@@ -1,7 +1,7 @@
 import express from "express"
 const router = express.Router()
 import multer from "multer";
-import {registerHotelier,loginHotelier,logoutHotelier,createHotel, getHotels} from '../controller/hotelController.js'
+import {registerHotelier,loginHotelier,logoutHotelier,createHotel, getHotels, hotelSingle} from '../controller/hotelController.js'
 import { multerUploadHotelImages } from "../config/multer.js"
 // const storage = multer.diskStorage({
 //     destination: (req, file, cb) => {
@@ -21,6 +21,6 @@ router.post('/login',loginHotelier )
 router.post('/logout',logoutHotelier)
 router.post('/createHotel',multerUploadHotelImages.array("images",10),createHotel)
 router.post('/getHotels',getHotels)
-
+router.post('/hotelSingle',hotelSingle)
 
 export default router

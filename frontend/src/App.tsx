@@ -5,10 +5,11 @@ import {
 } from "react-router-dom";
 import RegisterScreen from './screens/userScreens/RegisterScreen.tsx'
 import LoginScreen from "./screens/userScreens/LoginScreen.tsx";
-import HomeScreen from "./screens/userScreens/HomeScreen.tsx";
+import HotelList from "./screens/userScreens/HotelList.tsx";
 import RegisterHotelier from "./screens/hotelScreens/RegisterHotelier.tsx";
 import HotelDetailsScreen from "./screens/hotelScreens/HotelDetailsScreen.tsx";
 import LoginHotel from "./screens/hotelScreens/LoginHotel.tsx";
+import HotelSinglePage from "./screens/userScreens/HotelSinglePage.tsx";
 
 
 function App() {
@@ -18,9 +19,11 @@ function App() {
       <Routes>
       {/* ...................USER SCREENS START................................ */}
 
-      <Route path="/Register" element={<RegisterScreen/>}/>
-      <Route path="/Login" element={<LoginScreen/>}/>
-      <Route path="/" element={<HomeScreen/>}/>
+      <Route path="/register" element={<RegisterScreen/>}/>
+      <Route path="/login" element={<LoginScreen/>}/>
+      <Route path="/" element={<HotelList/>}/>
+      <Route path="/hotel-single/:id" element={<HotelSinglePage/>}/>
+
 
       {/* ...................USER SCREENS END................................ */}
 

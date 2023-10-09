@@ -69,20 +69,26 @@ const logoutHotelier = async (req,res) =>{
 }
 
 
-const createHotel = async (req, res, next) => {
-      let images = []
-      req.files.map((files)=>{
-        images.push()
-      })
+const createHotel = async (req, res) => {
+      
     const {name,city,address,desc,aminities} = req.body
+    let images = []
+      req.files.map((files)=>{
+        images.push(files.filename)
+      })
+
+      let aminitiesArray = []
+      aminities.map((aminities)=>{
+        aminitiesArray.push(aminities)
+      })
     try {
         const hotelDetais = await HotelDetails.create({
             name,
             city,
             address,
             desc,
-            aminities
-
+            aminities:aminitiesArray,
+            images
         })
 
       
@@ -92,7 +98,7 @@ const createHotel = async (req, res, next) => {
     }
   };
 
-  const getHotels = async (req, res, next) => {
+  const getHotels = async (req, res) => {
   
     try {
       const hotelList = await HotelDetails.find({});
@@ -102,10 +108,24 @@ const createHotel = async (req, res, next) => {
     }
   };
 
+
+  const hotelSingle = async(req,res)=>{
+    try {
+        const id = req.body.id
+        const hoteData = await HotelDetails.findOne({_id:id})
+        res.status(200).json(hoteData);
+    } catch (error) {
+        res.status(401)
+        throw new Error('Error fetching data')
+        
+    }
+  } 
+
 export{
     registerHotelier,
     loginHotelier,
     logoutHotelier,
     createHotel,
-    getHotels
+    getHotels,
+    hotelSingle
 }

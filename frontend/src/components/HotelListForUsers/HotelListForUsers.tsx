@@ -2,9 +2,20 @@ import { useState,useEffect } from "react";
 import { useGetHotelDataMutation } from "../../slices/hotelApiSlice";
 import { Link } from "react-router-dom";
 import {toast} from 'react-toastify'
+import ImageSlider from "../ImageSlider/ImageSlider";
+
+interface Hotel {
+  name: string;
+  city: string;
+  address: string;
+  images: string[];
+  desc: string;
+  aminities: string[]; 
+ 
+}
 
 function HotelListForUsers() {
-    const [hotelsData,setHotelsData] = useState([])
+    const [hotelsData,setHotelsData] = useState<Hotel[]>([])
     const [userDataFromApi]:any = useGetHotelDataMutation()
 
     useEffect(() => {
@@ -30,21 +41,24 @@ function HotelListForUsers() {
   return (
     <>
       {hotelsData.slice(0, 7).map((item:any) => (
-        <div className="col-12" key={item?.id} style={{marginTop:"150px"}}>
+        <div className="col-12" key={item?.id} >
           <div className="border-top-light pt-30">
             <div className="row x-gap-20 y-gap-20">
               <div className="col-md-auto">
                 <div className="cardImage ratio ratio-1:1 w-250 md:w-1/1 rounded-4">
                   <div className="cardImage__content">
-                    <div className="cardImage-slider rounded-4  custom_inside-slider">
+                    {/* <div className="cardImage-slider rounded-4  custom_inside-slider">
                             <img
                               width={250}
                               height={250}
                               className="rounded-4 col-12 js-lazy"
                               alt="image"
-                              src="logo.png"
+                              src={HOTEL_IMAGE_DIR_PATH+item.images[0]}
                             />
-                    </div>
+                    </div> */}
+                     <div className="cardImage-slider rounded-4 custom_inside-slider">
+            <ImageSlider images={item.images} />
+          </div>
                   </div>
                   {/* End image */}
 
@@ -95,41 +109,44 @@ function HotelListForUsers() {
 
                 <div className="text-14 lh-15 mt-20">
                   <div className="fw-500">King Room</div>
-                  <div className="text-light-1">{item.desc}</div>
+                  <div className="text-light-1">
+              <span
+                title={item.desc} // Add a tooltip to display the full description on hover
+                style={{
+                  display: "-webkit-box",
+                  WebkitLineClamp: 2, // Number of lines before applying ellipsis
+                  WebkitBoxOrient: "vertical",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                }}
+              >
+                {item.desc}
+              </span>
+            </div>
                 </div>
 
-                <div className="text-14 text-green-2 lh-15 mt-10">
+                {/* <div className="text-14 text-green-2 lh-15 mt-10">
                   <div className="fw-500">Free cancellation</div>
                   <div className="">
                     You can cancel later, so lock in this great price today.
                   </div>
+                </div> */}
+
+             
+                  <div className="row x-gap-10 y-gap-10 pt-20">
+                  {item.aminities.map((amenity, index) => (
+
+                  <div className="col-auto">
+                    <div className="border-light rounded-100 py-5 px-20 text-14 lh-14">
+                    {amenity}
+                    </div>
+                  </div>
+                    ))}
+
+
                 </div>
-
-                <div className="row x-gap-10 y-gap-10 pt-20">
-                  <div className="col-auto">
-                    <div className="border-light rounded-100 py-5 px-20 text-14 lh-14">
-                      Breakfast
-                    </div>
-                  </div>
-
-                  <div className="col-auto">
-                    <div className="border-light rounded-100 py-5 px-20 text-14 lh-14">
-                      WiFi
-                    </div>
-                  </div>
-
-                  <div className="col-auto">
-                    <div className="border-light rounded-100 py-5 px-20 text-14 lh-14">
-                      Spa
-                    </div>
-                  </div>
-
-                  <div className="col-auto">
-                    <div className="border-light rounded-100 py-5 px-20 text-14 lh-14">
-                      Bar
-                    </div>
-                  </div>
-                </div>
+              
+               
               </div>
               {/* End .col-md */}
 

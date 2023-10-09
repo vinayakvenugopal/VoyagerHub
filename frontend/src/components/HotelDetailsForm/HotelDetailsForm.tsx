@@ -48,10 +48,14 @@ const [createHotel] = useCreateHotelMutation()
       
     }
     // formData.append('images', images[0]);
-
+    for (let i = 0; i < aminities.length; i++) {
+      formData.append('aminities', aminities[i]);
+      
+    }
+    
 
     formData.append('city', city);
-    formData.append('aminities', JSON.stringify(aminities));
+    // formData.append('aminities', JSON.stringify(aminities));
 
     const responseFromApiCall = createHotel(formData).unwrap()
   } catch (error) {
