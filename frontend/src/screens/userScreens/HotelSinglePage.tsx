@@ -4,18 +4,23 @@ import { Gallery, Item } from "react-photoswipe-gallery";
 import { Link } from "react-router-dom";
 import { useState,useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import { useGetSingleHotelDataMutation } from "../../slices/hotelApiSlice";
+import { useGetSingleHotelDataMutation,useGetRoomDataMutation } from "../../slices/hotelApiSlice";
+
+import AvailableRooms from "../../components/AvailableRoom/AvailableRoom";
+
 const HOTEL_IMAGE_DIR_PATH = 'http://localhost:5000/HotelImages/'
 import HeaderBodySeperator from "../../components/HeaderBodySeperator/HeaderBodySeperator";
 
 function HotelSinglePage() {
   const [singleHotelData]:any = useGetSingleHotelDataMutation()
+  const [getRoomData]:any = useGetRoomDataMutation()
+
 
     const [isOpen, setOpen] = useState(false);
     const [hotel,setHotel] = useState<any>({})
-    const [loading, setLoading] = useState(true); // Add a loading state
+    const [room,setRoom] = useState<any>([])
 
-     console.log(hotel.images);
+    const [loading, setLoading] = useState(true); // Add a loading state
     const location = useLocation(); 
      const id = location.pathname.split("/")[2];
     useEffect(() => {
@@ -27,6 +32,13 @@ function HotelSinglePage() {
             const responseFromApiCall = await singleHotelData({id});
             const data = responseFromApiCall.data;
             setHotel(data);
+            const hotelId = data._id
+            
+            const response = await getRoomData({hotelId});
+            const roomData = response.data;            
+            setRoom(roomData);
+            
+            
             setLoading(false)
           };
       
@@ -232,6 +244,86 @@ function HotelSinglePage() {
       </div>
       {/* End .container */}
     </section>
+
+    <section className="pt-30">
+        <div className="container">
+          <div className="row y-gap-30">
+            <div className="col-xl-8">
+              <div className="row y-gap-40">
+                <div className="col-12">
+                  <h3 className="text-22 fw-500">Property highlights</h3>
+                  {/* <PropertyHighlights /> */}
+                </div>
+                {/* End .col-12 Property highlights */}
+
+                <div id="overview" className="col-12">
+      <h3 className="text-22 fw-500 pt-40 border-top-light">Description</h3>
+     {hotel.desc}
+      <a
+        href="#"
+        className="d-block text-14 text-blue-1 fw-500 underline mt-10"
+      >
+        Show More
+      </a>
+    
+                </div>
+                {/* End .col-12  Overview */}
+
+                <div className="col-12">
+                  <h3 className="text-22 fw-500 pt-40 border-top-light">
+                    Most Popular Facilities
+                  </h3>
+                  <div className="row y-gap-10 pt-20">
+                    {/* <PopularFacilities /> */}
+                    <div className="row x-gap-10 y-gap-10 pt-20">
+                  {hotel.aminities.map((amenity, index) => (
+
+                  <div className="col-auto">
+                    <div className="border-light rounded-100 py-5 px-20 text-14 lh-14">
+                    {amenity}
+                    </div>
+                  </div>
+                    ))}
+
+
+                </div>
+                  </div>
+                </div>
+                {/* End .col-12 Most Popular Facilities */}
+
+                <div className="col-12">
+                  {/* <RatingTag /> */}
+                </div>
+                {/* End .col-12 This property is in high demand! */}
+              </div>
+              {/* End .row */}
+            </div>
+            {/* End .col-xl-8 */}
+
+            <div className="col-xl-4">
+              {/* <SidebarRight hotel={hotel} /> */}
+            </div>
+            {/* End .col-xl-4 */}
+          </div>
+          {/* End .row */}
+        </div>
+        {/* End container */}
+      </section>
+
+      <section id="rooms" className="pt-30">
+        <div className="container">
+          <div className="row pb-20">
+            <div className="col-auto">
+              <h3 className="text-22 fw-500">Available Rooms</h3>
+            </div>
+          </div>
+          {/* End .row */}
+          <AvailableRooms room={room}/>
+      
+
+        </div>
+        {/* End .container */}
+      </section>
    </>
   )
 }

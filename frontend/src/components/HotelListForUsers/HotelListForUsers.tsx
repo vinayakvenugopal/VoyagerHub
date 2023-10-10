@@ -3,6 +3,8 @@ import { useGetHotelDataMutation } from "../../slices/hotelApiSlice";
 import { Link } from "react-router-dom";
 import {toast} from 'react-toastify'
 import ImageSlider from "../ImageSlider/ImageSlider";
+import { useNavigate } from "react-router-dom";
+
 
 interface Hotel {
   name: string;
@@ -17,7 +19,7 @@ interface Hotel {
 function HotelListForUsers() {
     const [hotelsData,setHotelsData] = useState<Hotel[]>([])
     const [userDataFromApi]:any = useGetHotelDataMutation()
-
+    const navigate = useNavigate()
     useEffect(() => {
     
         try {
@@ -177,7 +179,7 @@ function HotelListForUsers() {
                   </div>
 
                   <Link
-                    to={`/hotel/hotel-single-v1/${item.id}`}
+                    to={`/hotel-single/${item._id}`}
                     className="button -md -dark-1 bg-blue-1 text-white mt-24"
                   >
                     See Availability{" "}

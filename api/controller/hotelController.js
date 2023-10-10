@@ -3,7 +3,7 @@ import Hotelier from '../models/hotelierModel.js';
 import generateToken from '../utils/generateUserToken.js';
 import HotelDetails from '../models/hotelDetails.js';
 import {createError} from '../utils/error.js'
-
+import Rooms from '../models/rooms.js';
 //@desc Register a new User
 //route POST /api/auth/register
 //@access Public
@@ -121,11 +121,59 @@ const createHotel = async (req, res) => {
     }
   } 
 
+
+
+
+
+
+  const addRoom = async (req, res) => {
+    const {hotelId,price,desc,area,occupancy,facilities,images,type} = req.body
+    // let images = []
+    //   req.files.map((files)=>{
+    //     images.push(files.filename)
+    //   })
+
+    //   let facilitiesArray = []
+    //   facilities.map((facility)=>{
+    //     facilitiesArray.push(facility)
+    //   })
+    try {
+        const RoomDetails = await Rooms.create({
+          hotelId,
+          type,
+          price,
+          desc, 
+          area,
+          occupancy,
+          images,
+          facilities
+        })
+        res.status(200).json(RoomDetails);
+    } catch (err) {
+      res.status(401)
+      throw new Error('Error Adding data')
+    }
+  };
+
+  const getRoom = async (req, res) => {
+  
+    try {
+      const id = req.body.hotelId
+      const roomData = await Rooms.find({hotelId:id});
+      res.status(200).json(roomData);
+    } catch (err) {
+      next(err);
+    }
+  };
+
+
 export{
     registerHotelier,
     loginHotelier,
     logoutHotelier,
     createHotel,
     getHotels,
-    hotelSingle
+    hotelSingle,
+    addRoom,
+    getRoom
 }

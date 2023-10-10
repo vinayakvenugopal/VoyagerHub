@@ -31,7 +31,7 @@ function App() {
 
       <Route path="/Hotel/Register" element={<RegisterHotelier/>}/>
       <Route path="/Hotel/Login" element={<LoginHotel/>}/>
-      <Route path="/Hotel/Details" element={<HotelDetailsScreen/>}/>
+      <Route path="/Hotel/Details" element={<HotelDetailsScreen/>}/>                                    
 
       {/* ...................HOTELIER SCREENS END................................ */}
 
