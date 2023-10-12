@@ -5,6 +5,10 @@ const hotelDetailsSchema = mongoose.Schema({
         type:String,
         required:true
     },
+    hotelierId:{
+      type: mongoose.Schema.Types.ObjectId,
+        ref:"hotelier"
+    },
     city: {
         type: String,
         required: true,

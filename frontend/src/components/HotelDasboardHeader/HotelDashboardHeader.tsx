@@ -3,8 +3,8 @@ import { useEffect, useState } from "react";
 
 
 const HotelDashboardHeader = () => {
-  const [navbar, setNavbar] = useState<Boolean>(false);
-  const [isOpen, setIsOpen] = useState<Boolean>(false);
+  const [navbar, setNavbar] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const handleToggle = () => {
     setIsOpen(!isOpen);
@@ -22,9 +22,9 @@ const HotelDashboardHeader = () => {
     window.addEventListener("scroll", changeBackground) 
     const body = document.querySelector("body")  
     if (isOpen) {
-      body.classList.add("-is-sidebar-open");
+      body?.classList.add("-is-sidebar-open");
     } else {
-      body.classList.remove("-is-sidebar-open");
+      body?.classList.remove("-is-sidebar-open");
     }
   }, [isOpen]);
 

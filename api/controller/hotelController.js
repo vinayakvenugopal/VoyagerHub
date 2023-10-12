@@ -71,7 +71,7 @@ const logoutHotelier = async (req,res) =>{
 
 const createHotel = async (req, res) => {
       
-    const {name,city,address,desc,aminities} = req.body
+    const {name,city,address,desc,aminities,hotelierId} = req.body
     let images = []
       req.files.map((files)=>{
         images.push(files.filename)
@@ -82,13 +82,14 @@ const createHotel = async (req, res) => {
         aminitiesArray.push(aminities)
       })
     try {
-        const hotelDetais = await HotelDetails.create({
+        const hotelDetais = await HotelDetails.create({ 
             name,
             city,
             address,
             desc,
             aminities:aminitiesArray,
-            images
+            images,
+            hotelierId
         })
 
       
@@ -111,8 +112,8 @@ const createHotel = async (req, res) => {
 
   const hotelSingle = async(req,res)=>{
     try {
-        const id = req.body.id
-        const hoteData = await HotelDetails.findOne({_id:id})
+        const id = req.body.hotelierId
+        const hoteData = await HotelDetails.findOne({hotelierId:id})
         res.status(200).json(hoteData);
     } catch (error) {
         res.status(401)
@@ -127,11 +128,12 @@ const createHotel = async (req, res) => {
 
 
   const addRoom = async (req, res) => {
-    const {hotelId,price,desc,area,occupancy,facilities,images,type} = req.body
-    // let images = []
-    //   req.files.map((files)=>{
-    //     images.push(files.filename)
-    //   })
+    const {hotelId,price,desc,area,occupancy,facilities,type,hotelierId,noOfRooms} = req.body
+    console.log(req.body);
+    let images = []
+      req.files.map((files)=>{
+        images.push(files.filename)
+      })
 
     //   let facilitiesArray = []
     //   facilities.map((facility)=>{
@@ -139,27 +141,40 @@ const createHotel = async (req, res) => {
     //   })
     try {
         const RoomDetails = await Rooms.create({
-          hotelId,
           type,
           price,
           desc, 
           area,
           occupancy,
           images,
-          facilities
+          facilities,
+          hotelierId,
+          noOfRooms
         })
         res.status(200).json(RoomDetails);
     } catch (err) {
       res.status(401)
       throw new Error('Error Adding data')
     }
-  };
+  };  
 
   const getRoom = async (req, res) => {
   
     try {
-      const id = req.body.hotelId
-      const roomData = await Rooms.find({hotelId:id});
+      const id = req.body.hotelierId
+      const roomData = await Rooms.find({hotelierId:id});
+      res.status(200).json(roomData);
+    } catch (err) {
+      next(err);
+    }
+  };
+
+  const getRoomForHotelier = async (req, res) => {
+  console.log("req.body");
+    try {
+      console.log(req.body);
+      const id = req.body.hotelierId
+      const roomData = await Rooms.find({hotelierId:id});
       res.status(200).json(roomData);
     } catch (err) {
       next(err);
@@ -175,5 +190,6 @@ export{
     getHotels,
     hotelSingle,
     addRoom,
-    getRoom
+    getRoom,
+    getRoomForHotelier
 }

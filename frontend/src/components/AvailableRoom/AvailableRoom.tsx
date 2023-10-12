@@ -1,15 +1,24 @@
-import sbd from 'sbd'
 
-const hotel = {}
-const item = {}
 
-const AvailableRooms = ({room}:any) => {
- 
+interface Room {
+  type: string;
+  desc: string;
+  occupancy: number;
+  price: number;
+  images:string;
+}
+
+interface AvailableRoomsProps {
+  room: Room[];
+}
+const ROOM_IMAGE_DIR_PATH = 'http://localhost:5000/RoomImages/'
+
+
+const AvailableRooms: React.FC<AvailableRoomsProps> = ({room}:any) => {
+
   return (
     <>
-
-
-{room.map((item: any) => (
+{room.map((item: Room) => (
       <div className="border-light rounded-4 px-30 py-30 sm:px-20 sm:py-20 mt-20" key={item?.type}>
         <div className="row y-gap-20">
           <div className="col-12">
@@ -31,7 +40,7 @@ const AvailableRooms = ({room}:any) => {
                     <img
                       width={180}
                       height={180}
-                      src="/img/backgrounds/1.png"
+                      src={ROOM_IMAGE_DIR_PATH+item.images[0]}
                       alt="image"
                       className="img-ratio rounded-4"
                     />
@@ -46,9 +55,6 @@ const AvailableRooms = ({room}:any) => {
                 <div className="y-gap-30">
                   <div className="roomGrid__content">
                     <div>
-                      <div className="text-15 fw-500 mb-10">
-                        Room Info
-                      </div>
                       <div className="y-gap-8">
                         <div className="d-flex items-center text-green-2">
                           <i className="icon-check text-12 mr-10" />
@@ -94,13 +100,13 @@ const AvailableRooms = ({room}:any) => {
                     <div>
                       <div className="dropdown js-dropdown js-price-1-active">
                         <select className="form-select dropdown__button d-flex items-center rounded-4 border-light px-15 h-50 text-14">
-                          <option value="1" defaultValue>
-                            1 (US$ 3,120)
+                          <option value="1" >
+                            1 ₹ {item.price}
                           </option>
-                          <option value="2">2 (US$ 3,120)</option>
-                          <option value="3"> 3 (US$ 3,120)</option>
-                          <option value="4"> 4 (US$ 3,120)</option>
-                          <option value="5"> 5 (US$ 3,120)</option>
+                          <option value="2">2  ₹ {item.price}</option>
+                          <option value="3"> 3  ₹ {item.price}</option>
+                          <option value="4"> 4  ₹ {item.price}</option>
+                          <option value="5"> 5  ₹ {item.price}</option>
                         </select>
                       </div>
                     </div>

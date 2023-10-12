@@ -1,8 +1,7 @@
 import ImageUploader from "../ImageUploader/ImageUploader"
 import { useCreateHotelMutation } from "../../slices/hotelApiSlice";
 import { useState } from "react";
-import { toast } from "react-toastify";
-
+import { useSelector } from "react-redux";
 
 export const HotelDetailsForm = () => {
   const options= [
@@ -18,7 +17,8 @@ export const HotelDetailsForm = () => {
   const [address,setAddress] = useState<string>("")
   const [images, setImages] = useState<string[]>([]);
   console.log(images);
-  
+  const { hotelInfo } = useSelector( (state:any) => state.hotelAuth );
+
   const [city,setCity] = useState<string>("")
   const [aminities, setAminities] = useState<string[]>([]);
   const [error, setError] = useState<string>("");
@@ -43,11 +43,12 @@ const [createHotel] = useCreateHotelMutation()
     formData.append('name', name);
     formData.append('desc', desc);
     formData.append('address', address);
+    formData.append('hotelierId', hotelInfo._id);
+
     for (let i = 0; i < images.length; i++) {
       formData.append('images', images[i]);
       
     }
-    // formData.append('images', images[0]);
     for (let i = 0; i < aminities.length; i++) {
       formData.append('aminities', aminities[i]);
       

@@ -136,7 +136,7 @@ function HotelListForUsers() {
 
              
                   <div className="row x-gap-10 y-gap-10 pt-20">
-                  {item.aminities.map((amenity, index) => (
+                  {item.aminities.map((amenity:string) => (
 
                   <div className="col-auto">
                     <div className="border-light rounded-100 py-5 px-20 text-14 lh-14">
@@ -179,7 +179,7 @@ function HotelListForUsers() {
                   </div>
 
                   <Link
-                    to={`/hotel-single/${item._id}`}
+                    to={`/hotel-single/${item.hotelierId}`}
                     className="button -md -dark-1 bg-blue-1 text-white mt-24"
                   >
                     See Availability{" "}

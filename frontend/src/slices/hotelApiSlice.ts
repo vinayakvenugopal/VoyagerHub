@@ -1,5 +1,6 @@
 import { apiSlice } from "./apiSlice";
-import { HOTEL_REGISTER,HOTEL_LOGIN ,GET_HOTEL_LIST,CREATE_HOTEL,GET_SINGLE_HOTEL,GET_ROOM_DATA} from "../config/api";
+import { HOTEL_REGISTER,HOTEL_LOGIN ,GET_HOTEL_LIST,CREATE_HOTEL,
+    GET_SINGLE_HOTEL,GET_ROOM_DATA,GET_ROOM_DATA_FOR_HOTELS,ADD_ROOM_DATA,HOTEL_LOGOUT} from "../config/api";
 
 
 export const userApiSlice = apiSlice.injectEndpoints({
@@ -20,7 +21,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
         }),
         hotelLogout:builder.mutation({
             query:()=>({
-               url:`api/hotel/logout` ,
+               url:HOTEL_LOGOUT ,
                method:'POST',
             })
         }),
@@ -55,6 +56,23 @@ export const userApiSlice = apiSlice.injectEndpoints({
                body:data
 
             })
+        }),
+        getRoomDataForHotel:builder.mutation({
+            query:(data)=>({
+               url:`${GET_ROOM_DATA_FOR_HOTELS}` ,
+               method:'POST',
+               body:data
+
+            })
+        }),
+        addRoom:builder.mutation({
+            query:(formData)=>({
+               url:`${ADD_ROOM_DATA}` ,
+               method:'POST',
+               body:formData,
+               headers: {
+              }
+            })
         })
 
 
@@ -62,4 +80,5 @@ export const userApiSlice = apiSlice.injectEndpoints({
 })
 export const {useHotelRegisterMutation,useHotelLoginMutation,
     useHotelLogoutMutation,useGetHotelDataMutation,useCreateHotelMutation,
-    useGetSingleHotelDataMutation,useGetRoomDataMutation} =userApiSlice
+    useGetSingleHotelDataMutation,useGetRoomDataMutation,
+    useGetRoomDataForHotelMutation,useAddRoomMutation} =userApiSlice

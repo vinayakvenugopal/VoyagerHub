@@ -9,6 +9,10 @@ const roomsSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref:"HotelDetails"
     },
+    hotelierId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref:"hotelier"
+    },
     images: {
         type: [String],
     },
@@ -29,7 +33,10 @@ const roomsSchema = mongoose.Schema({
     facilities:{
         type: [String],
 
-    }
+    },
+    noOfRooms:{
+        type:Number,
+    },
 })
 
 

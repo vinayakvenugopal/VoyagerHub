@@ -9,6 +9,14 @@ const storage = multer.diskStorage({
     
   
   });
+  const storageForRoom = multer.diskStorage({
+
+    destination: (req, file, cb) => { cb(null, "api/Public/RoomImages") },
+  
+    filename: (req, file, cb) => { cb( null, file.fieldname + "_" + Date.now() + path.extname(file.originalname) ) }
+    
+  
+  });
   const fileFilter = (req, file, cb) => {
 
     if (file.mimetype.startsWith("image/")) {
@@ -26,5 +34,8 @@ const storage = multer.diskStorage({
   // Initialize Multer with the storage configuration
   export const multerUploadHotelImages = multer({ storage: storage,
     fileFilter: fileFilter,
-
 });
+
+export const multerUploadRoomImages = multer({ storage: storageForRoom,
+  fileFilter: fileFilter,
+})

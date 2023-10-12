@@ -86,7 +86,7 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
             onChange={handleFileUpload}
           />
           <div className="text-start mt-10 text-14 text-light-1">
-            PNG or JPG no bigger than 800px wide and tall.
+            PNG or JPG
           </div>
         </div>
       </div>
