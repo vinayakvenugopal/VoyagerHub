@@ -1,6 +1,6 @@
 import asyncHandler from 'express-async-handler'
 import Hotelier from '../models/hotelierModel.js';
-import generateToken from '../utils/generateUserToken.js';
+import generateHotelToken from '../utils/generateHotelToken.js';
 import HotelDetails from '../models/hotelDetails.js';
 import {createError} from '../utils/error.js'
 import Rooms from '../models/rooms.js';
@@ -22,7 +22,7 @@ const registerHotelier = asyncHandler(async(req,res) =>{
         password
     })
     if(hotelier){
-        generateToken(res,hotelier._id)
+      generateHotelToken(res,hotelier._id)
         res.status(201).json({
             _id:hotelier._id,
             name:hotelier.name,
@@ -42,7 +42,7 @@ const loginHotelier = asyncHandler(async(req,res) =>{
     const {email,password} = req.body
     const hotelier = await Hotelier.findOne({email})
     if(hotelier&&(await hotelier.matchPassword(password))){
-        generateToken(res,hotelier._id)
+      generateHotelToken(res,hotelier._id)
         res.status(201).json({
             _id:hotelier._id,
             name:hotelier.name,
@@ -60,7 +60,8 @@ const loginHotelier = asyncHandler(async(req,res) =>{
 //@access Public
 
 const logoutHotelier = async (req,res) =>{
-    res.cookie('jwthotel','',{
+  console.log('Logout');
+    res.cookie('jwtHotel','',{
         httpOnly:true,
         expires:new Date()
     })
@@ -73,15 +74,20 @@ const createHotel = async (req, res) => {
       
     const {name,city,address,desc,aminities,hotelierId} = req.body
     let images = []
+    if(req.files){
       req.files.map((files)=>{
         images.push(files.filename)
       })
+    }
 
       let aminitiesArray = []
+
+      if(aminities){
       aminities.map((aminities)=>{
         aminitiesArray.push(aminities)
       })
-    try {
+    }
+    try {   
         const hotelDetais = await HotelDetails.create({ 
             name,
             city,
@@ -158,16 +164,7 @@ const createHotel = async (req, res) => {
     }
   };  
 
-  const getRoom = async (req, res) => {
-  
-    try {
-      const id = req.body.hotelierId
-      const roomData = await Rooms.find({hotelierId:id});
-      res.status(200).json(roomData);
-    } catch (err) {
-      next(err);
-    }
-  };
+
 
   const getRoomForHotelier = async (req, res) => {
   console.log("req.body");
@@ -190,6 +187,5 @@ export{
     getHotels,
     hotelSingle,
     addRoom,
-    getRoom,
     getRoomForHotelier
 }

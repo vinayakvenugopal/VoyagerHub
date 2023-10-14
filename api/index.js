@@ -22,7 +22,7 @@ app.use(express.static('api/Public'));
 
 
 app.use('/api/auth',authRoute)
-app.use('/api/users',userRoute)
+app.use('/api/user',userRoute)
 app.use('/api/hotel',hotelRoute)
 
 
