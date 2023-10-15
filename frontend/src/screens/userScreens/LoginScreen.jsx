@@ -6,6 +6,8 @@ import { setCredentials } from "../../slices/userAuthSlice";
 import {ToastContainer, toast} from 'react-toastify'
 import Header1 from "../../components/UserNavbar/Header1";
 import 'react-toastify/dist/ReactToastify.css';
+import { Link } from "react-router-dom";
+
 
 function LoginScreen() {
 
@@ -92,6 +94,9 @@ function LoginScreen() {
         Login <div className="icon-arrow-top-right ml-15" />
       </button>
     </div>
+    <p className="mt-3 text-center">
+          New to Here? <Link to="/Register">Register</Link>
+        </p>
     {/* End .col */}
   </form>
   <br /><br />

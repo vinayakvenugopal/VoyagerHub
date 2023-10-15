@@ -33,7 +33,7 @@ function HotelListForUsers() {
   return (
     <>
       {hotelsData.slice(0, 7).map((item) => (
-        <div className="col-12" key={item?.id} >
+        <div className="col-12" key={item._id} >
           <div className="border-top-light pt-30">
             <div className="row x-gap-20 y-gap-20">
               <div className="col-md-auto">
@@ -159,13 +159,12 @@ function HotelListForUsers() {
 
                 <div className="">
                   <div className="text-14 text-light-1 mt-50 md:mt-20">
-                    8 nights, 2 adult
+                    1 nights, 3 adult
                   </div>
                   <div className="text-22 lh-12 fw-600 mt-5">
-                    US${item?.price}
                   </div>
                   <div className="text-14 text-light-1 mt-5">
-                    +US$828 taxes and charges
+                    taxes and charges
                   </div>
 
                   <Link

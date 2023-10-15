@@ -6,7 +6,7 @@ import { useAddRoomMutation } from '../../slices/hotelApiSlice';
 import { useSelector } from 'react-redux';
 
 
-function AddRoomModal({showModal,setShowModal}) {
+function AddRoomModal({showModal,setShowModal,refetch,setRefetch}) {
   const [type,setType] = useState("")
   const [desc,setDesc] = useState("")
   const [area,setArea] = useState('')
@@ -16,7 +16,9 @@ function AddRoomModal({showModal,setShowModal}) {
 
   const [images, setImages] = useState([]);
 
-
+  const refetchData = ()=>{
+    setRefetch(!refetch)
+  }
   const handleShow = () => setShowModal(true);
   const handleClose = () => {
     setShowModal(false);
@@ -44,7 +46,7 @@ const [addRoom] = useAddRoomMutation()
     }
 
     const responseFromApiCall = addRoom(formData).unwrap()
-
+    refetchData()
     handleClose();
   };
 

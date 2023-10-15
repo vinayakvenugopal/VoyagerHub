@@ -257,12 +257,7 @@ function HotelSinglePage() {
                 <div id="overview" className="col-12">
       <h3 className="text-22 fw-500 pt-40 border-top-light">Description</h3>
      {hotel.desc}
-      <a
-        href="#"
-        className="d-block text-14 text-blue-1 fw-500 underline mt-10"
-      >
-        Show More
-      </a>
+    
     
                 </div>
                 {/* End .col-12  Overview */}

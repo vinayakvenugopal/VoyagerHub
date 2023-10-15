@@ -26,7 +26,7 @@ function RoomListHotel({room}) {
 
             {room.map((item)=>
         
-                  <tr>
+                  <tr key={item._id}>
                     <td className="text-blue-1 fw-500">{item.type}</td>
                     <td>₹ {item.price}</td>
                     <td>{item.area} sqft</td>

@@ -1,5 +1,8 @@
 export const REGISTER_URL  = '/api/auth/register'
 export const LOGIN_URL  = '/api/auth/login'
+export const SEND_OTP  = '/api/auth/sendOtp'
+export const VERIFY_OTP  = '/api/auth/verifyOtp'
+
 export const GOOGLE_AUTH_URL = '/api/auth/google'
 
 

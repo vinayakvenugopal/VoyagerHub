@@ -5,6 +5,9 @@ import { useNavigate } from "react-router-dom";
 import { setHotelCredentials } from "../../slices/hotelAuthSlice";
 import {ToastContainer, toast} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
+import { Link } from "react-router-dom";
+
+
 
 function LoginHotel() {
 
@@ -48,7 +51,6 @@ function LoginHotel() {
           <div className="col-xl-6 col-lg-7 col-md-9">
             <div className="px-50 py-50 sm:px-20 sm:py-20 bg-white shadow-4 rounded-4">
 
-                  {/* Start  SignUP */}
                   <form className="row y-gap-20" onSubmit={submitHandler}>
     <div className="col-12">
       <h1 className="text-22 fw-500">Welcome back</h1>
@@ -57,9 +59,7 @@ function LoginHotel() {
         
       </p>
     </div>
-    {/* End .col */}
 
-    {/* End .col */}
 
     <div className="col-12">
       <div className="form-input ">
@@ -70,7 +70,6 @@ function LoginHotel() {
         <label className="lh-1 text-14 text-light-1">Email</label>
       </div>
     </div>
-    {/* End .col */}
 
     <div className="col-12">
       <div className="form-input ">
@@ -81,17 +80,13 @@ function LoginHotel() {
         <label className="lh-1 text-14 text-light-1">Password</label>
       </div>
     </div>
-    {/* End .col */}
 
-    
-    {/* End .col */}
 
     <div className="col-12">
       <div className="d-flex ">
         
       </div>
     </div>
-    {/* End .col */}
 
     <div className="col-12">
       <button
@@ -101,12 +96,12 @@ function LoginHotel() {
         Login <div className="icon-arrow-top-right ml-15" />
       </button>
     </div>
-    {/* End .col */}
+    <p className="mt-3 text-center">
+                  New to here? <Link to="/Hotel/Register">Register</Link>
+                   </p>
   </form>
   <br /><br />
 
-              {/* End SignUP */}
-              {/* End .row */}
             </div>
           </div>
         </div>

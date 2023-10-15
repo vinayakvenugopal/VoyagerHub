@@ -9,7 +9,7 @@ const AvailableRooms= ({room}) => {
   return (
     <>
 {room.map((item) => (
-      <div className="border-light rounded-4 px-30 py-30 sm:px-20 sm:py-20 mt-20" key={item?.type}>
+      <div className="border-light rounded-4 px-30 py-30 sm:px-20 sm:py-20 mt-20" key={item._id}>
         <div className="row y-gap-20">
           <div className="col-12">
             <h3 className="text-18 fw-500 mb-15">{item?.type}</h3>

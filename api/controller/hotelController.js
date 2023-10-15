@@ -10,7 +10,7 @@ import Rooms from '../models/rooms.js';
 
 const registerHotelier = asyncHandler(async(req,res) =>{
     console.log(req.body);
-    const {name,email,password} = req.body
+    const {name,email,password,mobile} = req.body
     const hotelierExist = await Hotelier.findOne({email})
     if(hotelierExist){
         res.status(400);
@@ -19,6 +19,7 @@ const registerHotelier = asyncHandler(async(req,res) =>{
     const hotelier = await Hotelier.create({
         name,
         email,
+        mobile,
         password
     })
     if(hotelier){

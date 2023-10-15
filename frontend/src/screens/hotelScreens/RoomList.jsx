@@ -8,9 +8,8 @@ import AddRoomModal from "../../components/AddRoomModal/AddRoomModal";
 import HotelSidebar from "../../components/HotelSidebar/HotelSidebar";
 function RoomList() {
   const [showModal, setShowModal] = useState(false);
-  
-
-  
+  const [refetch,setRefetch] = useState(false);
+  console.log(refetch+'........refetch');
   const handleOpenModal = () => {
     setShowModal(true);
   };
@@ -29,9 +28,11 @@ function RoomList() {
     useEffect(() => {
     
         try {
+          console.log('useEffect wORKING');
          
             const hotelierId = hotelInfo._id
-          const fetchData = async () => { 
+            const fetchData = async () => { 
+
             const response = await getRoomDataForHotel({hotelierId});
             const roomData = response.data;            
             setRoom(roomData);
@@ -44,7 +45,7 @@ function RoomList() {
     
         }
     
-      }, []);
+    }, [refetch]);
 
 
       if(loading){
@@ -55,7 +56,7 @@ function RoomList() {
     
   return (
     <>
-<AddRoomModal showModal={showModal} setShowModal={setShowModal}/>
+<AddRoomModal showModal={showModal} setShowModal={setShowModal} refetch={refetch} setRefetch={setRefetch} />
     <div className="header-margin"></div>
     <HotelDashboardHeader/>
     <div className="dashboard">
@@ -76,8 +77,7 @@ function RoomList() {
               </div>
             </div>
           </div>
-          <div className="py-30 px-30 rounded-4 bg-white shadow-3">
-          </div>
+         
           <HotelFooter />
         </div>
       </div>

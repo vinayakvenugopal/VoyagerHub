@@ -11,6 +11,9 @@ const hotelierSchema = mongoose.Schema({
         required:true,
         unique:true
     }, 
+    mobile:{
+        type:Number
+    },
     password:{
         type:String,
     }

@@ -1,6 +1,7 @@
 import asyncHandler from 'express-async-handler'
 import User from '../models/userModel.js'
 import generateToken from '../utils/generateUserToken.js';
+import {sendOtp,verifyCode} from '../utils/twilio.js'
 // import {createError} from '../utils/error.js'
 
 //@desc Register a new User
@@ -9,7 +10,7 @@ import generateToken from '../utils/generateUserToken.js';
 
 const registerUser = asyncHandler(async(req,res) =>{
     console.log(req.body);
-    const {name,email,password} = req.body
+    const {name,email,password,mobile} = req.body
     const userExist = await User.findOne({email})
     if(userExist){
         res.status(400);
@@ -18,7 +19,8 @@ const registerUser = asyncHandler(async(req,res) =>{
     const user = await User.create({
         name,
         email,
-        password
+        password,
+        mobile
     })
     if(user){
         generateToken(res,user._id)
@@ -60,7 +62,7 @@ const loginUser = asyncHandler(async(req,res) =>{
 
 const logoutUser = async (req,res) =>{
     res.cookie('jwt','',{
-        httpOnly:true,
+        httpOnly:true, 
         expires:new Date()
     })
     res.status(200).json({message:'User Logged Out'})
@@ -99,9 +101,39 @@ const googleLogin = async(req,res)=>{
 
 }
 
+const sendOtpCode = async (req,res) =>{
+   try {
+    const mobile = req.body.mobile
+    await sendOtp(mobile)
+    res.status(201).json({mobile})
+   } catch (error) {
+    res.status(500) 
+   }
+
+}
+
+const verifyOtp = async (req,res) =>{
+    try {
+     const {mobile,otp} = req.body
+     const code = otp
+     const verified = await verifyCode(mobile,code)
+     console.log(verified+'............verified.........');
+     if(verified===false){
+        res.status(400).json({message:'Invalid OTP Entered'})
+        
+     }
+     res.status(200).json({mobile})
+    } catch (error) {
+     res.status(500) 
+    }
+ 
+ }
+
 export{
     registerUser,
     loginUser,
     logoutUser,
-    googleLogin
+    googleLogin,
+    sendOtpCode,
+    verifyOtp, 
 }
