@@ -12,6 +12,8 @@ import LoginHotel from "./screens/hotelScreens/LoginHotel.jsx";
 import HotelSinglePage from "./screens/userScreens/HotelSinglePage.jsx";
 import RoomList from "./screens/hotelScreens/RoomList.jsx";
 import HotelPrivateRoute from "./components/HotelPrivateRoute/HotelPrivateRoute.jsx";
+import AdminLogin from "./screens/adminScreens/AdminLogin.jsx";
+import HotelListForAdmin from "./screens/adminScreens/HotelListForAdmin.jsx";
 
 function App() {
   return ( 
@@ -32,12 +34,17 @@ function App() {
 
       <Route path="/Hotel/Register" element={<RegisterHotelier/>}/>
       <Route path="/Hotel/Login" element={<LoginHotel/>}/>
-      {/* <Route path="/Hotel/Details" element={<HotelDetailsScreen/>}/> */}
       <Route path="/Hotel/Rooms" element={<RoomList/>}/>   
       <Route path="/Hotel/Details" element= {<HotelPrivateRoute> <HotelDetailsScreen /> </HotelPrivateRoute> }/>                                 
-                                    
-
+                                     
+                                                  
       {/* ...................HOTELIER SCREENS END................................ */}
+
+      {/* ...................ADMIN SCREENS START................................ */}
+      <Route path="/Admin/Login" element={<AdminLogin/>}/>
+      <Route path="/Admin/Hotels" element={<HotelListForAdmin/>}/>
+
+      {/* ...................ADMIN SCREENS END................................ */}
 
 
       

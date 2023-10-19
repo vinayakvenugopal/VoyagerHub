@@ -5,7 +5,7 @@ import Rooms from "../models/rooms.js";
 const getHotels = async (req, res) => {
   
     try {
-      const hotelList = await HotelDetails.find({});
+      const hotelList = await HotelDetails.find({isListed:true});
       res.status(200).json(hotelList);
     } catch (err) {
       next(err);
@@ -27,15 +27,17 @@ const getHotels = async (req, res) => {
   } 
 
   const getRoom = async (req, res) => {
-  console.log('hoihihihihihihih');
     try {
       const id = req.body.hotelierId
       const roomData = await Rooms.find({hotelierId:id});
       console.log(roomData);
       res.status(200).json(roomData);
     } catch (err) {
+
     }
   };
+
+
 
   export{
     getHotels,

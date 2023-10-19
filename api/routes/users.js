@@ -9,7 +9,7 @@ router.post('/getHotels',getHotels)
 router.post('/getRoom',getRoom)
 router.post('/hotelSingle',hotelSingle)
 
-
+ 
 
 
 export default router

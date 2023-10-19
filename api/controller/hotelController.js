@@ -2,8 +2,9 @@ import asyncHandler from 'express-async-handler'
 import Hotelier from '../models/hotelierModel.js';
 import generateHotelToken from '../utils/generateHotelToken.js';
 import HotelDetails from '../models/hotelDetails.js';
-import {createError} from '../utils/error.js'
 import Rooms from '../models/rooms.js';
+import {sendOtp,verifyCode} from '../utils/twilio.js'
+
 //@desc Register a new User
 //route POST /api/auth/register
 //@access Public
@@ -13,7 +14,7 @@ const registerHotelier = asyncHandler(async(req,res) =>{
     const {name,email,password,mobile} = req.body
     const hotelierExist = await Hotelier.findOne({email})
     if(hotelierExist){
-        res.status(400);
+        res.status(400); 
         throw new Error('Email Already Taken')
     }
     const hotelier = await Hotelier.create({
@@ -80,9 +81,7 @@ const createHotel = async (req, res) => {
         images.push(files.filename)
       })
     }
-
       let aminitiesArray = []
-
       if(aminities){
       aminities.map((aminities)=>{
         aminitiesArray.push(aminities)
@@ -98,15 +97,12 @@ const createHotel = async (req, res) => {
             images,
             hotelierId
         })
-
-      
-
     } catch (err) {
-      next(err);  
+      console.log(err.message);
     }
   };
 
-  const getHotels = async (req, res) => {
+  const getHotels = async (req, res,next) => {
   
     try {
       const hotelList = await HotelDetails.find({});
@@ -168,9 +164,7 @@ const createHotel = async (req, res) => {
 
 
   const getRoomForHotelier = async (req, res) => {
-  console.log("req.body");
     try {
-      console.log(req.body);
       const id = req.body.hotelierId
       const roomData = await Rooms.find({hotelierId:id});
       res.status(200).json(roomData);
@@ -178,6 +172,34 @@ const createHotel = async (req, res) => {
       next(err);
     }
   };
+
+  const sendOtpCode = async (req,res) =>{
+    console.log('sendotp');
+    try {
+     const mobile = req.body.mobile
+     await sendOtp(mobile)
+     res.status(201).json({mobile})
+    } catch (error) {
+     res.status(500) 
+    }
+ 
+ }
+ 
+ const verifyOtp = async (req,res,next) =>{
+     try {
+      const {mobile,otp} = req.body
+      const code = otp
+      const verified = await verifyCode(mobile,code)
+      if(verified===false){
+         res.status(400);
+         throw new Error('Wrong OTP Entered') 
+      }
+      res.status(200).json({mobile})
+     } catch (error) {  
+          next(error)
+     } 
+  
+  }
 
 
 export{
@@ -188,5 +210,7 @@ export{
     getHotels,
     hotelSingle,
     addRoom,
-    getRoomForHotelier
+    getRoomForHotelier,
+    sendOtpCode,
+    verifyOtp
 }

@@ -2,7 +2,8 @@ import asyncHandler from 'express-async-handler'
 import User from '../models/userModel.js'
 import generateToken from '../utils/generateUserToken.js';
 import {sendOtp,verifyCode} from '../utils/twilio.js'
-// import {createError} from '../utils/error.js'
+import HotelDetails from '../models/hotelDetails.js';
+// import {createError} from '../utils/error.js' 
 
 //@desc Register a new User
 //route POST /api/auth/register
@@ -102,7 +103,7 @@ const googleLogin = async(req,res)=>{
 }
 
 const sendOtpCode = async (req,res) =>{
-   try {
+   try {   
     const mobile = req.body.mobile
     await sendOtp(mobile)
     res.status(201).json({mobile})
@@ -112,22 +113,32 @@ const sendOtpCode = async (req,res) =>{
 
 }
 
-const verifyOtp = async (req,res) =>{
+const verifyOtp = async (req,res,next) =>{
     try {
      const {mobile,otp} = req.body
      const code = otp
      const verified = await verifyCode(mobile,code)
-     console.log(verified+'............verified.........');
      if(verified===false){
-        res.status(400).json({message:'Invalid OTP Entered'})
-        
+        res.status(400);
+        throw new Error('Wrong OTP Entered') 
      }
      res.status(200).json({mobile})
-    } catch (error) {
-     res.status(500) 
-    }
+    } catch (error) {  
+         next(error)
+    } 
  
  }
+
+ const getHotels = async (req, res) => {
+    try {
+      const hotelList = await HotelDetails.find({});
+      res.status(200).json(hotelList);
+    } catch (err) {
+      next(err);
+    }
+  };
+
+
 
 export{
     registerUser,
@@ -136,4 +147,5 @@ export{
     googleLogin,
     sendOtpCode,
     verifyOtp, 
+    getHotels
 }

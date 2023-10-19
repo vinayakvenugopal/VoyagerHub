@@ -55,40 +55,7 @@ const HotelSidebar = () => {
   return (
     <>
       <div className="sidebar -dashboard" id="vendorSidebarMenu">
-        <div className="sidebar__item ">
-          <a
-            href="db-dashboard.html"
-            className="sidebar__button d-flex items-center text-15 lh-1 fw-500"
-          >
-            <img
-              width={20}
-              height={20}
-              src="/img/dashboard/sidebar/compass.svg"
-              alt="image"
-              className="mr-15"
-            />
-            Dashboard
-          </a>
-        </div>
-        {/* End accordion__item */}
-
-        <div className="sidebar__item ">
-          <a
-            href="#"
-            className="sidebar__button d-flex items-center text-15 lh-1 fw-500"
-          >
-            <img
-              width={20}
-              height={20}
-              src="/img/dashboard/sidebar/booking.svg"
-              alt="image"
-              className="mr-15"
-            />
-            Booking Manager
-          </a>
-        </div>
-        {/* End accordion__item */}
-        {sidebarData.map((item, index) => (
+             {sidebarData.map((item, index) => (
           <div className="sidebar__item" key={index}>
             <div className="accordion -db-sidebar js-accordion">
               <div className="accordion__item">

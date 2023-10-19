@@ -3,6 +3,12 @@
     background-color: var(--color-#{$name}) !important;
   }
 }
+@each $name, $color in $colors {
+  .bg-#{$name} {
+    background-color: $color !important;
+    --color-#{$name}: #{$color}; // Quote the color name
+  }
+}
 
 .bg-blue-1-05 {
   background-color: color-opac(blue-1, 0.05);

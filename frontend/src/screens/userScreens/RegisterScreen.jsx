@@ -9,14 +9,13 @@ import { Button, Modal, Form } from 'react-bootstrap';
 import { useDispatch,useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setCredentials } from "../../slices/userAuthSlice";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import { GoogleOAuthProvider, GoogleLogin } from "@react-oauth/google";
 import jwt_decode from "jwt-decode";
 import Header1 from "../../components/UserNavbar/Header1";
 import "react-toastify/dist/ReactToastify.css";
 import InputValidationForAuth from "../../components/InputValidationForAuth/InputValidationForAuth";
 import { registerFormValidation } from "../../utils/registerFormValidation";
-import './RegisterScreen.css'
 import { Link } from "react-router-dom";
 
 
@@ -234,34 +233,34 @@ const handleShowModal = () =>{
         </div>
       </section>
 
-      <Modal show={showModal} onHide={handleClose} className="custom-modal">
-  <Modal.Header closeButton className="custom-modal-header">
-    <Modal.Title className="custom-modal-title">Verify OTP</Modal.Title>
-  </Modal.Header>
-  <Modal.Body className="custom-modal-body">
-    <Form onSubmit={verifyOtp}>
-      <Form.Group controlId="formName">
-        <Form.Label className="custom-label">Enter OTP</Form.Label>
-        <Form.Control
-          type="number"
-          name="otp"
-          value={otp}
-          onChange={(e) => setOtp(e.target.value)}
-          placeholder="Enter OTP"
-          className="custom-input"
-        />
-      </Form.Group>
-      <Button variant="primary" type="submit" className="custom-button">
-        Submit
-      </Button>
-    </Form>
-  </Modal.Body>
-  <Modal.Footer className="custom-modal-footer">
-    <Button variant="secondary" onClick={handleClose} className="custom-button">
-      Close
-    </Button>
-  </Modal.Footer>
-</Modal>
+      <Modal show={showModal} onHide={handleClose}>
+        <Modal.Header closeButton className="text-dark">
+          <Modal.Title>Verify OTP</Modal.Title>
+        </Modal.Header>
+        <Modal.Body className="text-dark">
+          <Form onSubmit={verifyOtp}>
+            <Form.Group controlId="formName">
+              <Form.Label>Enter OTP</Form.Label>
+              <Form.Control
+                type="number"
+                name="otp"
+                value={otp}
+                onChange={(e) => setOtp(e.target.value)}
+                placeholder="Enter OTP"
+              />
+            </Form.Group>
+            <br />
+            <Button variant="primary" type="submit">
+              Submit
+            </Button>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" onClick={handleClose}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
 
     </>
   );

@@ -4,15 +4,15 @@ import { Button, Modal, Form } from 'react-bootstrap'; // Import necessary Boots
 import ImageUploader from "../ImageUploader/ImageUploader"
 import { useAddRoomMutation } from '../../slices/hotelApiSlice';
 import { useSelector } from 'react-redux';
-
-
+import { isAddRoomFormValid } from '../../utils/AddRoomFromValidation';
+import { toast } from 'react-toastify';
 function AddRoomModal({showModal,setShowModal,refetch,setRefetch}) {
   const [type,setType] = useState("")
   const [desc,setDesc] = useState("")
-  const [area,setArea] = useState('')
-  const [occupancy,setOccupancy] = useState('')
-  const [noOfRooms,setNoOfRooms] = useState('')
-  const [price,setPrice] = useState('')
+  const [area,setArea] = useState(0)
+  const [occupancy,setOccupancy] = useState(0)
+  const [noOfRooms,setNoOfRooms] = useState(0)
+  const [price,setPrice] = useState(0)
 
   const [images, setImages] = useState([]);
 
@@ -31,6 +31,35 @@ const [addRoom] = useAddRoomMutation()
 
   const handleSubmit = (e) => {
     e.preventDefault(); 
+    const { isValid, errors } = isAddRoomFormValid(type, desc, area, occupancy,noOfRooms,price);
+    if (!isValid) {
+      if (errors.type) {
+        toast.error(errors.type);
+        return
+      }
+      if (errors.desc) {
+        toast.error(errors.desc);
+        return
+      }
+      if (errors.area) {
+        toast.error(errors.area);
+        return
+      }
+      if (errors.occupancy) {
+        toast.error(errors.occupancy);
+        return
+      }
+      if (errors.noOfRooms) {
+        toast.error(errors.noOfRooms);
+        return
+      }
+      if (errors.price) {
+        toast.error(errors.price);
+        return
+      }
+      
+    }
+
     const formData = new FormData(); 
     formData.append('type', type);
     formData.append('desc', desc);
@@ -78,7 +107,6 @@ const [addRoom] = useAddRoomMutation()
               <Form.Label>Description</Form.Label>
               <Form.Control
                 as="textarea" // Use 'as' prop to render a textarea
-                required
                 rows={5}
                 value={desc}
                 onChange={(e) => setDesc(e.target.value)}

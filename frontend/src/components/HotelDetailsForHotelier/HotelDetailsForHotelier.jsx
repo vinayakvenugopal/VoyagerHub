@@ -135,7 +135,16 @@ function HotelDetailsForHotelier() {
         </div>
       </Gallery>
       <div className="col-auto" style={{ marginTop: "20px" }}>
-        <h1 className="text-30 sm:text-25 fw-600">{hotel?.name}</h1>
+       <span title={hotel.name}
+                style={{
+                  display: "-webkit-box",
+                  WebkitLineClamp: 1, 
+                  WebkitBoxOrient: "vertical",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                }}>
+                
+               <h1 className="text-30 sm:text-25 fw-600" >{hotel?.name}</h1></span> 
       </div>
       <div className="d-flex items-center text-15 text-light-1">
         <i className="icon-location-2 text-16 mr-5" />
@@ -143,7 +152,16 @@ function HotelDetailsForHotelier() {
       </div>
       <div id="overview" className="col-12">
         <h3 className="text-22 fw-500 pt-40 border-top-light">Description</h3>
-        {hotel.desc}
+        <span title={hotel.desc}
+                style={{
+                  display: "-webkit-box",
+                  WebkitLineClamp: 5, 
+                  WebkitBoxOrient: "vertical",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                }}>{hotel.desc}
+                
+                </span>
       </div>
 
       <div className="col-12">

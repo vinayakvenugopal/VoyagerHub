@@ -4,6 +4,9 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+
+import { isHotelDetailsFormValid } from "../../utils/HotelDetailsFormValidation";
+
 export const HotelDetailsForm = () => {
   const options= [
     { value: 'Wifi' },
@@ -40,6 +43,25 @@ const [createHotel] = useCreateHotelMutation()
 
   const handleSubmit = (e)=>{
     e.preventDefault();    
+    const { isValid, errors } = isHotelDetailsFormValid(name, desc, address, city);
+if (!isValid) {
+  if (errors.name) {
+    toast.error(errors.name);
+    return
+  }
+  if (errors.desc) {
+    toast.error(errors.desc);
+    return
+  }
+  if (errors.address) {
+    toast.error(errors.address);
+    return
+  }
+  if (errors.city) {
+    toast.error(errors.city);
+    return
+  }
+}
     try { 
     const formData = new FormData();
     formData.append('name', name);
@@ -79,31 +101,28 @@ const [createHotel] = useCreateHotelMutation()
         <input type="text" 
         value={name}
         onChange={(e) => setName(e.target.value)}
-        required />
+         />
         <label className="lh-1 text-16 text-light-1">Hotel Name</label>
       </div>
     </div>
-    {/* End Name */}
 
     <div className="col-12">
       <div className="form-input ">
 
-        <textarea required rows={5} 
+        <textarea rows={5} 
         value={desc}
         onChange={(e) => setDesc(e.target.value)}
         />
-      
         <label className="lh-1 text-16 text-light-1">Description</label>
       </div>
     </div>
-    {/* End Content */}
 
     <div className="col-12">
       <div className="form-input ">
         <input type="text"
          value={address}
          onChange={(e) => setAddress(e.target.value)}
-         required />
+          />
         <label className="lh-1 text-16 text-light-1">Address</label>
       </div>
     </div>
@@ -113,7 +132,7 @@ const [createHotel] = useCreateHotelMutation()
         <input type="text" 
         value={city}
         onChange={(e) => setCity(e.target.value)}
-        required />
+         />
         <label className="lh-1 text-16 text-light-1">City</label>
       </div>
     </div>
@@ -131,7 +150,6 @@ const [createHotel] = useCreateHotelMutation()
         <div className="col-12">
           <div className="text-18 fw-500">Aminities</div>
         </div>
-        {/* End .col-12 */}
 
         <div className="col-lg-3 col-sm-6">
           <div className="row y-gap-15">

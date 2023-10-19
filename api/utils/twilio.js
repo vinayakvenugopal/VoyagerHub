@@ -8,7 +8,7 @@ const sendOtp = async (mobileNumber) => {
   try {
     await client.verify.services(verifyServiceSid).verifications.create({
       to: `+91${mobileNumber}`,
-      channel: 'sms', // You can use 'sms' or 'call' depending on how you want to send the verification code.
+      channel: 'sms',
     });
   } catch (error) {
     console.log(error.message);
@@ -17,7 +17,6 @@ const sendOtp = async (mobileNumber) => {
 }; 
 
 const verifyCode = async (mobileNumber, code) => {
-  console.log(mobileNumber,code);
   try {
         const verification = await client.verify.v2.services(verifyServiceSid).verificationChecks.create({
       to: `+91${mobileNumber}`,
@@ -25,10 +24,8 @@ const verifyCode = async (mobileNumber, code) => {
     });
 
     if (verification.status === 'approved') {
-      // The code is valid, proceed with the sign-up process
       console.log("Verification successful!");
       return true;
-      // You can implement your sign-up logic here.
     } else {
       return false;
     }

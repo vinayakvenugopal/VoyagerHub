@@ -48,7 +48,16 @@ const AvailableRooms= ({room}) => {
                       <div className="y-gap-8">
                         <div className="d-flex items-center text-green-2">
                           <i className="icon-check text-12 mr-10" />
-                          <div className="text-15">{item.desc}</div>
+                          <span title={item.desc}
+                style={{
+                  display: "-webkit-box",
+                  WebkitLineClamp: 7, 
+                  WebkitBoxOrient: "vertical",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                }}>
+                
+                <div className="text-15">{item.desc}</div></span>
                         </div>
                         {/* <div className="d-flex items-center text-green-2">
                           <i className="icon-check text-12 mr-10" />

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useHotelRegisterMutation } from "../../slices/hotelApiSlice";
+import { useHotelRegisterMutation,useSendOtpForHotelMutation,useVerifyOtpForHotelMutation } from "../../slices/hotelApiSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
@@ -7,6 +7,7 @@ import { setHotelCredentials } from "../../slices/hotelAuthSlice";
 import InputValidationForAuth from "../../components/InputValidationForAuth/InputValidationForAuth";
 import { registerFormValidation } from "../../utils/registerFormValidation";
 import { Link } from "react-router-dom";
+import { Button, Modal, Form } from 'react-bootstrap';
 
 
 function RegisterHotelier() {
@@ -18,9 +19,11 @@ function RegisterHotelier() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [mobile, setMobile] = useState("");
-
   const [password, setPassword] = useState("");
   const [confPassword, setConfPassword] = useState("");
+  const [otp,setOtp] = useState('')
+
+  const [showModal,setShowModal] = useState(false) 
 
   const [errors, setErrors] = useState({
     name: '',
@@ -29,8 +32,15 @@ function RegisterHotelier() {
     confPassword:'',
     mobile:'',
   });
+  const [sendOtpForHotel] = useSendOtpForHotelMutation()
+  const [verifyOtpForHotel] = useVerifyOtpForHotelMutation()
 
-  async function submitHandler(e) {
+  const handleClose = ()=>{
+    setShowModal(false)
+  }
+
+  const sendOtp = async(e)=> {
+    console.log('sendOtp');
     e.preventDefault();
     const validationErrors = registerFormValidation(name, email, password,confPassword,mobile);
 
@@ -39,6 +49,33 @@ function RegisterHotelier() {
       return;
     }
 
+    try {
+      const responseFromSendOtp = await sendOtpForHotel({ mobile }).unwrap();
+      setShowModal(true)
+    }
+    catch (error) {
+     toast.error("Error Sending Otp") 
+    }
+  }
+
+  const verifyOtp= async(e) => {
+    e.preventDefault();
+    try {
+    console.log('ggggg');
+    const responseFromVerifyOtp = await verifyOtpForHotel({mobile,otp}).unwrap()
+    submitHandler()
+    handleClose()
+    }
+    catch (err) {
+      toast.error(err?.data?.message || err?.error);
+
+    }
+
+  }
+
+
+  const submitHandler= async(e) => {
+   
     try {
       const responseFromApiCall = await register({
         name,
@@ -68,7 +105,7 @@ function RegisterHotelier() {
             <div className="col-xl-6 col-lg-7 col-md-9">
               <div className="px-50 py-50 sm:px-20 sm:py-20 bg-white shadow-4 rounded-4">
                 {/* Start  SignUP */}
-                <form className="row y-gap-20" onSubmit={submitHandler}>
+                <form className="row y-gap-20" onSubmit={sendOtp}>
                   <div className="col-12">
                     <h1 className="text-22 fw-500">Hotel Registration</h1>
                     <p className="mt-10"></p>
@@ -149,6 +186,36 @@ function RegisterHotelier() {
           </div>
         </div>
       </section>
+
+
+      <Modal show={showModal} onHide={handleClose}>
+        <Modal.Header closeButton className="text-dark">
+          <Modal.Title>Verify OTP</Modal.Title>
+        </Modal.Header>
+        <Modal.Body className="text-dark">
+          <Form onSubmit={verifyOtp}>
+            <Form.Group controlId="formName">
+              <Form.Label>Enter OTP</Form.Label>
+              <Form.Control
+                type="number"
+                name="otp"
+                value={otp}
+                onChange={(e) => setOtp(e.target.value)}
+                placeholder="Enter OTP"
+              />
+            </Form.Group>
+            <br />
+            <Button variant="primary" type="submit">
+              Submit
+            </Button>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" onClick={handleClose}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 }

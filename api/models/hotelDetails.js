@@ -27,13 +27,10 @@ const hotelDetailsSchema = mongoose.Schema({
       aminities:{
         type: [String],
       },
-      featured: {
+      isListed: {
         type: Boolean,
-        default: false,
+        default: true,
       }
-
-
-
 })
 
 

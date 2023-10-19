@@ -80,7 +80,7 @@ function HotelSinglePage() {
               <div className="col-auto">
                 <div className="d-flex items-center text-15 text-light-1">
                   <i className="icon-location-2 text-16 mr-5" />
-                  {hotel?.location}
+                  {hotel?.address}
                 </div>
               </div>
               <div className="col-auto">
@@ -256,7 +256,16 @@ function HotelSinglePage() {
 
                 <div id="overview" className="col-12">
       <h3 className="text-22 fw-500 pt-40 border-top-light">Description</h3>
-     {hotel.desc}
+     <span title={hotel.desc}
+                style={{
+                  display: "-webkit-box",
+                  WebkitLineClamp: 5, 
+                  WebkitBoxOrient: "vertical",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
+                }}>{hotel.desc}
+                
+                </span>
     
     
                 </div>
