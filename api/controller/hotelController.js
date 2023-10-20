@@ -4,7 +4,7 @@ import generateHotelToken from '../utils/generateHotelToken.js';
 import HotelDetails from '../models/hotelDetails.js';
 import Rooms from '../models/rooms.js';
 import {sendOtp,verifyCode} from '../utils/twilio.js'
-
+import RoomAvailability from '../models/roomAvailability.js';
 //@desc Register a new User
 //route POST /api/auth/register
 //@access Public
@@ -103,9 +103,11 @@ const createHotel = async (req, res) => {
   };
 
   const getHotels = async (req, res,next) => {
-  
     try {
-      const hotelList = await HotelDetails.find({});
+      const id = req.body.hotelierId
+      console.log(id);
+      const hotelList = await HotelDetails.find({hotelierId:id});
+      console.log(hotelList);
       res.status(200).json(hotelList);
     } catch (err) {
       next(err);
@@ -115,9 +117,9 @@ const createHotel = async (req, res) => {
 
   const hotelSingle = async(req,res)=>{
     try {
-        const id = req.body.hotelierId
-        const hoteData = await HotelDetails.findOne({hotelierId:id})
-        res.status(200).json(hoteData);
+        const id = req.body.hotelId
+        const hotelData = await HotelDetails.findOne({_id:id})
+        res.status(200).json(hotelData);
     } catch (error) {
         res.status(401)
         throw new Error('Error fetching data')
@@ -152,8 +154,23 @@ const createHotel = async (req, res) => {
           images,
           facilities,
           hotelierId,
-          noOfRooms
+          noOfRooms,
+          hotelId
         })
+        const startDate = new Date();
+        for (let i = 0; i < 10; i++) {
+          const date = new Date(startDate);
+          date.setDate(startDate.getDate() + i);
+          const availability = await RoomAvailability.create({
+            date,
+            room: RoomDetails._id, // Reference the room document
+            numberOfAvailableRooms: noOfRooms, // Initially set to the total number of rooms
+            hotelId
+          });
+          RoomDetails.availability.push(availability);
+        }
+    
+        await RoomDetails.save();
         res.status(200).json(RoomDetails);
     } catch (err) {
       res.status(401)
@@ -165,8 +182,8 @@ const createHotel = async (req, res) => {
 
   const getRoomForHotelier = async (req, res) => {
     try {
-      const id = req.body.hotelierId
-      const roomData = await Rooms.find({hotelierId:id});
+      const id = req.body.hotelId
+      const roomData = await Rooms.find({hotelId:id});
       res.status(200).json(roomData);
     } catch (err) {
       next(err);

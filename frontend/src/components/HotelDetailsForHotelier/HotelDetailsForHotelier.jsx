@@ -1,38 +1,8 @@
 import React from "react";
 import { Gallery, Item } from "react-photoswipe-gallery";
-import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
-import { useGetSingleHotelDataMutation } from "../../slices/hotelApiSlice";
 const HOTEL_IMAGE_DIR_PATH = "http://localhost:5000/HotelImages/";
 
-function HotelDetailsForHotelier() {
-  const [hotel, setHotel] = useState();
-  console.log(hotel);
-
-  const [loading, setLoading] = useState(true);
-  const { hotelInfo } = useSelector((state) => state.hotelAuth);
-  const id = hotelInfo._id;
-  const [singleHotelData] = useGetSingleHotelDataMutation();
-
-  useEffect(() => {
-    try {
-      const fetchData = async () => {
-        const responseFromApiCall = await singleHotelData({ hotelierId: id });
-        const data = responseFromApiCall.data;
-        setHotel(data);
-        setLoading(false);
-      };
-
-      fetchData();
-    } catch (error) {
-      console.error("Error fetching users:", error);
-    }
-  }, []);
-  if(loading){
-    return(
-        <h1>loading</h1>
-    )
-  }
+function HotelDetailsForHotelier({hotel}) {
   return (
     <>
       <Gallery>

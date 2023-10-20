@@ -24,16 +24,16 @@ function RoomList() {
 
     const [loading, setLoading] = useState(true); 
     const { hotelInfo } = useSelector( (state) => state.hotelAuth );
+    const id = location.pathname.split("/")[3];
 
     useEffect(() => {
     
         try {
           console.log('useEffect wORKING');
          
-            const hotelierId = hotelInfo._id
             const fetchData = async () => { 
 
-            const response = await getRoomDataForHotel({hotelierId});
+            const response = await getRoomDataForHotel({hotelId:id});
             const roomData = response.data;            
             setRoom(roomData);
             setLoading(false)
@@ -56,7 +56,7 @@ function RoomList() {
     
   return (
     <>
-<AddRoomModal showModal={showModal} setShowModal={setShowModal} refetch={refetch} setRefetch={setRefetch} />
+<AddRoomModal showModal={showModal} setShowModal={setShowModal} refetch={refetch} setRefetch={setRefetch} id={id} />
     <div className="header-margin"></div>
     <HotelDashboardHeader/>
     <div className="dashboard">

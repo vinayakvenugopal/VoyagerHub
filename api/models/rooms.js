@@ -37,6 +37,8 @@ const roomsSchema = mongoose.Schema({
     noOfRooms:{
         type:Number,
     },
+    availability: [{ type: mongoose.Schema.Types.ObjectId, ref: 'RoomAvailability' }],
+
 })
 
 

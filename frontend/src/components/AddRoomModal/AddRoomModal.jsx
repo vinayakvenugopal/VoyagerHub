@@ -6,7 +6,7 @@ import { useAddRoomMutation } from '../../slices/hotelApiSlice';
 import { useSelector } from 'react-redux';
 import { isAddRoomFormValid } from '../../utils/AddRoomFromValidation';
 import { toast } from 'react-toastify';
-function AddRoomModal({showModal,setShowModal,refetch,setRefetch}) {
+function AddRoomModal({showModal,setShowModal,refetch,setRefetch,id}) {
   const [type,setType] = useState("")
   const [desc,setDesc] = useState("")
   const [area,setArea] = useState(0)
@@ -68,6 +68,8 @@ const [addRoom] = useAddRoomMutation()
     formData.append('noOfRooms', noOfRooms);
     formData.append('hotelierId', hotelInfo._id);
     formData.append('price',price);
+    formData.append('hotelId',id);
+
 
     for (let i = 0; i < images.length; i++) {
       formData.append('images', images[i]);

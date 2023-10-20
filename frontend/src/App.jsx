@@ -7,14 +7,15 @@ import RegisterScreen from './screens/userScreens/RegisterScreen.jsx'
 import LoginScreen from "./screens/userScreens/LoginScreen.jsx";
 import HotelList from "./screens/userScreens/HotelList.jsx";
 import RegisterHotelier from "./screens/hotelScreens/RegisterHotelier.jsx";
-import HotelDetailsScreen from "./screens/hotelScreens/AddHotelDetailsScreen.jsx";
+import AddHotelDetailsScreen from "./screens/hotelScreens/AddHotelDetailsScreen.jsx";
 import LoginHotel from "./screens/hotelScreens/LoginHotel.jsx";
 import HotelSinglePage from "./screens/userScreens/HotelSinglePage.jsx";
 import RoomList from "./screens/hotelScreens/RoomList.jsx";
 import HotelPrivateRoute from "./components/HotelPrivateRoute/HotelPrivateRoute.jsx";
 import AdminLogin from "./screens/adminScreens/AdminLogin.jsx";
 import HotelListForAdmin from "./screens/adminScreens/HotelListForAdmin.jsx";
-
+import HotelDetailsScreen from "./screens/hotelScreens/HotelDetailsScreen.jsx";
+import HotelListScreen from "./screens/hotelScreens/HotelListScreen.jsx";
 function App() {
   return ( 
     <div>
@@ -34,10 +35,12 @@ function App() {
 
       <Route path="/Hotel/Register" element={<RegisterHotelier/>}/>
       <Route path="/Hotel/Login" element={<LoginHotel/>}/>
-      <Route path="/Hotel/Rooms" element={<RoomList/>}/>   
-      <Route path="/Hotel/Details" element= {<HotelPrivateRoute> <HotelDetailsScreen /> </HotelPrivateRoute> }/>                                 
-                                     
-                                                  
+      <Route path="/Hotel/Rooms/:id" element={<RoomList/>}/>   
+      <Route path="/Hotel/AddDetails" element= {<HotelPrivateRoute> <AddHotelDetailsScreen /> </HotelPrivateRoute> }/>                                 
+      <Route path="/Hotel/Details/:id" element= {<HotelPrivateRoute> <HotelDetailsScreen /> </HotelPrivateRoute> }/>                                 
+      <Route path="/Hotel/HotelList" element= {<HotelPrivateRoute> <HotelListScreen /> </HotelPrivateRoute> }/>                                 
+
+                                                   
       {/* ...................HOTELIER SCREENS END................................ */}
 
       {/* ...................ADMIN SCREENS START................................ */}

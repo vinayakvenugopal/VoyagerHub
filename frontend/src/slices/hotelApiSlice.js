@@ -39,10 +39,12 @@ export const userApiSlice = apiSlice.injectEndpoints({
                method:'POST',
             })
         }),
-        getHotelData:builder.mutation({
-            query:()=>({
+        getHotelListForHotelier:builder.mutation({
+            query:(data)=>({
                url:`${GET_HOTEL_LIST}` ,
                method:'POST',
+               body:data
+
             })
         }),
         createHotel:builder.mutation({
@@ -85,6 +87,6 @@ export const userApiSlice = apiSlice.injectEndpoints({
     })
 })
 export const {useHotelRegisterMutation,useHotelLoginMutation,
-    useHotelLogoutMutation,useGetHotelDataMutation,useCreateHotelMutation,
+    useHotelLogoutMutation,useGetHotelListForHotelierMutation,useCreateHotelMutation,
     useGetSingleHotelDataMutation,
     useGetRoomDataForHotelMutation,useAddRoomMutation,useSendOtpForHotelMutation,useVerifyOtpForHotelMutation} =userApiSlice

@@ -13,6 +13,8 @@ const HotelSidebar = () => {
   const navigate = useNavigate()
   const [hotelLogout] = useHotelLogoutMutation()
 
+  
+
   const logoutHandler = async() =>{
     console.log('logout');
     try {
@@ -29,8 +31,8 @@ const HotelSidebar = () => {
       icon: "/img/dashboard/sidebar/booking.svg",
       title: "Manage Hotel",
       links: [
-        { title: "Add Hotel", href: "/Hotel/Details" },
-        { title: "View", href: "#" },
+        { title: "Add Hotel", href: "/Hotel/AddDetails" },
+        { title: "View Hotels", href: "/Hotel/HotelList" },
       ],
     },
     {

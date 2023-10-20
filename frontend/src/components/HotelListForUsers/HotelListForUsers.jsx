@@ -155,7 +155,7 @@ function HotelListForUsers() {
                   </div>
 
                   <Link
-                    to={`/hotel-single/${item.hotelierId}`}
+                    to={`/hotel-single/${item._id}`}
                     className="button -md -dark-1 bg-blue-1 text-white mt-24"
                   >
                     See Availability{" "}

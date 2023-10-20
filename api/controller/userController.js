@@ -1,6 +1,7 @@
 
 import HotelDetails from "../models/hotelDetails.js";
 import Rooms from "../models/rooms.js";
+import RoomAvailability from "../models/roomAvailability.js";
 
 const getHotels = async (req, res) => {
   
@@ -16,8 +17,8 @@ const getHotels = async (req, res) => {
 
   const hotelSingle = async(req,res)=>{
     try {
-        const id = req.body.hotelierId
-        const hoteData = await HotelDetails.findOne({hotelierId:id})
+        const id = req.body.hotelId
+        const hoteData = await HotelDetails.findOne({_id:id})
         res.status(200).json(hoteData);
     } catch (error) {
         res.status(401)
@@ -28,8 +29,15 @@ const getHotels = async (req, res) => {
 
   const getRoom = async (req, res) => {
     try {
-      const id = req.body.hotelierId
-      const roomData = await Rooms.find({hotelierId:id});
+      const id = req.body.hotelId
+      const roomData = await Rooms.find({hotelId:id});
+      // const { checkInDate, checkOutDate, hotelId } = req.body;
+      // console.log(req.body);
+      // const roomData = await RoomAvailability.find({
+      //   date: { $gte: new Date(checkInDate), $lte: new Date(checkOutDate) },
+      //   numberOfAvailableRooms: { $gt: 0 }, 
+      //   hotelId
+      // })
       console.log(roomData);
       res.status(200).json(roomData);
     } catch (err) {

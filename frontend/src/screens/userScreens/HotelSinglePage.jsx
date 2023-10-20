@@ -6,6 +6,8 @@ import { useState,useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useGetRoomDataForUserMutation,useGetSingleHotelDataForUserMutation } from "../../slices/userApiSlice";
 import AvailableRooms from "../../components/AvailableRoom/AvailableRoom";
+import SidebarDateFilter from "../../components/SidebarDateFilter/SidebarDateFilter";
+
 
 const HOTEL_IMAGE_DIR_PATH = 'http://localhost:5000/HotelImages/'
 import HeaderBodySeperator from "../../components/HeaderBodySeperator/HeaderBodySeperator";
@@ -28,11 +30,11 @@ function HotelSinglePage() {
          
 
           const fetchData = async () => {
-            const responseFromApiCall = await singleHotelData({hotelierId:id});
+            const responseFromApiCall = await singleHotelData({hotelId:id});
             const data = responseFromApiCall.data;
             setHotel(data);
             
-            const response = await getRoomData({hotelierId:id});
+            const response = await getRoomData({hotelId:id});
             const roomData = response.data;            
             setRoom(roomData);
             
@@ -54,7 +56,6 @@ function HotelSinglePage() {
   return (
    <>
       <div className="header-margin"></div>
-
    <Header1/>
    <HeaderBodySeperator/>
   <section className="pt-40" style={{marginTop:"70px"}}>
@@ -303,7 +304,7 @@ function HotelSinglePage() {
             {/* End .col-xl-8 */}
 
             <div className="col-xl-4">
-              {/* <SidebarRight hotel={hotel} /> */}
+              <SidebarDateFilter/>
             </div>
             {/* End .col-xl-4 */}
           </div>

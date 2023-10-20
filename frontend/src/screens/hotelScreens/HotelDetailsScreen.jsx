@@ -5,15 +5,37 @@ import HotelSidebar from "../../components/HotelSidebar/HotelSidebar";
 import { useGetSingleHotelDataMutation } from "../../slices/hotelApiSlice";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import HotelDetailsForHotelier from "../../components/HotelDetailsForHotelier/HotelDetailsForHotelier";
 
-const AddHotelDetailsScreen = () => {
+const HotelDetailsScreen = () => {
   const [hotel, setHotel] = useState([]);
   console.log(hotel);
 
   const [loading, setLoading] = useState(true);
   const { hotelInfo } = useSelector((state) => state.hotelAuth); 
 
+  const id = location.pathname.split("/")[3];
+  console.log(id);
+  const [singleHotelData] = useGetSingleHotelDataMutation();
 
+  useEffect(() => {
+    try {
+      const fetchData = async () => {
+        const responseFromApiCall = await singleHotelData({ hotelId: id });
+        const data = responseFromApiCall.data;
+        setHotel(data);
+        setLoading(false);
+      };
+
+      fetchData(); 
+    } catch (error) {
+      console.error("Error fetching users:", error);
+    } 
+  }, []);
+  if (loading) {
+    return <h1>Loading</h1>; 
+  } 
   return (
     <>
     {/* <EditHotel/> */}
@@ -25,21 +47,20 @@ const AddHotelDetailsScreen = () => {
         </div>
         <div className="dashboard__main">
           <div className="dashboard__content bg-light-2">
-              <>
                 <div className="row y-gap-20 justify-between items-end pb-60 lg:pb-40 md:pb-32">
                   <div className="col-12">
-                    <h1 className="text-30 lh-14 fw-600">Add Hotel Details</h1>
+                    <h1 className="text-30 lh-14 fw-600"></h1>
                     <div className="text-15 text-light-1">
-                      You should add the details of your hotel here
+                    <div className="py-30 px-30 rounded-4 bg-white shadow-3">
+                    <Link to={`/Hotel/Rooms/${id}`}><div style={{width:"100%"}} className="d-flex justify-content-end">
+                    <div className="btn btn-warning">View/Add Room</div>
+                   </div></Link>
+                     <br />
+                    <HotelDetailsForHotelier hotel={hotel}/>
+                    </div>
                     </div>
                   </div>
                 </div>
-                <div className="py-30 px-30 rounded-4 bg-white shadow-3">
-                
-                  <HotelDetailsForm />
-                </div>
-              </> 
-
             <HotelFooter />
           </div>
         </div>
@@ -48,4 +69,4 @@ const AddHotelDetailsScreen = () => {
   );
 };
 
-export default AddHotelDetailsScreen;
+export default HotelDetailsScreen;

@@ -5,7 +5,7 @@ import {
   useSendOtpMutation,
   useVerifyOtpMutation
 } from "../../slices/userApiSlice";
-import { Button, Modal, Form } from 'react-bootstrap';
+import { Button, Modal, Form, Row, Col } from 'react-bootstrap';
 import { useDispatch,useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setCredentials } from "../../slices/userAuthSlice";
@@ -233,14 +233,18 @@ const handleShowModal = () =>{
         </div>
       </section>
 
-      <Modal show={showModal} onHide={handleClose}>
-        <Modal.Header closeButton className="text-dark">
-          <Modal.Title>Verify OTP</Modal.Title>
+
+      <Modal show={showModal} onHide={handleClose} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Mobile phone verification</Modal.Title>
         </Modal.Header>
-        <Modal.Body className="text-dark">
+        <Modal.Body>
+          <span className="mobile-text">
+            Enter the code we just sent to your mobile phone{' '}
+            <b className="text-danger">{mobile}</b>
+          </span>
           <Form onSubmit={verifyOtp}>
             <Form.Group controlId="formName">
-              <Form.Label>Enter OTP</Form.Label>
               <Form.Control
                 type="number"
                 name="otp"
@@ -256,9 +260,18 @@ const handleShowModal = () =>{
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="primary" onClick={handleClose}>
-            Close
-          </Button>
+          <div className="text-center mt-2">
+            <span className="d-block mobile-text">
+              Didn't receive the code?
+            </span>
+            <Button
+              variant="link"
+              className="text-danger font-weight-bold cursor"
+              onClick={handleClose}
+            >
+              Resend
+            </Button>
+          </div>
         </Modal.Footer>
       </Modal>
 

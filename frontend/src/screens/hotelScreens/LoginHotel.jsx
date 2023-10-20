@@ -36,7 +36,7 @@ function LoginHotel() {
 
     if(hotelInfo) {
 
-      navigate('/Hotel/Details');
+      navigate('/Hotel/HotelList');
 
     }
 
@@ -70,7 +70,7 @@ function LoginHotel() {
         <label className="lh-1 text-14 text-light-1">Email</label>
       </div>
     </div>
-
+ 
     <div className="col-12">
       <div className="form-input ">
         <input type="password" 
