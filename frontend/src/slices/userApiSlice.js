@@ -1,7 +1,7 @@
 import { apiSlice } from "./apiSlice";
 import { REGISTER_URL,LOGIN_URL,GET_HOTEL_LIST_FOR_USER,
     GET_ROOM_DATA_FOR_USER,GET_SINGLE_HOTEL_FOR_USER,VERIFY_OTP
-,SEND_OTP
+,SEND_OTP,USER_PROFILE,USER_ADDRESS
 } from "../config/api";
 
 
@@ -69,10 +69,22 @@ export const userApiSlice = apiSlice.injectEndpoints({
                body:data
 
             })
+        }),
+        getProfile: builder.query({
+            query: (params) => ({
+                url: `${USER_PROFILE}?id=${params.id}`,
+                method: 'GET',
+            }),
+        }),
+        getUserAdress: builder.query({
+            query: (params) => ({
+                url: `${USER_ADDRESS}?id=${params.id}`,
+                method: 'GET',
+            }),
         })
 
     })
 })
 export const {useRegisterMutation,useLoginMutation,useGoogleLoginMutation,
     useLogoutMutation,useGetHotelsForUserMutation,useGetRoomDataForUserMutation,
-    useGetSingleHotelDataForUserMutation,useSendOtpMutation,useVerifyOtpMutation} =userApiSlice
+    useGetSingleHotelDataForUserMutation,useSendOtpMutation,useVerifyOtpMutation,useGetProfileQuery,useGetUserAdressQuery} =userApiSlice

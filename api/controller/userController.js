@@ -2,7 +2,8 @@
 import HotelDetails from "../models/hotelDetails.js";
 import Rooms from "../models/rooms.js";
 import RoomAvailability from "../models/roomAvailability.js";
-
+import User from "../models/userModel.js";
+import UserAddress from "../models/userAdressModel.js";
 const getHotels = async (req, res) => {
   
     try {
@@ -45,10 +46,54 @@ const getHotels = async (req, res) => {
     }
   };
 
+  const getProfile = async(req,res,next)=>{
+    try {
+      const userId = req.query.id
+      const user = await User.findOne({_id:userId})
+      console.log(user);
+      res.status(201).json(user)
+    } catch (error) {
+      next(error)
+    }
+
+
+  }
+
+  const addAddress = async(req,res,next)=>{
+   try {
+    const {address,locality,state,pincode,country,userId} = req.body
+    const userAddress = await UserAddress.create({
+      address,
+      locality,
+      state,
+      pincode,
+      country,
+      userId
+  })
+  res.status(201).json(userAddress)
+   } catch (error) {
+    next(error)
+   }
+
+  }
+
+  const getUserAddress = async(req,res,next)=>{
+    try {
+      const id = req.query.id
+      const userAddress = await UserAddress.findOne({userId:id})
+      res.status(201).json(userAddress)
+    } catch (error) {
+      next(error)
+    }
+  }
+
 
 
   export{
     getHotels,
     getRoom,
-    hotelSingle
+    hotelSingle,
+    getProfile,
+    addAddress,
+    getUserAddress
   }

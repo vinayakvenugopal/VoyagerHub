@@ -21,6 +21,9 @@ export const VERIFY_OTP_FOR_HOTEL  = '/api/hotel/verifyOtp'
 export const GET_HOTEL_LIST_FOR_USER = '/api/user/getHotels'
 export const GET_SINGLE_HOTEL_FOR_USER = '/api/user/hotelSingle'
 export const GET_ROOM_DATA_FOR_USER = '/api/user/getRoom'
+export const USER_PROFILE = '/api/user/profile'
+export const USER_ADDRESS= '/api/user/getUserAddress'
+
 
 export const CREATE_HOTEL = '/api/hotel/createHotel'
 

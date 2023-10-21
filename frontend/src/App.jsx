@@ -16,6 +16,7 @@ import AdminLogin from "./screens/adminScreens/AdminLogin.jsx";
 import HotelListForAdmin from "./screens/adminScreens/HotelListForAdmin.jsx";
 import HotelDetailsScreen from "./screens/hotelScreens/HotelDetailsScreen.jsx";
 import HotelListScreen from "./screens/hotelScreens/HotelListScreen.jsx";
+import { UserProfileScreen } from "./screens/userScreens/UserProfileScreen.jsx";
 function App() {
   return ( 
     <div>
@@ -27,6 +28,7 @@ function App() {
       <Route path="/login" element={<LoginScreen/>}/>
       <Route path="/" element={<HotelList/>}/>
       <Route path="/hotel-single/:id" element={<HotelSinglePage/>}/>
+      <Route path="/profile" element={<UserProfileScreen/>}/>   
 
 
       {/* ...................USER SCREENS END................................ */}
