@@ -13,6 +13,8 @@ export const HOTEL_LOGOUT = '/api/hotel/logout'
 export const GET_HOTEL_LIST = '/api/hotel/getHotels'
 export const GET_SINGLE_HOTEL = '/api/hotel/hotelSingle'
 export const GET_ROOM_DATA_FOR_HOTELS = '/api/hotel/getRooms'
+export const DELETE_ROOM = '/api/hotel/deleteRoom'
+
 export const ADD_ROOM_DATA = '/api/hotel/addRoom'
 
 export const SEND_OTP_FOR_HOTEL  = '/api/hotel/sendOtp'
@@ -23,6 +25,8 @@ export const GET_SINGLE_HOTEL_FOR_USER = '/api/user/hotelSingle'
 export const GET_ROOM_DATA_FOR_USER = '/api/user/getRoom'
 export const USER_PROFILE = '/api/user/profile'
 export const USER_ADDRESS= '/api/user/getUserAddress'
+export const ADD_USER_ADDRESS= '/api/user/addAddress'
+
 
 
 export const CREATE_HOTEL = '/api/hotel/createHotel'

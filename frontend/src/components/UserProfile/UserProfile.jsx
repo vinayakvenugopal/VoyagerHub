@@ -1,6 +1,6 @@
 import React from 'react';
 import './UserProfile.css'
-export const UserProfile = ({userData,addressData}) => {
+export const UserProfile = ({userData,addressData,setShowModal}) => {
     console.log(userData);
   return (
     <div className="container">
@@ -58,14 +58,22 @@ export const UserProfile = ({userData,addressData}) => {
                   <div className="col-sm-3">
                     <h6 className="mb-0">Address</h6>
                   </div>
-                  <div className="col-sm-9 text-secondary">
-                  {addressData.address}
+                 {addressData ? 
+                 <div className="col-sm-9 text-secondary">
+                  {addressData.address} , {addressData.locality}
+                  <br />
+                  {addressData.pincode} {addressData.state}
+                  <br />
+                  {addressData.country}
+                  </div>:
+                  <div className="col-sm-9 text-secondary" onClick={()=>setShowModal(true)}>
+                  <a className="btn btn-info">Add Address</a>
                   </div>
+                  }
                 </div>
                 <hr />
                 <div className="row">
                   <div className="col-sm-12">
-                    <a className="btn btn-info" target="_blank" href="https://www.bootdey.com/snippets/view/profile-edit-data-and-skills">Edit</a>
                   </div>
                 </div>
               </div>

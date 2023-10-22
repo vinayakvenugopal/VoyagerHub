@@ -30,11 +30,11 @@ function HotelSinglePage() {
          
 
           const fetchData = async () => {
-            const responseFromApiCall = await singleHotelData({hotelId:id});
+            const responseFromApiCall = await singleHotelData({id:id});
             const data = responseFromApiCall.data;
             setHotel(data);
             
-            const response = await getRoomData({hotelId:id});
+            const response = await getRoomData({id:id});
             const roomData = response.data;            
             setRoom(roomData);
             

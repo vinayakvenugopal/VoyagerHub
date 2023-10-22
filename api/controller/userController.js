@@ -18,7 +18,7 @@ const getHotels = async (req, res) => {
 
   const hotelSingle = async(req,res)=>{
     try {
-        const id = req.body.hotelId
+        const id = req.query.id
         const hoteData = await HotelDetails.findOne({_id:id})
         res.status(200).json(hoteData);
     } catch (error) {
@@ -30,7 +30,7 @@ const getHotels = async (req, res) => {
 
   const getRoom = async (req, res) => {
     try {
-      const id = req.body.hotelId
+      const id = req.query.id
       const roomData = await Rooms.find({hotelId:id});
       // const { checkInDate, checkOutDate, hotelId } = req.body;
       // console.log(req.body);
@@ -61,6 +61,7 @@ const getHotels = async (req, res) => {
 
   const addAddress = async(req,res,next)=>{
    try {
+    console.log('hi');
     const {address,locality,state,pincode,country,userId} = req.body
     const userAddress = await UserAddress.create({
       address,

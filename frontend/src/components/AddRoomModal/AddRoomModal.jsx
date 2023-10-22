@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css'; // Include Bootstrap CSS
-import { Button, Modal, Form } from 'react-bootstrap'; // Import necessary Bootstrap components
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Button, Modal, Form } from 'react-bootstrap'; 
 import ImageUploader from "../ImageUploader/ImageUploader"
 import { useAddRoomMutation } from '../../slices/hotelApiSlice';
 import { useSelector } from 'react-redux';
 import { isAddRoomFormValid } from '../../utils/AddRoomFromValidation';
 import { toast } from 'react-toastify';
-function AddRoomModal({showModal,setShowModal,refetch,setRefetch,id}) {
+function AddRoomModal({showModal,setShowModal,refetchData,id}) {
   const [type,setType] = useState("")
   const [desc,setDesc] = useState("")
   const [area,setArea] = useState(0)
@@ -16,9 +16,6 @@ function AddRoomModal({showModal,setShowModal,refetch,setRefetch,id}) {
 
   const [images, setImages] = useState([]);
 
-  const refetchData = ()=>{
-    setRefetch(!refetch)
-  }
   const handleShow = () => setShowModal(true);
   const handleClose = () => {
     setShowModal(false);
@@ -29,7 +26,7 @@ function AddRoomModal({showModal,setShowModal,refetch,setRefetch,id}) {
   };
 const [addRoom] = useAddRoomMutation()
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault(); 
     const { isValid, errors } = isAddRoomFormValid(type, desc, area, occupancy,noOfRooms,price);
     if (!isValid) {
@@ -76,7 +73,7 @@ const [addRoom] = useAddRoomMutation()
       
     }
 
-    const responseFromApiCall = addRoom(formData).unwrap()
+    const responseFromApiCall = await addRoom(formData).unwrap()
     refetchData()
     handleClose();
   };

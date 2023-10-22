@@ -1,6 +1,7 @@
 import { apiSlice } from "./apiSlice";
 import { HOTEL_REGISTER,HOTEL_LOGIN ,GET_HOTEL_LIST,CREATE_HOTEL,
-    GET_SINGLE_HOTEL,GET_ROOM_DATA_FOR_HOTELS,ADD_ROOM_DATA,HOTEL_LOGOUT,SEND_OTP_FOR_HOTEL,VERIFY_OTP_FOR_HOTEL} from "../config/api";
+    GET_SINGLE_HOTEL,GET_ROOM_DATA_FOR_HOTELS,ADD_ROOM_DATA,HOTEL_LOGOUT,
+    SEND_OTP_FOR_HOTEL,VERIFY_OTP_FOR_HOTEL,DELETE_ROOM} from "../config/api";
 
 
 export const userApiSlice = apiSlice.injectEndpoints({
@@ -40,10 +41,9 @@ export const userApiSlice = apiSlice.injectEndpoints({
             })
         }),
         getHotelListForHotelier:builder.mutation({
-            query:(data)=>({
-               url:`${GET_HOTEL_LIST}` ,
-               method:'POST',
-               body:data
+            query:(params)=>({
+               url:`${GET_HOTEL_LIST}?id=${params.id}` ,
+               method:'GET',
 
             })
         }),
@@ -58,18 +58,9 @@ export const userApiSlice = apiSlice.injectEndpoints({
             })
         }),
         getSingleHotelData:builder.mutation({
-            query:(data)=>({
-               url:`${GET_SINGLE_HOTEL}` ,
-               method:'POST',
-               body:data
-
-            })
-        }),
-        getRoomDataForHotel:builder.mutation({
-            query:(data)=>({
-               url:`${GET_ROOM_DATA_FOR_HOTELS}` ,
-               method:'POST',
-               body:data
+            query:(params)=>({
+               url:`${GET_SINGLE_HOTEL}?id=${params.id}` ,
+               method:'GET',
 
             })
         }),
@@ -81,6 +72,20 @@ export const userApiSlice = apiSlice.injectEndpoints({
                headers: { 
               }
             })
+        }),
+        getRoomDataForHotel: builder.query({
+            query: (params) => ({
+                url: `${GET_ROOM_DATA_FOR_HOTELS}?id=${params.id}`,
+                method: 'GET',
+            })
+        }),
+        delteRoom: builder.mutation({
+            query: (params) => ({
+                url: `${DELETE_ROOM}?id=${params.id}`,
+                method: 'DELETE',
+                credentials: 'include',
+
+            })
         })
 
 
@@ -88,5 +93,5 @@ export const userApiSlice = apiSlice.injectEndpoints({
 })
 export const {useHotelRegisterMutation,useHotelLoginMutation,
     useHotelLogoutMutation,useGetHotelListForHotelierMutation,useCreateHotelMutation,
-    useGetSingleHotelDataMutation,
-    useGetRoomDataForHotelMutation,useAddRoomMutation,useSendOtpForHotelMutation,useVerifyOtpForHotelMutation} =userApiSlice
+    useGetSingleHotelDataMutation,useDelteRoomMutation,
+    useAddRoomMutation,useSendOtpForHotelMutation,useVerifyOtpForHotelMutation,useGetRoomDataForHotelQuery} =userApiSlice

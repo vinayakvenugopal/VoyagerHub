@@ -22,7 +22,7 @@ const HotelDetailsScreen = () => {
   useEffect(() => {
     try {
       const fetchData = async () => {
-        const responseFromApiCall = await singleHotelData({ hotelId: id });
+        const responseFromApiCall = await singleHotelData({ id: id });
         const data = responseFromApiCall.data;
         setHotel(data);
         setLoading(false);

@@ -104,8 +104,7 @@ const createHotel = async (req, res) => {
 
   const getHotels = async (req, res,next) => {
     try {
-      const id = req.body.hotelierId
-      console.log(id);
+      const id = req.query.id
       const hotelList = await HotelDetails.find({hotelierId:id});
       console.log(hotelList);
       res.status(200).json(hotelList);
@@ -117,7 +116,7 @@ const createHotel = async (req, res) => {
 
   const hotelSingle = async(req,res)=>{
     try {
-        const id = req.body.hotelId
+        const id = req.query.id
         const hotelData = await HotelDetails.findOne({_id:id})
         res.status(200).json(hotelData);
     } catch (error) {
@@ -163,8 +162,8 @@ const createHotel = async (req, res) => {
           date.setDate(startDate.getDate() + i);
           const availability = await RoomAvailability.create({
             date,
-            room: RoomDetails._id, // Reference the room document
-            numberOfAvailableRooms: noOfRooms, // Initially set to the total number of rooms
+            roomId: RoomDetails._id,
+            numberOfAvailableRooms: noOfRooms,
             hotelId
           });
           RoomDetails.availability.push(availability);
@@ -182,7 +181,7 @@ const createHotel = async (req, res) => {
 
   const getRoomForHotelier = async (req, res) => {
     try {
-      const id = req.body.hotelId
+      const id = req.query.id
       const roomData = await Rooms.find({hotelId:id});
       res.status(200).json(roomData);
     } catch (err) {
@@ -218,6 +217,18 @@ const createHotel = async (req, res) => {
   
   }
 
+  const deleteRoom = async (req, res, next) => {
+    try {
+      const id = req.query.id;
+      const room = await Rooms.deleteOne({ _id: id }).exec();
+      const availability = await RoomAvailability.deleteMany({ roomId: id }).exec();
+      console.log(room,availability);
+      res.status(201).json({ message: 'Room Deleted' });
+    } catch (error) {
+      next(error);
+    }
+  };
+  
 
 export{
     registerHotelier,
@@ -229,5 +240,6 @@ export{
     addRoom,
     getRoomForHotelier,
     sendOtpCode,
-    verifyOtp
+    verifyOtp,
+    deleteRoom
 }

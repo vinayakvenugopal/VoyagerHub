@@ -19,10 +19,9 @@ export const adminApiSlice = apiSlice.injectEndpoints({
             })
         }),
         adminGetHotels:builder.mutation({
-            query:(data)=>({
+            query:()=>({
                url:`${ADMIN_GET_HOTELS}` ,
-               method:'POST',
-               body:data
+               method:'GET',
             })
         }),
         blockHotel:builder.mutation({

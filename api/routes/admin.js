@@ -6,7 +6,7 @@ const router = express.Router()
 
 router.post('/login',adminLogin )
 router.post('/logout', logoutAdmin)
-router.post('/getHotels',getHotels)
+router.get('/getHotels',getHotels)
 router.post('/blockHotel',blockHotel)
 router.post('/unBlockHotel',unBlockHotel)
 

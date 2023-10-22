@@ -1,15 +1,14 @@
 import HotelDashboardHeader from "../../components/HotelDasboardHeader/HotelDashboardHeader";
 import HotelFooter from "../../components/HotelFooter/HotelFooter";
 import RoomListHotel from "../../components/RoomListHotel/RoomListHotel";
-import { useGetRoomDataForHotelMutation } from "../../slices/hotelApiSlice";
+import { useGetRoomDataForHotelQuery } from "../../slices/hotelApiSlice";
 import { useState,useEffect } from "react";
 import { useSelector } from "react-redux";
 import AddRoomModal from "../../components/AddRoomModal/AddRoomModal";
 import HotelSidebar from "../../components/HotelSidebar/HotelSidebar";
 function RoomList() {
   const [showModal, setShowModal] = useState(false);
-  const [refetch,setRefetch] = useState(false);
-  console.log(refetch+'........refetch');
+
   const handleOpenModal = () => {
     setShowModal(true);
   };
@@ -17,46 +16,25 @@ function RoomList() {
   const handleCloseModal = () => {
     setShowModal(false);
   };
-    const [room,setRoom] = useState([])
-    console.log(room);
-    
-    const [getRoomDataForHotel] = useGetRoomDataForHotelMutation()
 
-    const [loading, setLoading] = useState(true); 
-    const { hotelInfo } = useSelector( (state) => state.hotelAuth );
     const id = location.pathname.split("/")[3];
 
-    useEffect(() => {
-    
-        try {
-          console.log('useEffect wORKING');
-         
-            const fetchData = async () => { 
-
-            const response = await getRoomDataForHotel({hotelId:id});
-            const roomData = response.data;            
-            setRoom(roomData);
-            setLoading(false)
-          };
-      
-          fetchData();
-        } catch (error) {
-          console.error("Error fetching users:", error);
-    
-        }
-    
-    }, [refetch]);
+    const {data:room,error,isLoading,refetch} = useGetRoomDataForHotelQuery({id:id})
+    console.log(room);
+    const refetchData=()=>{
+      console.log('refetching...........');
+      refetch()
+    }
 
 
-      if(loading){
+      if(isLoading){
         return(
             <h1>Loading</h1>
         )
       }
-    
   return (
     <>
-<AddRoomModal showModal={showModal} setShowModal={setShowModal} refetch={refetch} setRefetch={setRefetch} id={id} />
+<AddRoomModal showModal={showModal} setShowModal={setShowModal} id={id} refetchData={refetchData}/>
     <div className="header-margin"></div>
     <HotelDashboardHeader/>
     <div className="dashboard">
@@ -73,7 +51,7 @@ function RoomList() {
               <button className="btn btn-warning" onClick={handleOpenModal}>Add Room</button>
               </div>
               <div className="py-30 px-30 rounded-4 bg-white shadow-3" style={{marginTop:"10px"}}>
-                <RoomListHotel room={room} />
+                <RoomListHotel room={room} refetchData={refetchData} />
               </div>
             </div>
           </div>

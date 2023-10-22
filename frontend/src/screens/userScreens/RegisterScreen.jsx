@@ -113,7 +113,6 @@ const handleShowModal = () =>{
     }
   }
   const handleSuccess = async (credentialResponse) => {
-    // Assuming credentialResponse.accessToken contains your JWT token
     const decoded = jwt_decode(credentialResponse.credential);
     console.log(decoded);
     const googleName = decoded.name;

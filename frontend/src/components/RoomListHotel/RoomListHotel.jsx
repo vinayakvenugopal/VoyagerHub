@@ -1,7 +1,16 @@
 import React from 'react'
 const ROOM_IMAGE_DIR_PATH = 'http://localhost:5000/RoomImages/'
+import { useDelteRoomMutation } from '../../slices/hotelApiSlice'
 
-function RoomListHotel({room}) {
+
+
+function RoomListHotel({room,refetchData}) {
+  const [deleteRoom] = useDelteRoomMutation()
+
+  const handleDeleteRoom = async (id)=>{
+    const response = await deleteRoom({id:id})
+    refetchData()
+  }
   return (
     <div>
         <div className="tabs__content pt-30 js-tabs-content">
@@ -57,7 +66,7 @@ function RoomListHotel({room}) {
                           </button>
                         </div>
                         <div className="col-auto">
-                          <button className="flex-center bg-light-2 rounded-4 size-35">
+                          <button className="flex-center bg-light-2 rounded-4 size-35" onClick={()=>handleDeleteRoom(item._id)}>
                             <i className="icon-trash-2 text-16 text-light-1" />
                           </button>
                         </div>

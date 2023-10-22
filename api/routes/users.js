@@ -5,9 +5,9 @@ import { getHotels,getRoom,hotelSingle,getProfile ,addAddress, getUserAddress} f
 const router = express.Router()
 
 
-router.post('/getHotels',getHotels)
-router.post('/getRoom',getRoom)
-router.post('/hotelSingle',hotelSingle)
+router.get('/getHotels',getHotels)
+router.get('/getRoom',getRoom)
+router.get('/hotelSingle',hotelSingle)
 
 router.get('/profile',getProfile)
 router.post('/addAddress',addAddress)
