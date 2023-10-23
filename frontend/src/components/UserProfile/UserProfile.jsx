@@ -12,7 +12,7 @@ export const UserProfile = ({userData,addressData,setShowModal}) => {
                 <div className="d-flex flex-column align-items-center text-center">
                   <img src="https://bootdey.com/img/Content/avatar/avatar7.png" alt="Admin" className="rounded-circle" width="150" />
                   <div className="mt-3">
-                    <h4>{userData.name}</h4>
+                    <h4>{userData?.name}</h4>
                     {/* <p className="text-secondary mb-1"></p>
                     <p className="text-muted font-size-sm"></p>
                     <button className="btn btn-primary"></button>
@@ -30,7 +30,7 @@ export const UserProfile = ({userData,addressData,setShowModal}) => {
                     <h6 className="mb-0">Full Name</h6>
                   </div>
                   <div className="col-sm-9 text-secondary">
-                    {userData.name}
+                    {userData?.name}
                   </div>
                 </div>
                 <hr />
@@ -39,7 +39,7 @@ export const UserProfile = ({userData,addressData,setShowModal}) => {
                     <h6 className="mb-0">Email</h6>
                   </div>
                   <div className="col-sm-9 text-secondary">
-                    {userData.email}
+                    {userData?.email}
                   </div>
                 </div>
                 <hr />

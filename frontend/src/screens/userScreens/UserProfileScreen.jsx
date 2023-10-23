@@ -13,6 +13,10 @@ export const UserProfileScreen = () => {
     const {data:userData,error:userError,isLoading:isUserLoading,refetch:refetchUserData} = useGetProfileQuery({id: userInfo._id})
     const { data:addressData, error:addressError ,isLoading:isAddressLoading,refetch:refetchAddressData} = useGetUserAdressQuery({ id: userInfo._id });
 
+    if(userError||addressError){
+      throw new Error('Error occured')
+    }
+
 
 
 

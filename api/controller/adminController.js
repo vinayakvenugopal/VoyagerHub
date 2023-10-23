@@ -1,6 +1,7 @@
 import Admin from "../models/adminModel.js";
 import generateAdminToken from "../utils/generateAdminToken.js";
 import HotelDetails from "../models/hotelDetails.js";
+import Facilities from "../models/facilitiesModal.js";
 
 const adminLogin = async(req,res,next)=>{
     const {username,password} = req.body
@@ -63,11 +64,47 @@ const getHotels = async (req, res,next) => {
     }
   }
 
+  const addFacilities = async(req,res,next)=>{
+    try {
+        const {facility} =  req.body
+        const facilities = await Facilities.create({
+            facility
+           
+        })
+        res.status(201).json({message:'Added Succesfully'})
+    } catch (error) {
+        next(error)
+    }
+  }
+
+  const getFacilities = async(req,res,next)=>{
+    try {
+        const facilities = await Facilities.find({})
+        res.status(201).json(facilities)
+    } catch (error) {
+        next(error)
+    }
+  }
+
+  const deleteFacilities = async(req,res,next)=>{
+    try {
+        const id = req.query.id
+        const facilities = await Facilities.deleteOne({ _id: id }).exec();
+        res.status(201).json({message:'Deleted'})
+    } catch (error) {
+        next(error)
+    }
+  }
+  
+
 
 export {
     adminLogin,
     logoutAdmin,
     getHotels,
     blockHotel,
-    unBlockHotel
+    unBlockHotel,
+    addFacilities,
+    getFacilities,
+    deleteFacilities
 }

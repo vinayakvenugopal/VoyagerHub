@@ -34,15 +34,7 @@ const HotelSidebar = () => {
         { title: "Add Hotel", href: "/Hotel/AddDetails" },
         { title: "View Hotels", href: "/Hotel/HotelList" },
       ],
-    },
-    {
-      icon: "/img/dashboard/sidebar/house.svg",
-      title: "Manage Room",
-      links: [
-        { title: "Add Room", href: "/Hotel/Rooms" },
-  
-      ],
-    },
+    }
   ];
 
   // Function to toggle the active submenu

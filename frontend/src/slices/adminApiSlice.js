@@ -1,5 +1,5 @@
 import { apiSlice } from "./apiSlice";
-import {ADMIN_LOGIN,ADMIN_LOGOUT,ADMIN_GET_HOTELS ,BLOCK_HOTEL,UNBLOCK_HOTEL} from "../config/api";
+import {ADMIN_LOGIN,ADMIN_LOGOUT,ADMIN_GET_HOTELS ,BLOCK_HOTEL,UNBLOCK_HOTEL,GET_FACILITIES_FOR_ADMIN,ADD_FACILITIES,DELETE_FACILITIES} from "../config/api";
 
 
 export const adminApiSlice = apiSlice.injectEndpoints({
@@ -37,8 +37,31 @@ export const adminApiSlice = apiSlice.injectEndpoints({
                method:'POST',
                body:data
             })
+        }),
+        getFacilitiesForAdmin:builder.query({
+            query:()=>({
+               url:`${GET_FACILITIES_FOR_ADMIN}` ,
+               method:'GET',
+
+            })
+        }),
+        addFacilities:builder.mutation({
+            query:(data)=>({
+               url:`${ADD_FACILITIES}` ,
+               method:'POST',
+               body:data
+            })
+        }),
+        delteFacilities: builder.mutation({
+            query: (params) => ({
+                url: `${DELETE_FACILITIES}?id=${params.id}`,
+                method: 'DELETE',
+                credentials: 'include',
+
+            })
         })
     })
 })
 
-export const {useAdminLoginMutation ,useAdminLogoutMutation,useAdminGetHotelsMutation,useBlockHotelMutation,useUnBlockHotelMutation} = adminApiSlice
+export const {useAdminLoginMutation ,useAdminLogoutMutation,useAdminGetHotelsMutation,useBlockHotelMutation,
+    useUnBlockHotelMutation,useGetFacilitiesForAdminQuery,useAddFacilitiesMutation,useDelteFacilitiesMutation} = adminApiSlice

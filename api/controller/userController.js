@@ -28,7 +28,7 @@ const getHotels = async (req, res) => {
     }
   } 
 
-  const getRoom = async (req, res) => {
+  const getRoom = async (req, res,next) => {
     try {
       const id = req.query.id
       const roomData = await Rooms.find({hotelId:id});
@@ -42,7 +42,7 @@ const getHotels = async (req, res) => {
       console.log(roomData);
       res.status(200).json(roomData);
     } catch (err) {
-
+      next(er)
     }
   };
 

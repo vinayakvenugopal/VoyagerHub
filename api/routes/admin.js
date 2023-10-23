@@ -1,14 +1,18 @@
 import express from "express"
-import { adminLogin,logoutAdmin,getHotels, blockHotel,unBlockHotel } from "../controller/adminController.js"
+import { adminLogin,logoutAdmin,getHotels, blockHotel,unBlockHotel, addFacilities, getFacilities, deleteFacilities } from "../controller/adminController.js"
+import { protectAdmin } from "../middleware/adminAuth.js"
 const router = express.Router()
 
 
 
 router.post('/login',adminLogin )
 router.post('/logout', logoutAdmin)
-router.get('/getHotels',getHotels)
-router.post('/blockHotel',blockHotel)
-router.post('/unBlockHotel',unBlockHotel)
-
+router.get('/getHotels',protectAdmin,getHotels)
+router.post('/blockHotel',protectAdmin,blockHotel)
+router.post('/unBlockHotel',protectAdmin,unBlockHotel)
+router.post('/addFacilities',protectAdmin,addFacilities)
+router.post('/addFacilities',protectAdmin,addFacilities)
+router.get('/getFacilities',protectAdmin,getFacilities)
+router.delete('/deleteFacilities',deleteFacilities)
 
 export default router 

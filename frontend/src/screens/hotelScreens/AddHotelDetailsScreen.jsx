@@ -2,7 +2,6 @@ import HotelDashboardHeader from "../../components/HotelDasboardHeader/HotelDash
 import { HotelDetailsForm } from "../../components/HotelDetailsForm/HotelDetailsForm";
 import HotelFooter from "../../components/HotelFooter/HotelFooter";
 import HotelSidebar from "../../components/HotelSidebar/HotelSidebar";
-import { useGetSingleHotelDataMutation } from "../../slices/hotelApiSlice";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 

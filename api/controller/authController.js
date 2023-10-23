@@ -102,13 +102,13 @@ const googleLogin = async(req,res)=>{
 
 }
 
-const sendOtpCode = async (req,res) =>{
+const sendOtpCode = async (req,res,next) =>{
    try {   
     const mobile = req.body.mobile
     await sendOtp(mobile)
     res.status(201).json({mobile})
    } catch (error) {
-    res.status(500) 
+    next(error)
    }
 
 }
@@ -129,7 +129,7 @@ const verifyOtp = async (req,res,next) =>{
  
  }
 
- const getHotels = async (req, res) => {
+ const getHotels = async (req, res,next) => {
     try {
       const hotelList = await HotelDetails.find({});
       res.status(200).json(hotelList);

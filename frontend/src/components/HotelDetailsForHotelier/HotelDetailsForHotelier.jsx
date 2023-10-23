@@ -2,7 +2,7 @@ import React from "react";
 import { Gallery, Item } from "react-photoswipe-gallery";
 const HOTEL_IMAGE_DIR_PATH = "http://localhost:5000/HotelImages/";
 
-function HotelDetailsForHotelier({hotel}) {
+function HotelDetailsForHotelier({ hotel }) {
   return (
     <>
       <Gallery>
@@ -105,16 +105,18 @@ function HotelDetailsForHotelier({hotel}) {
         </div>
       </Gallery>
       <div className="col-auto" style={{ marginTop: "20px" }}>
-       <span title={hotel.name}
-                style={{
-                  display: "-webkit-box",
-                  WebkitLineClamp: 1, 
-                  WebkitBoxOrient: "vertical",
-                  overflow: "hidden",
-                  textOverflow: "ellipsis",
-                }}>
-                
-               <h1 className="text-30 sm:text-25 fw-600" >{hotel?.name}</h1></span> 
+        <span
+          title={hotel.name}
+          style={{
+            display: "-webkit-box",
+            WebkitLineClamp: 1,
+            WebkitBoxOrient: "vertical",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+          }}
+        >
+          <h1 className="text-30 sm:text-25 fw-600">{hotel?.name}</h1>
+        </span>
       </div>
       <div className="d-flex items-center text-15 text-light-1">
         <i className="icon-location-2 text-16 mr-5" />
@@ -122,37 +124,37 @@ function HotelDetailsForHotelier({hotel}) {
       </div>
       <div id="overview" className="col-12">
         <h3 className="text-22 fw-500 pt-40 border-top-light">Description</h3>
-        <span title={hotel.desc}
-                style={{
-                  display: "-webkit-box",
-                  WebkitLineClamp: 5, 
-                  WebkitBoxOrient: "vertical",
-                  overflow: "hidden",
-                  textOverflow: "ellipsis",
-                }}>{hotel.desc}
-                
-                </span>
+        <span
+          title={hotel.desc}
+          style={{
+            display: "-webkit-box",
+            WebkitLineClamp: 5,
+            WebkitBoxOrient: "vertical",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
+          }}
+        >
+          {hotel.desc}
+        </span>
       </div>
 
       <div className="col-12">
-                  <h3 className="text-22 fw-500 pt-40 border-top-light">
-                    Most Popular Facilities
-                  </h3>
-                  <div className="row y-gap-10 pt-20">
-                    {/* <PopularFacilities /> */}
-                    <div className="row x-gap-10 y-gap-10 pt-20">
-                      {hotel.aminities.map((amenity, index) => (
-                        <div className="col-auto">
-                          <div className="border-light rounded-100 py-5 px-20 text-14 lh-14">
-                            {amenity}
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
+        <h3 className="text-22 fw-500 pt-40 border-top-light">
+          Most Popular Facilities
+        </h3>
+        <div className="row y-gap-10 pt-20">
+          {/* <PopularFacilities /> */}
+          <div className="row x-gap-10 y-gap-10 pt-20">
+            {hotel.aminities.map((amenity, index) => (
+              <div className="col-auto">
+                <div className="border-light rounded-100 py-5 px-20 text-14 lh-14">
+                  {amenity}
                 </div>
-
-      
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
     </>
   );
 }

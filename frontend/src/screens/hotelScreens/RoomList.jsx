@@ -25,7 +25,9 @@ function RoomList() {
       console.log('refetching...........');
       refetch()
     }
-
+if(error){
+  throw new Error('Error Fetching data')
+}
 
       if(isLoading){
         return(

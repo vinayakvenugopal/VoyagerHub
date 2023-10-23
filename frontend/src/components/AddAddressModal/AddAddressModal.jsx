@@ -57,7 +57,7 @@ const AddAddressModal = ({showModal,setShowModal,refetchData}) => {
             name="name"
             value={locality}
             onChange={(e) => setLocality(e.target.value)}
-            placeholder="Enter Room Type"
+            placeholder="Locality"
           />
         </Form.Group>
 
@@ -68,7 +68,7 @@ const AddAddressModal = ({showModal,setShowModal,refetchData}) => {
             name="name"
             value={pincode}
             onChange={(e) => setPincode(e.target.value)}
-            placeholder="Enter Room Type"
+            placeholder="Pincode"
           />
         </Form.Group>
 
@@ -79,28 +79,20 @@ const AddAddressModal = ({showModal,setShowModal,refetchData}) => {
             name="name"
             value={state}
             onChange={(e) => setState(e.target.value)}
-            placeholder="Enter Room Type"
+            placeholder="State"
           />
         </Form.Group>
 
         <Form.Group controlId="formName">
-          <Form.Label>State</Form.Label>
+          <Form.Label>Country</Form.Label>
           <Form.Control
             type="text"
             name="name"
             value={country}
             onChange={(e) => setCountry(e.target.value)}
-            placeholder="Enter Room Type"
+            placeholder="Country"
           />
         </Form.Group>
-
-    
-  
-
- 
-
-
-
         <Button variant="primary" type="submit">
           Submit
         </Button>

@@ -27,7 +27,7 @@ const HotelListScreen = () => {
 
       fetchData(); 
     } catch (error) {
-      console.error("Error fetching users:", error);
+      throw new Error('Error Fetching data')
     } 
   }, []);
 

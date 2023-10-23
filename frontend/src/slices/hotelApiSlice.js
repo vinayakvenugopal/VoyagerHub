@@ -1,7 +1,7 @@
 import { apiSlice } from "./apiSlice";
 import { HOTEL_REGISTER,HOTEL_LOGIN ,GET_HOTEL_LIST,CREATE_HOTEL,
     GET_SINGLE_HOTEL,GET_ROOM_DATA_FOR_HOTELS,ADD_ROOM_DATA,HOTEL_LOGOUT,
-    SEND_OTP_FOR_HOTEL,VERIFY_OTP_FOR_HOTEL,DELETE_ROOM} from "../config/api";
+    SEND_OTP_FOR_HOTEL,VERIFY_OTP_FOR_HOTEL,DELETE_ROOM,GET_FACILITIES} from "../config/api";
 
 
 export const userApiSlice = apiSlice.injectEndpoints({
@@ -86,6 +86,13 @@ export const userApiSlice = apiSlice.injectEndpoints({
                 credentials: 'include',
 
             })
+        }),
+        getFacilities:builder.query({
+            query:()=>({
+               url:`${GET_FACILITIES}` ,
+               method:'GET',
+
+            })
         })
 
 
@@ -93,5 +100,5 @@ export const userApiSlice = apiSlice.injectEndpoints({
 })
 export const {useHotelRegisterMutation,useHotelLoginMutation,
     useHotelLogoutMutation,useGetHotelListForHotelierMutation,useCreateHotelMutation,
-    useGetSingleHotelDataMutation,useDelteRoomMutation,
+    useGetSingleHotelDataMutation,useDelteRoomMutation,useGetFacilitiesQuery,
     useAddRoomMutation,useSendOtpForHotelMutation,useVerifyOtpForHotelMutation,useGetRoomDataForHotelQuery} =userApiSlice

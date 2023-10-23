@@ -29,8 +29,15 @@ const HotelSidebar = () => {
       icon: "/img/dashboard/sidebar/booking.svg",
       title: "Manage Hotels",
       links: [
-        { title: "Add Hotel", href: "/Hotel/Details" },
-        { title: "View", href: "#" },
+        { title: "Hotels", href: "/Admin/Hotels" },
+      ],
+    },
+    {
+      icon: "/img/dashboard/sidebar/booking.svg",
+      title: "Facilities",
+      links: [
+        { title: "Facilities", href: "/Admin/Facilities" },
+     
       ],
     }
   ];

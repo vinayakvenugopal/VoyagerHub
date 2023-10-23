@@ -28,7 +28,7 @@ const[refetch,setRefetch] = useState(false)
       
           fetchData();
         } catch (error) {
-          console.error("Error fetching users:", error);
+          throw new Error('An error occured')
     
         }
     
@@ -54,7 +54,7 @@ const[refetch,setRefetch] = useState(false)
         <div className="dashboard__content bg-light-2">
           <div className="row y-gap-20 justify-between items-end pb-60 lg:pb-40 md:pb-32">
             <div className="col-12">
-            <h1 className="text-30 lh-14 fw-600">Rooms</h1>
+            <h1 className="text-30 lh-14 fw-600" style={{marginLeft:"40%"}}>Hotels</h1>
               <div className="py-30 px-30 rounded-4 bg-white shadow-3" style={{marginTop:"10px"}}>
                 <HotelListAdmin hotelsData={hotelsData} refetch={refetch} setRefetch={setRefetch}/>
               </div>

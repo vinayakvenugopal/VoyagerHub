@@ -4,18 +4,18 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-
+import { useGetFacilitiesQuery } from "../../slices/hotelApiSlice";
 import { isHotelDetailsFormValid } from "../../utils/HotelDetailsFormValidation";
 
 export const HotelDetailsForm = () => {
-  const options= [
-    { value: 'Wifi' },
-    { value: 'SPA' },
-    { value: 'BAR' },
-    { value: 'CAB' },
-    { value: 'POOL' },
-    { value: 'VILLA'},
-  ];
+  // const options= [
+  //   { value: 'Wifi' },
+  //   { value: 'SPA' },
+  //   { value: 'BAR' },
+  //   { value: 'CAB' },
+  //   { value: 'POOL' },
+  //   { value: 'VILLA'},
+  // ];
   const navigate = useNavigate()
   const [name,setName] = useState("")
   const [desc,setDesc] = useState("")
@@ -24,11 +24,17 @@ export const HotelDetailsForm = () => {
   console.log(images);
   const { hotelInfo } = useSelector( (state) => state.hotelAuth );
 
+  const {data,error:facilitiesError,isLoading,refetch} = useGetFacilitiesQuery({})
+
+
   const [city,setCity] = useState("")
   const [aminities, setAminities] = useState([]);
   const [error, setError] = useState("");
 
 const [createHotel] = useCreateHotelMutation()
+
+
+
   const handleCheckboxChange = (value) => {
     if (aminities.includes(value)) {
       setAminities(aminities.filter((item) => item !== value));
@@ -41,7 +47,7 @@ const [createHotel] = useCreateHotelMutation()
     setError(error);
   };
 
-  const handleSubmit = (e)=>{
+  const handleSubmit = async(e)=>{
     e.preventDefault();    
     const { isValid, errors } = isHotelDetailsFormValid(name, desc, address, city);
 if (!isValid) {
@@ -81,16 +87,21 @@ if (!isValid) {
 
     formData.append('city', city);
 
-    const responseFromApiCall = createHotel(formData).unwrap()
+    const responseFromApiCall = await createHotel(formData).unwrap()
     toast.success('Details Added Succesfully')
-    navigate('/Hotel/Rooms')
+    navigate('/Hotel/HotelList')
   } catch (error) {
-      
+      throw new Error('Error Submitting form')
   }
 
   }
-
-
+  if(isLoading){
+    return(
+      <h1>Loading</h1>
+    )
+  }
+  const options = data.map(item => ({ value: item.facility }));
+  
   return (
     <>
 

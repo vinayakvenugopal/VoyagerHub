@@ -5,6 +5,7 @@ import HotelDetails from '../models/hotelDetails.js';
 import Rooms from '../models/rooms.js';
 import {sendOtp,verifyCode} from '../utils/twilio.js'
 import RoomAvailability from '../models/roomAvailability.js';
+import Facilities from '../models/facilitiesModal.js';
 //@desc Register a new User
 //route POST /api/auth/register
 //@access Public
@@ -21,7 +22,7 @@ const registerHotelier = asyncHandler(async(req,res) =>{
         name,
         email,
         mobile,
-        password
+        password 
     })
     if(hotelier){
       generateHotelToken(res,hotelier._id)
@@ -97,6 +98,7 @@ const createHotel = async (req, res) => {
             images,
             hotelierId
         })
+        res.status(201).json({message:'Hotel Created'})
     } catch (err) {
       console.log(err.message);
     }
@@ -179,7 +181,7 @@ const createHotel = async (req, res) => {
 
 
 
-  const getRoomForHotelier = async (req, res) => {
+  const getRoomForHotelier = async (req, res,next) => {
     try {
       const id = req.query.id
       const roomData = await Rooms.find({hotelId:id});
@@ -189,14 +191,15 @@ const createHotel = async (req, res) => {
     }
   };
 
-  const sendOtpCode = async (req,res) =>{
+  const sendOtpCode = async (req,res,next) =>{
     console.log('sendotp');
     try {
      const mobile = req.body.mobile
      await sendOtp(mobile)
      res.status(201).json({mobile})
     } catch (error) {
-     res.status(500) 
+      next(error)
+
     }
  
  }
@@ -228,6 +231,15 @@ const createHotel = async (req, res) => {
       next(error);
     }
   };
+
+  const getFacilities = async(req,res,next)=>{
+    try {
+        const facilities = await Facilities.find({})
+        res.status(201).json(facilities)
+    } catch (error) {
+        next(error)
+    }
+  }
   
 
 export{
@@ -241,5 +253,6 @@ export{
     getRoomForHotelier,
     sendOtpCode,
     verifyOtp,
-    deleteRoom
+    deleteRoom,
+    getFacilities
 }
