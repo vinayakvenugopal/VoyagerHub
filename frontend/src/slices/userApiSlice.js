@@ -1,7 +1,7 @@
 import { apiSlice } from "./apiSlice";
 import { REGISTER_URL,LOGIN_URL,GET_HOTEL_LIST_FOR_USER,
     GET_ROOM_DATA_FOR_USER,GET_SINGLE_HOTEL_FOR_USER,VERIFY_OTP
-,SEND_OTP,USER_PROFILE,USER_ADDRESS,ADD_USER_ADDRESS
+,SEND_OTP,USER_PROFILE,USER_ADDRESS,ADD_USER_ADDRESS,GET_DETAILS_FOR_BOOKING,PAYMENT,PAYMENT_STATUS
 } from "../config/api";
 
 
@@ -55,9 +55,10 @@ export const userApiSlice = apiSlice.injectEndpoints({
             })
         }),
         getRoomDataForUser:builder.mutation({
-            query:(params)=>({
-               url:`${GET_ROOM_DATA_FOR_USER}?id=${params.id}` ,
-               method:'GET'
+            query:(data)=>({
+               url:`${GET_ROOM_DATA_FOR_USER}` ,
+               method:'POST',
+               body:data
 
             })
         }),
@@ -86,12 +87,32 @@ export const userApiSlice = apiSlice.injectEndpoints({
                method:'POST',
                body:data
             })
+        }),
+        getDetailsForBooking:builder.query({
+            query:(params)=>({
+               url:`${GET_DETAILS_FOR_BOOKING}?hotelId=${params.hotelId}&availabilityId=${params.availabilityId}&userId=${params.userId}` ,
+               method:'GET'
+
+            })
+        }),
+        payment:builder.mutation({
+            query:(data)=>({
+               url:`${PAYMENT}` ,
+               method:'POST',
+               body:data
+            })
+        }),
+        paymentStatus:builder.mutation({
+            query:(params)=>({
+               url:`${PAYMENT_STATUS}?session_id=${params.session_id}` ,
+               method:'GET',
+            })
         })
-        
 
     })
 })
 export const {useRegisterMutation,useLoginMutation,useGoogleLoginMutation,
     useLogoutMutation,useGetHotelsForUserMutation,useGetRoomDataForUserMutation,
     useGetSingleHotelDataForUserMutation,useSendOtpMutation,
-    useVerifyOtpMutation,useGetProfileQuery,useGetUserAdressQuery,useAddAddressMutation} =userApiSlice
+    useVerifyOtpMutation,useGetProfileQuery,useGetUserAdressQuery,useAddAddressMutation,
+    useGetDetailsForBookingQuery,usePaymentMutation,usePaymentStatusMutation}=userApiSlice

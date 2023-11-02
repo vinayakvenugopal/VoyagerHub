@@ -28,6 +28,8 @@ export const USER_PROFILE = '/api/user/profile'
 export const USER_ADDRESS= '/api/user/getUserAddress'
 export const ADD_USER_ADDRESS= '/api/user/addAddress'
 
+export const PAYMENT= '/api/user/payment'
+export const PAYMENT_STATUS= '/api/user/payment-status'
 
 
 export const CREATE_HOTEL = '/api/hotel/createHotel'
@@ -42,3 +44,4 @@ export const UNBLOCK_HOTEL ='/api/admin/unBlockHotel'
 export const GET_FACILITIES_FOR_ADMIN = '/api/admin/getFacilities'
 export const ADD_FACILITIES = '/api/admin/addFacilities'
 export const DELETE_FACILITIES = '/api/admin/deleteFacilities'
+export const GET_DETAILS_FOR_BOOKING = '/api/user/getDetailsForBooking'

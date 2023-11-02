@@ -1,4 +1,6 @@
 import Header1 from "../../components/UserNavbar/Header1"
+import { DateObject } from "react-multi-date-picker";
+import dayjs from "dayjs";
 import "photoswipe/dist/photoswipe.css";
 import { Gallery, Item } from "react-photoswipe-gallery";
 import { Link } from "react-router-dom";
@@ -15,15 +17,19 @@ import HeaderBodySeperator from "../../components/HeaderBodySeperator/HeaderBody
 function HotelSinglePage() {
   const [singleHotelData] = useGetSingleHotelDataForUserMutation()
   const [getRoomData] = useGetRoomDataForUserMutation()
-  
+  const [checkIn,setCheckIn] = useState(new DateObject().toDate())
+  console.log('checkinss'+checkIn); 
+  const [checkOut,setCheckOut] = useState(new DateObject().toDate())
 
-    const [isOpen, setOpen] = useState(false);
-    const [hotel,setHotel] = useState({})
-    const [room,setRoom] = useState([])
+  const [isOpen, setOpen] = useState(false);
+  const [hotel,setHotel] = useState({})
+  const [room,setRoom] = useState([])
+  const [roomAvailability, setRoomAvailability] = useState([]);
 
-    const [loading, setLoading] = useState(true); // Add a loading state
-    const location = useLocation(); 
-     const id = location.pathname.split("/")[2];
+
+  const [loading, setLoading] = useState(true); // Add a loading state
+  const location = useLocation(); 
+  const id = location.pathname.split("/")[2];
     useEffect(() => {
     
         try {
@@ -35,10 +41,8 @@ function HotelSinglePage() {
             setHotel(data);
             
             const response = await getRoomData({id:id});
-            const roomData = response.data;            
+            const roomData = response.data;
             setRoom(roomData);
-            
-            
             setLoading(false)
           };
       
@@ -49,6 +53,15 @@ function HotelSinglePage() {
         }
     
       }, []);
+
+      const checkAvailability = async()=>{
+        const response = await getRoomData({id:id,checkIn:checkIn,checkOut:checkOut});
+        const roomData = response.data;   
+        console.log(roomData);         
+        setRoom(roomData);  
+        setLoading(false)
+
+      }
  if (loading) {
     // Render a loading indicator while data is being fetched
     return <div>Loading...</div>;
@@ -304,7 +317,7 @@ function HotelSinglePage() {
             {/* End .col-xl-8 */}
 
             <div className="col-xl-4">
-              <SidebarDateFilter/>
+              <SidebarDateFilter setCheckIn={setCheckIn} setCheckOut={setCheckOut} checkAvailability={checkAvailability} />
             </div>
             {/* End .col-xl-4 */}
           </div>
@@ -317,11 +330,11 @@ function HotelSinglePage() {
         <div className="container">
           <div className="row pb-20">
             <div className="col-auto">
-              <h3 className="text-22 fw-500">Available Rooms</h3>
+              <h3 className="text-22 fw-500">Availablile Rooms From {dayjs(room[0].checkinDate).format("DD/MM/YYYY")} to {dayjs(room[0].checkoutDate).format("DD/MM/YYYY")}</h3>
             </div>
           </div>
           {/* End .row */}
-          <AvailableRooms room={room}/>
+          <AvailableRooms room={room} hotel={hotel}/>
       
 
         </div>

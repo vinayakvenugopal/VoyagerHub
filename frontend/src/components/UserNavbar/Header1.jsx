@@ -4,25 +4,22 @@ import { Link, useNavigate } from "react-router-dom";
 import { useLogoutMutation } from "../../slices/userApiSlice";
 import { logout } from "../../slices/userAuthSlice";
 
-
-
-const Header1 = ()=> {
-  const navigate = useNavigate()
+const Header1 = () => {
+  const navigate = useNavigate();
   const [navbar, setNavbar] = useState(false);
-  const { userInfo } = useSelector( (state) => state.auth );
-  const dispatch = useDispatch()
-  const [logoutApiCall] = useLogoutMutation()
-  const logoutHandler = async() =>{
-    console.log('logout');
+  const { userInfo } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  const [logoutApiCall] = useLogoutMutation();
+  const logoutHandler = async () => {
+    console.log("logout");
     try {
       await logoutApiCall({}).unwrap();
       dispatch(logout({}));
-      navigate('/')
+      navigate("/");
     } catch (error) {
       console.log(error);
-      
     }
-  }
+  };
 
   const changeBackground = () => {
     if (window.scrollY >= 10) {
@@ -43,7 +40,12 @@ const Header1 = ()=> {
           <div className="row justify-between items-center">
             <div className="col-auto">
               <div className="d-flex items-center">
-                  <img src="/logo.png" alt="logo icon" width={"75px"} height={"75px"} />
+                <img
+                  src="/logo.png"
+                  alt="logo icon"
+                  width={"75px"}
+                  height={"75px"}
+                />
 
                 {/* End logo */}
 
@@ -51,19 +53,23 @@ const Header1 = ()=> {
                   <div className="header-menu__content">
                     {/* <MainMenu style="text-white" /> */}
                     <nav className="menu js-navList">
-      <ul className={`menu__nav text-white -is-active`}>
-       
-          <Link to="/#">
-            <span className="mr-10 " style={{marginLeft:"500px"}}>Home</span>
-          </Link>
-          <Link to="#">
-            <span className="mr-10">Hotels</span>
-          </Link>
-          <Link to="#">
-            <span className="mr-10">Destinations</span>
-          </Link>
-        </ul>
-        </nav>
+                      <ul className={`menu__nav text-white -is-active`}>
+                        <Link to="/#">
+                          <span
+                            className="mr-10 "
+                            style={{ marginLeft: "500px" }}
+                          >
+                            Home
+                          </span>
+                        </Link>
+                        <Link to="#">
+                          <span className="mr-10">Hotels</span>
+                        </Link>
+                        <Link to="#">
+                          <span className="mr-10">Destinations</span>
+                        </Link>
+                      </ul>
+                    </nav>
                   </div>
                 </div>
                 {/* End header-menu */}
@@ -82,42 +88,35 @@ const Header1 = ()=> {
                     <div className="w-1 h-20 bg-white-20" />
                   </div>
                   {/* End vertical devider*/}
-
                 </div>
                 {/* End language and currency selector */}
 
                 {/* Start btn-group */}
                 <div className="d-flex items-center ml-20 is-menu-opened-hide md:d-none">
-                 {userInfo?
- <>
-                    <nav className="menu js-navList">
-                 <ul className="menu__nav text-white -is-active">
-                  <li
-                   className={`menu-item-has-children`}
-                    ></li>
-                    <a>
-                      <span
-                    className="mr-10">
-                    Hi ! {userInfo.name}
-                    </span>
-                    </a> 
-                  </ul>
-                  </nav>
-      
-      <button
-      onClick={logoutHandler}
-      className="button px-30 fw-400 text-14 border-white -outline-white h-50 text-white ml-20"
-    >
-     Logout
-    </button>
-   </>
-                  
-                  :<Link
-                    to="/Register"
-                    className="button px-30 fw-400 text-14 border-white -outline-white h-50 text-white ml-20"
-                  >
-                    Sign In / Register
-                  </Link>}
+                  {userInfo ? (
+                    <>
+                      <nav className="menu js-navList">
+                        <ul className="menu__nav text-white -is-active">
+                          <li className={`menu-item-has-children`}></li>
+                            <Link to="/profile"><span className="mr-10">Hi ! {userInfo.name}</span></Link>
+                        </ul>
+                      </nav>
+
+                      <button
+                        onClick={logoutHandler}
+                        className="button px-30 fw-400 text-14 border-white -outline-white h-50 text-white ml-20"
+                      >
+                        Logout
+                      </button>
+                    </>
+                  ) : (
+                    <Link
+                      to="/Register"
+                      className="button px-30 fw-400 text-14 border-white -outline-white h-50 text-white ml-20"
+                    >
+                      Sign In / Register
+                    </Link>
+                  )}
                 </div>
                 {/* End btn-group */}
 
@@ -127,8 +126,7 @@ const Header1 = ()=> {
                     <Link
                       to="/others-pages/login"
                       className="d-flex items-center icon-user text-inherit text-22"
-                    >
-                    </Link>
+                    ></Link>
                   </div>
                   <div>
                     <button

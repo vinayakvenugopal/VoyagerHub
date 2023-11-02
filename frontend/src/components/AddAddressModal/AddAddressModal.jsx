@@ -3,8 +3,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button, Modal, Form } from 'react-bootstrap'; 
 import { useAddAddressMutation } from '../../slices/userApiSlice';
 import { useSelector } from 'react-redux';
-
-
+import { isAddressFormValid } from '../../utils/AddressFormValidation';
+import {toast} from 'react-toastify'
 const AddAddressModal = ({showModal,setShowModal,refetchData}) => {
   const [address,setAddress] = useState("")
   const [locality,setLocality] = useState("")
@@ -17,6 +17,30 @@ const AddAddressModal = ({showModal,setShowModal,refetchData}) => {
 
     const handleSubmit = async(e)=>{
         e.preventDefault()
+        const { isValid, errors } = isAddressFormValid(address, locality, pincode, state,country);
+        if (!isValid) {
+          if (errors.address) {
+            toast.error(errors.address);
+            return
+          }
+          if (errors.locality) {
+            toast.error(errors.locality);
+            return
+          }
+          if (errors.pincode) {
+            toast.error(errors.pincode);
+            return
+          }
+          if (errors.state) {
+            toast.error(errors.state);
+            return
+          }
+          if (errors.country) {
+            toast.error(errors.country);
+            return
+          }
+          
+        }
         try {
             const response = await addAddress({address,locality,pincode,state,country,userId:userInfo._id}).unwrap()
             setShowModal(false)

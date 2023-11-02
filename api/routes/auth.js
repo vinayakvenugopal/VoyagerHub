@@ -11,4 +11,4 @@ router.post('/googleLogin',googleLogin)
 router.post('/sendOtp',sendOtpCode)
 router.post('/verifyOtp',verifyOtp)
 
-export default router
+export default router 

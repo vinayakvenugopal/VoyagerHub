@@ -9,10 +9,12 @@ const FilterBox = () => {
       ]);
       if(dates[0]){
         const checkInDate = dates[0].toDate();
-        console.log(checkInDate);
+        console.log('checkin'+checkInDate);
       }
       if(dates[1]){
         const checkOutDate = dates[1].toDate();
+        console.log('checkout'+checkOutDate);
+
       }
   return (
     <>

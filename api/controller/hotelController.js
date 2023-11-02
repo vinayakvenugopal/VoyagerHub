@@ -11,7 +11,6 @@ import Facilities from '../models/facilitiesModal.js';
 //@access Public
 
 const registerHotelier = asyncHandler(async(req,res) =>{
-    console.log(req.body);
     const {name,email,password,mobile} = req.body
     const hotelierExist = await Hotelier.findOne({email})
     if(hotelierExist){
@@ -63,7 +62,6 @@ const loginHotelier = asyncHandler(async(req,res) =>{
 //@access Public
 
 const logoutHotelier = async (req,res) =>{
-  console.log('Logout');
     res.cookie('jwtHotel','',{
         httpOnly:true,
         expires:new Date()
@@ -108,7 +106,6 @@ const createHotel = async (req, res) => {
     try {
       const id = req.query.id
       const hotelList = await HotelDetails.find({hotelierId:id});
-      console.log(hotelList);
       res.status(200).json(hotelList);
     } catch (err) {
       next(err);
@@ -135,7 +132,6 @@ const createHotel = async (req, res) => {
 
   const addRoom = async (req, res) => {
     const {hotelId,price,desc,area,occupancy,facilities,type,hotelierId,noOfRooms} = req.body
-    console.log(req.body);
     let images = []
       req.files.map((files)=>{
         images.push(files.filename)
@@ -162,6 +158,7 @@ const createHotel = async (req, res) => {
         for (let i = 0; i < 10; i++) {
           const date = new Date(startDate);
           date.setDate(startDate.getDate() + i);
+          date.setHours(0, 0, 0, 1);
           const availability = await RoomAvailability.create({
             date,
             roomId: RoomDetails._id,
@@ -184,7 +181,7 @@ const createHotel = async (req, res) => {
   const getRoomForHotelier = async (req, res,next) => {
     try {
       const id = req.query.id
-      const roomData = await Rooms.find({hotelId:id});
+      const roomData = await Rooms.find({hotelId:id})
       res.status(200).json(roomData);
     } catch (err) {
       next(err);
@@ -192,7 +189,6 @@ const createHotel = async (req, res) => {
   };
 
   const sendOtpCode = async (req,res,next) =>{
-    console.log('sendotp');
     try {
      const mobile = req.body.mobile
      await sendOtp(mobile)
@@ -240,6 +236,8 @@ const createHotel = async (req, res) => {
         next(error)
     }
   }
+
+  
   
 
 export{
