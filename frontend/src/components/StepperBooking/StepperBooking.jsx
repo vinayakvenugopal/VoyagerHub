@@ -1,11 +1,6 @@
 import React, { useState } from "react"; 
 import BookingCustomerInfo from "../BookingCustomerInfo/BookingCustomerInfo";
 import PaymentInfo from "../PaymentInfo/PaymentInfo";
-import {loadStripe} from '@stripe/stripe-js';
-import {
-  EmbeddedCheckoutProvider,
-  EmbeddedCheckout
-} from '@stripe/react-stripe-js';
 const StepperBooking = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const steps = [

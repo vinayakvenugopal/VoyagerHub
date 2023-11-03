@@ -7,6 +7,8 @@ import UserAddress from "../models/userAdressModel.js";
 import { Stripe } from "stripe";
 const stripe = new Stripe('sk_test_51O7dS4SHIO1unxwgQgkt80Tlj3oRPvrHskSU8NlGDRBR3M2AJzMUr88C5q3TaIaYHTk4nIAhJnRvgDFTugo85HHr005ho3q9Lw')
 const clienturl = 'http://localhost:3000'
+import Bookings from "../models/bookingModel.js";
+
 const getHotels = async (req, res) => {
   
     try {
@@ -74,7 +76,6 @@ const getHotels = async (req, res) => {
           numberOfDays
         });
       }
-      console.log(roomDetails);
       res.status(200).json(roomDetails);
     } catch (err) {
       next(err);
@@ -85,7 +86,6 @@ const getHotels = async (req, res) => {
     try {
       const userId = req.query.id
       const user = await User.findOne({_id:userId})
-      console.log(user);
       res.status(201).json(user)
     } catch (error) {
       next(error)
@@ -96,7 +96,6 @@ const getHotels = async (req, res) => {
 
   const addAddress = async(req,res,next)=>{
    try {
-    console.log('hi');
     const {address,locality,state,pincode,country,userId} = req.body
     const userAddress = await UserAddress.create({
       address,
@@ -124,7 +123,6 @@ const getHotels = async (req, res) => {
   }
 
   const getDetailsForBooking = async(req,res,next)=>{
-    console.log('hihih');
     const hotelId = req.query.hotelId
     const availabilityId = req.query.availabilityId
     const userId = req.query.userId
@@ -142,7 +140,6 @@ const getHotels = async (req, res) => {
 
   const stripePayment = async(req,res,next)=>{
     const { price, name, place } = req.body;
-    console.log(req.body);
     const session = await stripe.checkout.sessions.create({
       ui_mode: 'embedded',
       line_items: [
@@ -166,10 +163,31 @@ const getHotels = async (req, res) => {
 
   const paymentStatus = async(req,res,next)=>{
     const session = await stripe.checkout.sessions.retrieve(req.query.session_id);
-    res.send({
-      status: session.status,
-      customer_email: session.customer_details.email,
-    });
+    res.json(session);
+  }
+
+  const createBooking = async(req,res,next)=>{
+    console.log('createBooking');
+    const {userInfo,roomInfo,hotelInfo,checkInDate,checkOutDate,paymentStatus,bookingStatus,totalAmount,paymentId} = req.body
+    console.log(req.body);
+    try {
+      const booking = await Bookings.create({
+        userInfo,
+        roomInfo,
+        hotelInfo,
+        checkInDate,
+        checkOutDate,
+        paymentStatus,
+        bookingStatus,
+        totalAmount,
+        paymentId,
+      })
+      res.status(200).json({booking})
+    } catch (error) {
+      next(error)
+    } 
+
+
   }
 
 
@@ -183,5 +201,6 @@ const getHotels = async (req, res) => {
     getUserAddress,
     getDetailsForBooking,
     stripePayment,
-    paymentStatus
+    paymentStatus,
+    createBooking
   }

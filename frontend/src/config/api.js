@@ -31,6 +31,7 @@ export const ADD_USER_ADDRESS= '/api/user/addAddress'
 export const PAYMENT= '/api/user/payment'
 export const PAYMENT_STATUS= '/api/user/payment-status'
 
+export const CREATE_BOOKING= '/api/user/createBooking'
 
 export const CREATE_HOTEL = '/api/hotel/createHotel'
 
