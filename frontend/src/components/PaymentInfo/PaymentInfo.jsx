@@ -13,7 +13,7 @@ const stripePromise = loadStripe(
   "pk_test_51O7dS4SHIO1unxwgswuNYztYDMSlYi3ZxhATV33YO0LiI6YXpYDgP4JkTaX4WRzU3NoH3eV2RdXR1ivZWDPTFKwB00kjXHNNVc"
 );
 
-const PaymentInfo = () => {
+const PaymentInfo = ({previousStep}) => {
   const bookingInfo = useSelector((state) => state.booking);
   const user = bookingInfo.userInfo;
   const room = bookingInfo.roomDetails
@@ -28,6 +28,10 @@ const PaymentInfo = () => {
     });
     setClientSecret(response.data.clientSecret);
   };
+
+  const handleSubmit = ()=>{
+    previousStep()
+  }
 
   return (
     <>
@@ -135,7 +139,6 @@ const PaymentInfo = () => {
                     {/* End .row */}
                   </div>
 
-                  <button onClick={() => handlePayment()}>Hi</button>
                   {/* End .row */}
                 </TabPanel>
                 {/* credit debit info */}
@@ -189,12 +192,18 @@ const PaymentInfo = () => {
           <div className="col-xl-5 col-lg-4">
             <div className="booking-sidebar">
               <PricingSummary room={room} />
+              <br />
+              <button className="button h-60 px-24 -dark-1 bg-blue-1 text-white" onClick={() => handlePayment()}>Pay Now <div className="icon-arrow-top-right ml-15" /></button>
+
               {/* <PaymentSchedule />
           <PromoCode />  */}
             </div>
           </div>
         </>
       )}
+      <div className="col-auto">
+      <button className="button h-60 px-24 -dark-1 bg-blue-1 text-white" onClick={()=>handleSubmit()}>Previous</button>
+      </div>
       {/* payment sidebar info */}
     </>
   );

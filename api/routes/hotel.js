@@ -1,7 +1,7 @@
 import express from "express"
 const router = express.Router()
 import {registerHotelier,loginHotelier,logoutHotelier,createHotel, getHotels, hotelSingle,
-     addRoom, getRoomForHotelier, sendOtpCode, verifyOtp, deleteRoom,getFacilities} from '../controller/hotelController.js'
+     addRoom, getRoomForHotelier, sendOtpCode, verifyOtp, deleteRoom,getFacilities, getBookings, changeBookingStatus} from '../controller/hotelController.js'
 import { multerUploadHotelImages,multerUploadRoomImages } from "../config/multer.js"
 import { protectHotel } from "../middleware/hotelAuth.js";
 
@@ -17,6 +17,7 @@ router.post('/sendOtp',sendOtpCode)
 router.post('/verifyOtp',verifyOtp)
 router.delete('/deleteRoom',deleteRoom)
 router.get('/getFacilities',protectHotel,getFacilities)
-
+router.get('/getBookings',getBookings)
+router.get('/changeBookingStatus',changeBookingStatus)
 
 export default router

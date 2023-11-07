@@ -65,8 +65,8 @@ const Header1 = () => {
                         <Link to="#">
                           <span className="mr-10">Hotels</span>
                         </Link>
-                        <Link to="#">
-                          <span className="mr-10">Destinations</span>
+                        <Link to="/booking-list">
+                          <span className="mr-10">Bookings</span>
                         </Link>
                       </ul>
                     </nav>

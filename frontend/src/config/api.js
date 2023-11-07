@@ -27,13 +27,19 @@ export const GET_ROOM_DATA_FOR_USER = '/api/user/getRoom'
 export const USER_PROFILE = '/api/user/profile'
 export const USER_ADDRESS= '/api/user/getUserAddress'
 export const ADD_USER_ADDRESS= '/api/user/addAddress'
+export const GET_SINGLE_BOOKING= '/api/user/getSingleBooking'
+export const GET_USER_BOOKINGS= '/api/user/getBookings'
+export const USER_CANCEL_BOOKING= '/api/user/cancelBooking'
 
 export const PAYMENT= '/api/user/payment'
 export const PAYMENT_STATUS= '/api/user/payment-status'
 
 export const CREATE_BOOKING= '/api/user/createBooking'
+export const SUBMIT_COMPLAINT= '/api/user/submitComplaint'
 
 export const CREATE_HOTEL = '/api/hotel/createHotel'
+export const GET_BOOKINGS_FOR_HOTEL= '/api/hotel/getBookings'
+export const CHANGE_BOOKING_STATUS= '/api/hotel/changeBookingStatus'
 
 
 
@@ -45,4 +51,8 @@ export const UNBLOCK_HOTEL ='/api/admin/unBlockHotel'
 export const GET_FACILITIES_FOR_ADMIN = '/api/admin/getFacilities'
 export const ADD_FACILITIES = '/api/admin/addFacilities'
 export const DELETE_FACILITIES = '/api/admin/deleteFacilities'
+export const GET_COMPLAINTS = '/api/admin/getComplaints'
+
+
+
 export const GET_DETAILS_FOR_BOOKING = '/api/user/getDetailsForBooking'

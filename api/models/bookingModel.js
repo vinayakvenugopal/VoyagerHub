@@ -31,7 +31,10 @@ const bookingSchema = mongoose.Schema({
     },
     paymentId:{
         type:String
-    }
+    },
+    bookingDate:{
+        type:Date
+    },
 })
 
 

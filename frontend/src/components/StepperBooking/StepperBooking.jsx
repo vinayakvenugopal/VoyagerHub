@@ -3,38 +3,7 @@ import BookingCustomerInfo from "../BookingCustomerInfo/BookingCustomerInfo";
 import PaymentInfo from "../PaymentInfo/PaymentInfo";
 const StepperBooking = () => {
   const [currentStep, setCurrentStep] = useState(0);
-  const steps = [
-    {
-      title: "Personal Details",
-      stepNo: "1",
-      stepBar: (
-        <>
-          <div className="col d-none d-sm-block">
-            <div className="w-full h-1 bg-border"></div>
-          </div>
-        </>
-      ),
-      content: <BookingCustomerInfo />,
-    },
-    {
-      title: "Payment Details",
-      stepNo: "2",
-      stepBar: (
-        <>
-          <div className="col d-none d-sm-block">
-            <div className="w-full h-1 bg-border"></div>
-          </div>
-        </>
-      ),
-      content: <PaymentInfo />,
-    },
-    {
-      title: "Final Step",
-      stepNo: "3",
-      stepBar: "",
-    //   content: <OrderSubmittedInfo />,
-    }, 
-  ];
+  
 
   const renderStep = () => {
     const { content } = steps[currentStep];
@@ -52,6 +21,26 @@ const StepperBooking = () => {
       setCurrentStep(currentStep - 1);
     }
   };
+
+  const steps = [
+    {
+      title: "Personal Details",
+      stepNo: "1",
+      stepBar: (
+        <>
+          <div className="col d-none d-sm-block">
+            <div className="w-full h-1 bg-border"></div>
+          </div>
+        </>
+      ),
+      content: <BookingCustomerInfo nextStep={nextStep} />,
+    },
+    {
+      title: "Payment Details",
+      stepNo: "2",
+      content: <PaymentInfo previousStep={previousStep}  />,
+    }
+  ];
 
   return (
     <>
@@ -95,7 +84,7 @@ const StepperBooking = () => {
       <div className="row">{renderStep()}</div>
       {/* End main content */}
 
-      <div className="row x-gap-20 y-gap-20 pt-20">
+      {/* <div className="row x-gap-20 y-gap-20 pt-20">
         <div className="col-auto">
           <button
             className="button h-60 px-24 -blue-1 bg-light-2"
@@ -105,7 +94,6 @@ const StepperBooking = () => {
             Previous
           </button>
         </div>
-        {/* End prvious btn */}
 
         <div className="col-auto">
           <button
@@ -116,8 +104,7 @@ const StepperBooking = () => {
             Next <div className="icon-arrow-top-right ml-15" />
           </button>
         </div>
-        {/* End next btn */}
-      </div>
+      </div> */}
       {/* End stepper button */}
     </>
   );

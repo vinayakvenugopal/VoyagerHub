@@ -8,6 +8,7 @@ import { Stripe } from "stripe";
 const stripe = new Stripe('sk_test_51O7dS4SHIO1unxwgQgkt80Tlj3oRPvrHskSU8NlGDRBR3M2AJzMUr88C5q3TaIaYHTk4nIAhJnRvgDFTugo85HHr005ho3q9Lw')
 const clienturl = 'http://localhost:3000'
 import Bookings from "../models/bookingModel.js";
+import Complaint from "../models/complaintModel.js"; 
 
 const getHotels = async (req, res) => {
   
@@ -169,8 +170,13 @@ const getHotels = async (req, res) => {
   const createBooking = async(req,res,next)=>{
     console.log('createBooking');
     const {userInfo,roomInfo,hotelInfo,checkInDate,checkOutDate,paymentStatus,bookingStatus,totalAmount,paymentId} = req.body
-    console.log(req.body);
+    const bookingExist = await Bookings.findOne({paymentId:paymentId})
+    if(bookingExist){
+      res.status(200).json(bookingExist)
+      return
+    }
     try {
+     
       const booking = await Bookings.create({
         userInfo,
         roomInfo,
@@ -181,14 +187,68 @@ const getHotels = async (req, res) => {
         bookingStatus,
         totalAmount,
         paymentId,
+        bookingDate:new Date(),
       })
-      res.status(200).json({booking})
+      res.status(200).json(booking)
     } catch (error) {
       next(error)
     } 
 
 
   }
+
+  const getSingleBooking = async(req,res,next)=>{
+    const id = req.query.id
+    console.log(id);
+
+    try {
+      const booking = await Bookings.findOne({_id:id})
+      res.json(booking)
+    } catch (error) {
+      next(error)
+    }
+
+  }
+
+  const getBookings = async(req,res,next)=>{
+    const id = req.query.id
+    try {
+      const booking = await Bookings.find({'userInfo.id':id})
+      res.json(booking)
+    } catch (error) {
+      next(error)
+    }
+
+  }
+
+  const cancelBooking = async(req,res,next)=>{
+    const id = req.query.id
+    try {
+      const booking = await Bookings.updateOne({_id:id},{bookingStatus:'Cancel Requested'})
+      res.json(booking)
+    } catch (error) {
+      next(error)
+    }
+
+  }
+
+  const submitComplaint = async(req,res,next)=>{
+    try {
+      console.log('submitcomplaint');
+     const {userId,subject,message,name,email} = req.body
+     const complaint = await Complaint.create({
+      userId,
+      name,
+      email,
+      subject,
+      message
+   })
+   res.status(201).json(complaint)
+    } catch (error) {
+     next(error)
+    }
+ 
+   }
 
 
 
@@ -202,5 +262,9 @@ const getHotels = async (req, res) => {
     getDetailsForBooking,
     stripePayment,
     paymentStatus,
-    createBooking
+    createBooking,
+    getSingleBooking,
+    getBookings,
+    cancelBooking,
+    submitComplaint
   }

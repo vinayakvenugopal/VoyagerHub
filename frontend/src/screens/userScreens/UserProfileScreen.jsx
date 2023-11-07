@@ -5,8 +5,11 @@ import HeaderBodySeperator from '../../components/HeaderBodySeperator/HeaderBody
 import { useSelector,useDispatch } from 'react-redux'
 import { useGetProfileQuery,useGetUserAdressQuery } from '../../slices/userApiSlice'
 import AddAddressModal from '../../components/AddAddressModal/AddAddressModal'
+import ComplaintModal from '../../components/ComplaintModal/ComplaintModal'
 export const UserProfileScreen = () => {
     const [showModal, setShowModal] = useState(false);
+    const [showComplaintModal, setShowComplaintModal] = useState(false);
+
     const dispatch = useDispatch(); 
 
     const { userInfo } = useSelector((state) => state.auth);
@@ -33,11 +36,12 @@ if(isUserLoading || isAddressLoading){
  
   return (   
 <>
+<ComplaintModal showModal={showComplaintModal} setShowModal={setShowComplaintModal}  />
 <AddAddressModal showModal={showModal} setShowModal={setShowModal} refetchData={refetchData} />
 <Header1/>
 <div style={{marginTop:"90px"}}>
 <HeaderBodySeperator />
-<UserProfile  userData={userData} addressData={addressData} setShowModal={setShowModal}  />
+<UserProfile  userData={userData} addressData={addressData} setShowModal={setShowModal} setShowComplaintModal={setShowComplaintModal}  />
 </div>
 
 </>    

@@ -2,6 +2,8 @@ import Admin from "../models/adminModel.js";
 import generateAdminToken from "../utils/generateAdminToken.js";
 import HotelDetails from "../models/hotelDetails.js";
 import Facilities from "../models/facilitiesModal.js";
+import Complaint from "../models/complaintModel.js";
+
 
 const adminLogin = async(req,res,next)=>{
     const {username,password} = req.body
@@ -95,6 +97,15 @@ const getHotels = async (req, res,next) => {
         next(error)
     }
   }
+
+  const getComplaints = async(req,res,next)=>{
+    try {
+        const facilities = await Complaint.find({})
+        res.status(201).json(facilities)
+    } catch (error) {
+        next(error)
+    }
+  }
   
 
 
@@ -106,5 +117,6 @@ export {
     unBlockHotel,
     addFacilities,
     getFacilities,
-    deleteFacilities
+    deleteFacilities,
+    getComplaints
 }

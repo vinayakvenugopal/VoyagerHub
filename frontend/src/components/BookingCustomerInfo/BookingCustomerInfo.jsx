@@ -6,7 +6,7 @@ import { setUserInfo,setHotelDetails,setRoomDetails } from "../../slices/booking
 import { useDispatch,useSelector } from "react-redux";
 
 
-const BookingCustomerInfo = () => {
+const BookingCustomerInfo = ({nextStep}) => {
     const reservationData = localStorage.getItem('reservation')
     const reservation = JSON.parse(reservationData)
     const { userInfo } = useSelector((state) => state.auth);
@@ -43,7 +43,7 @@ const BookingCustomerInfo = () => {
 
       };
       dispatch(setUserInfo(user));
-
+      nextStep()
     }
     const roomDetails = bookingInfo.roomDetails
     const hotelDetails = bookingInfo.hotelDetails
@@ -75,7 +75,6 @@ const BookingCustomerInfo = () => {
           to manage your bookings on the go!
         </div>
         {/* End register notify */}
-    <button  onClick={()=>handleSubmit()}>SsS</button>
         <h2 className="text-22 fw-500 mt-40 md:mt-24">
           Let us know who you are
         </h2>
@@ -189,8 +188,7 @@ const BookingCustomerInfo = () => {
             <div className="row y-gap-20 items-center justify-between">
               <div className="col-auto">
                 <div className="text-14 text-light-1">
-                  By proceeding with this booking, I agree to GoTrip Terms of
-                  Use and Privacy Policy.
+         
                 </div>
               </div>
               {/* End col-12 */}
@@ -206,6 +204,9 @@ const BookingCustomerInfo = () => {
         <div className="booking-sidebar">
           <BookingDetailsSidebar roomDetails={roomDetails} hotelDetails={hotelDetails} />
         </div>
+      </div>
+      <div className="col-auto">
+      <button className="button h-60 px-24 -dark-1 bg-blue-1 text-white" onClick={()=>handleSubmit()}>Next <div className="icon-arrow-top-right ml-15" /></button>
       </div>
       {/*  */}
     </>

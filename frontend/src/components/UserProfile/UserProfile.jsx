@@ -1,6 +1,6 @@
 import React from 'react';
 import './UserProfile.css'
-export const UserProfile = ({userData,addressData,setShowModal}) => {
+export const UserProfile = ({userData,addressData,setShowModal,setShowComplaintModal}) => {
     console.log(userData);
   return (
     <div className="container">
@@ -15,8 +15,9 @@ export const UserProfile = ({userData,addressData,setShowModal}) => {
                     <h4>{userData?.name}</h4>
                     {/* <p className="text-secondary mb-1"></p>
                     <p className="text-muted font-size-sm"></p>
-                    <button className="btn btn-primary"></button>
                     <button className="btn btn-outline-primary"></button> */}
+                    <button className="btn btn-secondary" onClick={()=>setShowComplaintModal(true)}>Register Complaint</button>
+
                   </div>
                 </div>
               </div>

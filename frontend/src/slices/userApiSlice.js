@@ -1,7 +1,8 @@
 import { apiSlice } from "./apiSlice";
 import { REGISTER_URL,LOGIN_URL,GET_HOTEL_LIST_FOR_USER,
-    GET_ROOM_DATA_FOR_USER,GET_SINGLE_HOTEL_FOR_USER,VERIFY_OTP
-,SEND_OTP,USER_PROFILE,USER_ADDRESS,ADD_USER_ADDRESS,GET_DETAILS_FOR_BOOKING,PAYMENT,PAYMENT_STATUS,CREATE_BOOKING
+    GET_ROOM_DATA_FOR_USER,GET_SINGLE_HOTEL_FOR_USER,VERIFY_OTP,GET_SINGLE_BOOKING,GET_USER_BOOKINGS
+,SEND_OTP,USER_PROFILE,USER_ADDRESS,ADD_USER_ADDRESS,GET_DETAILS_FOR_BOOKING,PAYMENT,
+PAYMENT_STATUS,CREATE_BOOKING,USER_CANCEL_BOOKING,SUBMIT_COMPLAINT
 } from "../config/api";
 
 
@@ -114,12 +115,41 @@ export const userApiSlice = apiSlice.injectEndpoints({
                method:'POST',
                body:data
             })
-        })
+        }),
+        getSingleBooking:builder.query({
+            query:(params)=>({
+               url:`${GET_SINGLE_BOOKING}?id=${params.id}` ,
+               method:'GET'
+
+            })
+        }),
+        getUserBookings:builder.query({
+            query:(params)=>({
+               url:`${GET_USER_BOOKINGS}?id=${params.id}` ,
+               method:'GET'
+
+            })
+        }) ,
+        userCancelBooking:builder.mutation({
+            query:(params)=>({
+               url:`${USER_CANCEL_BOOKING}?id=${params.id}` ,
+               method:'GET'
+
+            })
+        }),
+        submitComplaint:builder.mutation({
+            query:(data)=>({
+               url:`${SUBMIT_COMPLAINT}` ,
+               method:'POST',
+               body:data
+            })
+        })  
+
 
     })
 })
 export const {useRegisterMutation,useLoginMutation,useGoogleLoginMutation,
     useLogoutMutation,useGetHotelsForUserMutation,useGetRoomDataForUserMutation,
-    useGetSingleHotelDataForUserMutation,useSendOtpMutation,useCreateBookingMutation,
+    useGetSingleHotelDataForUserMutation,useSendOtpMutation,useCreateBookingMutation,useSubmitComplaintMutation,
     useVerifyOtpMutation,useGetProfileQuery,useGetUserAdressQuery,useAddAddressMutation,
-    useGetDetailsForBookingQuery,usePaymentMutation,usePaymentStatusMutation}=userApiSlice
+    useGetDetailsForBookingQuery,usePaymentMutation,usePaymentStatusMutation,useGetSingleBookingQuery,useGetUserBookingsQuery,useUserCancelBookingMutation}=userApiSlice

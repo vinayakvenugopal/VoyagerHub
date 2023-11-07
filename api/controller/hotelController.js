@@ -6,6 +6,8 @@ import Rooms from '../models/rooms.js';
 import {sendOtp,verifyCode} from '../utils/twilio.js'
 import RoomAvailability from '../models/roomAvailability.js';
 import Facilities from '../models/facilitiesModal.js';
+import Bookings from "../models/bookingModel.js";
+
 //@desc Register a new User
 //route POST /api/auth/register
 //@access Public
@@ -237,6 +239,28 @@ const createHotel = async (req, res) => {
     }
   }
 
+  const getBookings = async(req,res,next)=>{
+    const id = req.query.id
+    try {
+      const booking = await Bookings.find({'hotelInfo._id':id})
+      res.json(booking)
+    } catch (error) {
+      next(error)
+    }
+
+  }
+
+  const changeBookingStatus = async(req,res,next)=>{
+    const {id,status} = req.query
+    try {
+      const booking = await Bookings.updateOne({_id:id},{bookingStatus:status})
+      res.json(booking)
+    } catch (error) {
+      next(error)
+    }
+
+  }
+
   
   
 
@@ -252,5 +276,7 @@ export{
     sendOtpCode,
     verifyOtp,
     deleteRoom,
-    getFacilities
+    getFacilities,
+    getBookings,
+    changeBookingStatus
 }

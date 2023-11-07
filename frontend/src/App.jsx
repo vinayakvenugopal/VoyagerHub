@@ -22,6 +22,10 @@ import UserPrivateRoute from "./components/UserPrivateRoute/UserPrivateRoute.jsx
 import ErrorPage from "./components/ErrorComponent/ErrorComponent.jsx";
 import BookingPage from "./screens/userScreens/bookingPage.jsx";
 import ReturnPage from "./screens/userScreens/ReturnPage.jsx";
+import { UserBookingList } from "./screens/userScreens/UserBookingList.jsx";
+import HotelBookingList from "./screens/hotelScreens/HotelBookingList.jsx";
+import ComplaintScreen from "./screens/adminScreens/ComplaintScreen.jsx";
+
 
 const HotelList  = lazy(()=>import ("./screens/userScreens/HotelList.jsx"));
 const HotelSinglePage  = lazy(()=>import ("./screens/userScreens/HotelSinglePage.jsx"));
@@ -61,6 +65,11 @@ const router = createBrowserRouter([
     errorElement:<ErrorPage/>
   },
   {
+    path: "/booking-list",
+    element: <UserPrivateRoute><UserBookingList/></UserPrivateRoute>, 
+    errorElement:<ErrorPage/>
+  },
+  {
     path: "/Hotel/Register",
     element: <RegisterHotelier />,
   },
@@ -91,6 +100,12 @@ const router = createBrowserRouter([
     element: <HotelPrivateRoute><HotelListScreen /></HotelPrivateRoute>,
     errorElement:<ErrorPage/>
 
+  }, 
+  {
+    path: "/Hotel/booking-list/:id",
+    element: <HotelPrivateRoute><HotelBookingList/></HotelPrivateRoute>,
+    errorElement:<ErrorPage/>
+
   },
 
 
@@ -107,6 +122,12 @@ const router = createBrowserRouter([
   {
     path: "/Admin/Facilities",
     element: <AdminPrivateRoute><FacilitiesManagementScreen/></AdminPrivateRoute>,
+    errorElement:<ErrorPage/>
+
+  },
+  {
+    path: "/Admin/Complaints",
+    element: <AdminPrivateRoute><ComplaintScreen/></AdminPrivateRoute>,
     errorElement:<ErrorPage/>
 
   },

@@ -39,6 +39,14 @@ const HotelSidebar = () => {
         { title: "Facilities", href: "/Admin/Facilities" },
      
       ],
+    },
+    {
+      icon: "/img/dashboard/sidebar/booking.svg",
+      title: "Complaints",
+      links: [
+        { title: "Complaints", href: "/Admin/Complaints" },
+     
+      ],
     }
   ];
 

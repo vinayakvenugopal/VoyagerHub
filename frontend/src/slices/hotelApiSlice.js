@@ -1,7 +1,7 @@
 import { apiSlice } from "./apiSlice";
 import { HOTEL_REGISTER,HOTEL_LOGIN ,GET_HOTEL_LIST,CREATE_HOTEL,
-    GET_SINGLE_HOTEL,GET_ROOM_DATA_FOR_HOTELS,ADD_ROOM_DATA,HOTEL_LOGOUT,
-    SEND_OTP_FOR_HOTEL,VERIFY_OTP_FOR_HOTEL,DELETE_ROOM,GET_FACILITIES} from "../config/api";
+    GET_SINGLE_HOTEL,GET_ROOM_DATA_FOR_HOTELS,ADD_ROOM_DATA,HOTEL_LOGOUT,CHANGE_BOOKING_STATUS,
+    SEND_OTP_FOR_HOTEL,VERIFY_OTP_FOR_HOTEL,DELETE_ROOM,GET_FACILITIES,GET_BOOKINGS_FOR_HOTEL} from "../config/api";
 
 
 export const userApiSlice = apiSlice.injectEndpoints({
@@ -93,12 +93,26 @@ export const userApiSlice = apiSlice.injectEndpoints({
                method:'GET',
 
             })
-        })
+        }),
+        getBookingsForHotel:builder.query({
+            query:(params)=>({
+               url:`${GET_BOOKINGS_FOR_HOTEL}?id=${params.id}` ,
+               method:'GET'
+
+            })
+        }),
+        changeBookingStatus:builder.mutation({
+            query:(params)=>({
+               url:`${CHANGE_BOOKING_STATUS}?id=${params.id}&status=${params.status}` ,
+               method:'GET'
+
+            })
+        }) 
 
 
     })
 })
-export const {useHotelRegisterMutation,useHotelLoginMutation,
+export const {useHotelRegisterMutation,useHotelLoginMutation,useChangeBookingStatusMutation,
     useHotelLogoutMutation,useGetHotelListForHotelierMutation,useCreateHotelMutation,
-    useGetSingleHotelDataMutation,useDelteRoomMutation,useGetFacilitiesQuery,
+    useGetSingleHotelDataMutation,useDelteRoomMutation,useGetFacilitiesQuery,useGetBookingsForHotelQuery,
     useAddRoomMutation,useSendOtpForHotelMutation,useVerifyOtpForHotelMutation,useGetRoomDataForHotelQuery} =userApiSlice
