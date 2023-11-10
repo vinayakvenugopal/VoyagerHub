@@ -4,6 +4,7 @@ import { useGetDetailsForBookingQuery } from "../../slices/userApiSlice";
 import { useState } from "react";
 import { setUserInfo,setHotelDetails,setRoomDetails } from "../../slices/bookingSlice";
 import { useDispatch,useSelector } from "react-redux";
+import {toast} from 'react-toastify'
 
 
 const BookingCustomerInfo = ({nextStep}) => {
@@ -38,6 +39,41 @@ const BookingCustomerInfo = ({nextStep}) => {
 
     // const {data,error,isLoading,refetch} = useGetDetailsForBookingQuery({hotelId:reservation.hotelId,availabilityId:reservation.availabilityId})
     const handleSubmit = ()=>{
+      if(name.trim()==0){
+        toast.error("Name Must be filled")
+        return
+      }
+      if(email.trim()==0){
+        toast.error("Email Must be filled")
+        return
+      }
+      if(mobile.trim()==0){
+        toast.error("Mobile Must be filled")
+        return
+      }
+      if(address.trim()==0){
+        toast.error("Address Must be filled")
+        return
+      }
+      if(locality.trim()==0){
+        toast.error("Locality Must be filled")
+        return
+      }
+
+      if(state.trim()==0){
+        toast.error("State Must be filled")
+        return
+      }
+      if(pincode.trim()==0){
+        toast.error("Pincode Must be filled")
+        return
+      }
+      if(country.trim()==0){
+        toast.error("Country Must be filled")
+        return
+      }
+      
+      
       const payload = {
         userInfo: userInfo,
 
@@ -174,14 +210,14 @@ const BookingCustomerInfo = ({nextStep}) => {
           </div>
           {/* End col-12 */}
 
-          <div className="col-12">
+          {/* <div className="col-12">
             <div className="form-input ">
               <textarea required rows={6} defaultValue={""} />
               <label className="lh-1 text-16 text-light-1">
                 Special Requests
               </label>
             </div>
-          </div>
+          </div> */}
           {/* End col-12 */}
 
           <div className="col-12">

@@ -8,6 +8,7 @@ import InvoicePage from "../../components/InvoicePage/InvoicePage";
 import Header1 from "../../components/UserNavbar/Header1";  
 
 const ReturnPage = () => {
+  const[isLoading,setIsLoading] = useState(true)
   const [status, setStatus] = useState(null);
   const [customerEmail, setCustomerEmail] = useState("");
   const [paymentStatus] = usePaymentStatusMutation();
@@ -37,24 +38,22 @@ const ReturnPage = () => {
         paymentId: response.id,
       }).unwrap();
       setBookingId(bookingResponse._id)
+      setIsLoading(false)
     }
     fetchData();
+
   }, []);
 
-  // useEffect(() => {
-  //   if (status === "complete") {
-  //     const countdownInterval = setInterval(() => {
-  //       if (redirectTimer === 1) {
-  //         clearInterval(countdownInterval);
-  //         navigate("/");
-  //       } else {
-  //         setRedirectTimer(redirectTimer - 1);
-  //       }
-  //     }, 1000);
-  //   }
-  // }, [status, redirectTimer]);
 
-  if (status === "complete") {
+  if(isLoading){
+    return(
+      <h1>Loading....</h1>
+    )
+  }
+
+ 
+
+  if (status === "complete"&&isLoading==false) {
     return (
     <>
       <Header1/>

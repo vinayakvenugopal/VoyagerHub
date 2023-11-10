@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Button, Modal, Form } from 'react-bootstrap'; 
-import { useSubmitComplaintMutation } from '../../slices/userApiSlice';
-import { useSelector } from 'react-redux';
-import { toast } from 'react-toastify';
+import {Button, Modal, Form } from 'react-bootstrap'; 
+import {useSubmitComplaintMutation } from '../../slices/userApiSlice';
+import {useSelector } from 'react-redux';
+import {toast } from 'react-toastify';
 
 const ComplaintModal = ({ showModal, setShowModal }) => {
   const [subject, setSubject] = useState("");
@@ -15,9 +15,18 @@ const ComplaintModal = ({ showModal, setShowModal }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if(subject.trim()==0){
+      toast.error("Subject is Required")
+      return
+    }
+    if(message.trim()==0){
+      toast.error("Message is Required")
+      return
+    }
     try {
       const response = await submitComplaint({ userId: userInfo._id,name:userInfo.name,email:userInfo.email,subject:subject,message:message }).unwrap();
       setShowModal(false);
+      toast.success('We will get back to you soon!!!')
     } catch (error) {
       console.log(error);
     }

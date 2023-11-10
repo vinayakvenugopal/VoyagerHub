@@ -7,14 +7,19 @@ import { useNavigate } from "react-router-dom";
 
 function HotelListForUsers() {
   const [hotelsData, setHotelsData] = useState([]);
-  const [userDataFromApi] = useGetHotelsForUserMutation();
+  const [hotelDataFromApi] = useGetHotelsForUserMutation();
   const navigate = useNavigate();
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  const name = urlParams.get("name");
+  const checkinDate = urlParams.get("checkinDate");
+  const checkoutDate = urlParams.get("checkoutDate");
   useEffect(() => {
     try {
       const fetchData = async () => {
-        const responseFromApiCall = await userDataFromApi({});
-        const usersArray = responseFromApiCall.data;
-        setHotelsData(usersArray);
+        const responseFromApiCall = await hotelDataFromApi({name:name,checkinDate:checkinDate,checkoutDate:checkoutDate});
+        const hotelsArray = responseFromApiCall.data;
+        setHotelsData(hotelsArray);
       };
 
       fetchData();

@@ -126,14 +126,14 @@ const PaymentInfo = ({previousStep}) => {
                         </div>
                       </div>
                       {/* End .col */}
-                      <div className="col-12">
+                      {/* <div className="col-12">
                         <div className="d-flex justify-between border-top-light pt-10">
                           <div className="text-15 lh-16">
                             Special Requirements
                           </div>
                           <div className="text-15 lh-16 fw-500 text-blue-1" />
                         </div>
-                      </div>
+                      </div> */}
                       {/* End .col */}
                     </div>
                     {/* End .row */}

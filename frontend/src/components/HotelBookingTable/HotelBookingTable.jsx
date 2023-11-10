@@ -17,8 +17,8 @@ const [changeStatus] = useChangeBookingStatusMutation()
 
   const tabItems = [
     "All Booking",
-    "Completed",
     "Confirmed",
+    "Cancelled",
   ];
 
   const [activeFilter, setActiveFilter] = useState("");
@@ -74,7 +74,7 @@ const [changeStatus] = useChangeBookingStatusMutation()
                   
                 </thead>
                 <tbody>
-                {data.map((item,index)=>(           
+                {activeTab===0 && data.map((item,index)=>(           
                   <tr>
                     <td>{item.userInfo.name}</td>
                     <td>{item.roomInfo.type}</td>
@@ -102,6 +102,71 @@ const [changeStatus] = useChangeBookingStatusMutation()
                   </tr>
                   ))}
                 </tbody>
+
+
+              {activeTab===1 &&  <tbody>
+                {data.filter((item) => item.bookingStatus === 'Confirmed').map((item,index)=>(           
+                  <tr>
+                    <td>{item.userInfo.name}</td>
+                    <td>{item.roomInfo.type}</td>
+                    <td>{dayjs(item.bookingDate).format("DD/MM/YYYY")}</td>
+                    <td className="lh-16">
+                      Check in : {dayjs(item.checkInDate).format("DD/MM/YYYY")}
+                      <br />
+                      Check out : {dayjs(item.checkOutDate).format("DD/MM/YYYY")}
+                    </td>
+                    <td className="fw-500">₹ {item.totalAmount}</td>
+                    <td>
+                      <span className="rounded-100 py-4 px-10 text-center text-14 fw-500 bg-success text-white">
+                      {item.bookingStatus}
+                      </span>
+                    </td>
+                    {item.bookingStatus=='Confirmed'&& <button className="rounded-100 py-4 px-10 text-center text-14 fw-500 bg-yellow-4 text-yellow-3" onClick={()=>handleStatusChange(item._id,'Cancelled')}>Cancel</button>}
+                    {item.bookingStatus=='Cancel Requested'&& <><button className="rounded-100 py-4 px-10 text-center text-14 fw-500 bg-yellow-4 text-yellow-3" onClick={()=>handleStatusChange(item._id,'Cancelled')}>Accept</button> 
+                                                              <button className="rounded-100 py-4 px-10 text-center text-14 fw-500 bg-yellow-4 text-yellow-3" onClick={()=>handleStatusChange(item._id,'Cancel Rejected')}>Reject</button></>}
+                    {item.bookingStatus=='Cancelled' || 'Cancel Rejected' && null}                                          
+
+                    <td>
+                    {}
+
+                    </td>
+                  </tr>
+                  ))}
+                </tbody>
+                          }
+
+                          {activeTab===2 &&  <tbody>
+                {data.filter((item) => item.bookingStatus === 'Cancelled').map((item,index)=>(           
+                  <tr>
+                    <td>{item.userInfo.name}</td>
+                    <td>{item.roomInfo.type}</td>
+                    <td>{dayjs(item.bookingDate).format("DD/MM/YYYY")}</td>
+                    <td className="lh-16">
+                      Check in : {dayjs(item.checkInDate).format("DD/MM/YYYY")}
+                      <br />
+                      Check out : {dayjs(item.checkOutDate).format("DD/MM/YYYY")}
+                    </td>
+                    <td className="fw-500">₹ {item.totalAmount}</td>
+                    <td>
+                      <span className="rounded-100 py-4 px-10 text-center text-14 fw-500 bg-success text-white">
+                      {item.bookingStatus}
+                      </span>
+                    </td>
+                    {item.bookingStatus=='Confirmed'&& <button className="rounded-100 py-4 px-10 text-center text-14 fw-500 bg-yellow-4 text-yellow-3" onClick={()=>handleStatusChange(item._id,'Cancelled')}>Cancel</button>}
+                    {item.bookingStatus=='Cancel Requested'&& <><button className="rounded-100 py-4 px-10 text-center text-14 fw-500 bg-yellow-4 text-yellow-3" onClick={()=>handleStatusChange(item._id,'Cancelled')}>Accept</button> 
+                                                              <button className="rounded-100 py-4 px-10 text-center text-14 fw-500 bg-yellow-4 text-yellow-3" onClick={()=>handleStatusChange(item._id,'Cancel Rejected')}>Reject</button></>}
+                    {item.bookingStatus=='Cancelled' || 'Cancel Rejected' && null}                                          
+
+                    <td>
+                    {}
+
+                    </td>
+                  </tr>
+                  ))}
+                </tbody>
+                          }
+
+
               </table>
             </div>
           </div>

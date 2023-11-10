@@ -70,9 +70,7 @@ const BookingDetailsSidebar = ({roomDetails,hotelDetails}) => {
       <div>
         <div className="text-15">Total length of stay:</div>
         <div className="fw-500">{roomDetails.numberOfDays} nights</div>
-        <a href="#" className="text-15 text-blue-1 underline">
-          Travelling on different dates?
-        </a>
+      
       </div>
 
       <div className="border-top-light mt-30 mb-20" />
@@ -80,9 +78,6 @@ const BookingDetailsSidebar = ({roomDetails,hotelDetails}) => {
         <div className="col-auto">
           <div className="text-15">You selected:</div>
           <div className="fw-500">{roomDetails.room.type}</div>
-          <a href="#" className="text-15 text-blue-1 underline">
-            Change your selection
-          </a>
         </div>
         <div className="col-auto">
           <div className="text-15">1 room, {roomDetails.room.occupancy} adult</div>

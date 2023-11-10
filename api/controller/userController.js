@@ -10,15 +10,57 @@ const clienturl = 'http://localhost:3000'
 import Bookings from "../models/bookingModel.js";
 import Complaint from "../models/complaintModel.js"; 
 
-const getHotels = async (req, res) => {
-  
-    try {
-      const hotelList = await HotelDetails.find({isListed:true});
-      res.status(200).json(hotelList);
-    } catch (err) {
-      next(err);
+// const getHotels = async (req, res, next) => {
+//   try {
+//     const searchName = req.query.name
+//     console.log(searchName);
+//     let query = { isListed: true };
+//     if (searchName) {
+//       query.name = { $regex: new RegExp(searchName, 'i') };
+//     }
+//     const hotelList = await HotelDetails.find(query);
+//     res.status(200).json(hotelList);
+//   } catch (err) {
+//     next(err);
+//   }
+// };
+
+const getHotels = async (req, res, next) => {
+  try {
+    const searchName = req.query.name;
+    const checkIn = req.query.checkinDate;
+    const checkOut = req.query.checkoutDate;
+
+    let checkinDate = checkIn ? new Date(checkIn) : new Date();
+    checkinDate.setHours(0, 0, 0, 0);
+    let checkoutDate = checkOut ? new Date(checkOut) : new Date();
+    checkoutDate.setHours(23, 59, 59, 999);
+    if (!checkinDate || !checkoutDate) {
+      return res.status(400).json({ message: "Check-in and Check-out dates are required." });
     }
-  };
+    let query = { isListed: true };
+    if (searchName) {
+      query.name = { $regex: new RegExp(searchName, 'i') };
+    }
+    const hotelList = await HotelDetails.find(query);
+    const availableHotels = [];
+    for (const hotel of hotelList) {
+      const availability = await RoomAvailability.find({
+        hotelId: hotel._id,
+        date: { $gte: checkinDate, $lte: checkoutDate },
+        numberOfAvailableRooms: { $gt: 0 },
+      });
+      console.log(availability.length,'a');
+      if (availability.length === Math.ceil((new Date(checkoutDate) - new Date(checkinDate)) / (1000 * 60 * 60 * 24))) {
+        availableHotels.push(hotel);
+      }
+
+    }
+    res.status(200).json(availableHotels);              
+  } catch (err) {
+    next(err);
+  }     
+};
 
  
 
@@ -67,7 +109,7 @@ const getHotels = async (req, res) => {
         const numberOfDays = Math.ceil((checkoutDate - checkinDate) / (1000 * 60 * 60 * 24))
         const roomPrice = group.room.price 
         const totalPrice = numberOfDays * roomPrice;
-
+        if(minAvailability>0){
         roomDetails.push({
           room: group.room,
           minAvailability,
@@ -76,6 +118,7 @@ const getHotels = async (req, res) => {
           totalPrice,
           numberOfDays
         });
+      }
       }
       res.status(200).json(roomDetails);
     } catch (err) {
@@ -157,7 +200,6 @@ const getHotels = async (req, res) => {
       ],
       mode: "payment", 
       return_url: `${clienturl}/return?session_id={CHECKOUT_SESSION_ID}`,
-      // cancel_url: `${clinetUrl}/placedetails/${place}`, 
     });
     res.json({clientSecret: session.client_secret});
   }
@@ -176,7 +218,19 @@ const getHotels = async (req, res) => {
       return
     }
     try {
-     
+      let currentDate = new Date(checkInDate);
+      currentDate.setHours(0, 0, 0, 0);
+      while (currentDate <= new Date(checkOutDate)) {
+        const updated = await RoomAvailability.updateOne(
+          { roomId: roomInfo._id,date: currentDate,
+        },
+          { $inc: { numberOfAvailableRooms: -1 } }
+        );
+        console.log(currentDate);
+        console.log(updated);
+        console.log(roomInfo._id);
+        currentDate.setDate(currentDate.getDate() + 1);
+      }
       const booking = await Bookings.create({
         userInfo,
         roomInfo,
@@ -189,6 +243,8 @@ const getHotels = async (req, res) => {
         paymentId,
         bookingDate:new Date(),
       })
+
+     
       res.status(200).json(booking)
     } catch (error) {
       next(error)
@@ -213,7 +269,7 @@ const getHotels = async (req, res) => {
   const getBookings = async(req,res,next)=>{
     const id = req.query.id
     try {
-      const booking = await Bookings.find({'userInfo.id':id})
+      const booking = await Bookings.find({'userInfo.id':id}).sort({bookingDate:-1})
       res.json(booking)
     } catch (error) {
       next(error)

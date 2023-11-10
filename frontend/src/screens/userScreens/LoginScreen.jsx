@@ -37,7 +37,6 @@ function LoginScreen() {
   return (
     <>
       <Header1 />
-      <ToastContainer />
 
       <section className="layout-pt-lg layout-pb-lg bg-blue-2">
         <div className="container">

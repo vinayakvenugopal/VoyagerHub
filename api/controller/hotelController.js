@@ -160,7 +160,7 @@ const createHotel = async (req, res) => {
         for (let i = 0; i < 10; i++) {
           const date = new Date(startDate);
           date.setDate(startDate.getDate() + i);
-          date.setHours(0, 0, 0, 1);
+          date.setHours(0, 0, 0, 0);
           const availability = await RoomAvailability.create({
             date,
             roomId: RoomDetails._id,

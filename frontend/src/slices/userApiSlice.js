@@ -50,8 +50,8 @@ export const userApiSlice = apiSlice.injectEndpoints({
             })
         }),
         getHotelsForUser:builder.mutation({
-            query:()=>({
-               url:`${GET_HOTEL_LIST_FOR_USER}` ,
+            query:(params)=>({
+               url:`${GET_HOTEL_LIST_FOR_USER}?name=${params.name}&checkinDate=${params.checkinDate}&checkoutDate=${params.checkoutDate}` ,
                method:'GET', 
             })
         }),

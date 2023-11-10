@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+// import MobileMenu from "../MobileMenu";
+import { Link } from "react-router-dom";
+import { useSelector,useDispatch } from "react-redux";
 import { useLogoutMutation } from "../../slices/userApiSlice";
 import { logout } from "../../slices/userAuthSlice";
 
-const Header1 = () => {
-  const navigate = useNavigate();
+const HeaderHome = () => {
   const [navbar, setNavbar] = useState(false);
   const { userInfo } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
@@ -19,7 +19,6 @@ const Header1 = () => {
       console.log(error);
     }
   };
-
   const changeBackground = () => {
     if (window.scrollY >= 10) {
       setNavbar(true);
@@ -34,24 +33,21 @@ const Header1 = () => {
 
   return (
     <>
-      <header className={`header bg-dark-3 ${navbar ? "is-sticky" : ""}`}>
+      <header className={`header ${navbar ? "bg-dark-1 is-sticky" : ""}`}>
         <div className="header__container px-30 sm:px-20">
           <div className="row justify-between items-center">
             <div className="col-auto">
               <div className="d-flex items-center">
-                <img
+              <img
                   src="/logo.png"
                   alt="logo icon"
                   width={"75px"}
                   height={"75px"}
                 />
-
                 {/* End logo */}
-
                 <div className="header-menu">
                   <div className="header-menu__content">
-                    {/* <MainMenu style="text-white" /> */}
-                    <nav className="menu js-navList">
+                  <nav className="menu js-navList">
                       <ul className={`menu__nav text-white -is-active`}>
                         <Link to="/#">
                           <span
@@ -80,6 +76,7 @@ const Header1 = () => {
             <div className="col-auto">
               <div className="d-flex items-center">
                 <div className="row x-gap-20 items-center xxl:d-none">
+                  {/* <CurrenctyMegaMenu textClass="text-white" /> */}
                   {/* End Megamenu for Currencty */}
 
                   {/* Start vertical devider*/}
@@ -87,6 +84,9 @@ const Header1 = () => {
                     <div className="w-1 h-20 bg-white-20" />
                   </div>
                   {/* End vertical devider*/}
+
+                  {/* <LanguageMegaMenu textClass="text-white" /> */}
+                  {/* End Megamenu for Language */}
                 </div>
                 {/* End language and currency selector */}
 
@@ -123,9 +123,9 @@ const Header1 = () => {
                 <div className="d-none xl:d-flex x-gap-20 items-center pl-30 text-white">
                   <div>
                     <Link
-                      to="/others-pages/login"
+                      href="/others-pages/login"
                       className="d-flex items-center icon-user text-inherit text-22"
-                    ></Link>
+                    />
                   </div>
                   <div>
                     <button
@@ -136,8 +136,8 @@ const Header1 = () => {
                     />
 
                     <div
-                      className="offcanvas offcanvas-start  mobile_menu-contnet"
-                      tabIndex={-1}
+                      className="offcanvas offcanvas-start  mobile_menu-contnet "
+                      tabIndex="-1"
                       id="mobile-sidebar_menu"
                       aria-labelledby="offcanvasMenuLabel"
                       data-bs-scroll="true"
@@ -160,4 +160,4 @@ const Header1 = () => {
   );
 };
 
-export default Header1;
+export default HeaderHome;

@@ -330,7 +330,7 @@ function HotelSinglePage() {
         <div className="container">
           <div className="row pb-20">
             <div className="col-auto">
-              <h3 className="text-22 fw-500">Availablile Rooms From {dayjs(room[0].checkinDate).format("DD/MM/YYYY")} to {dayjs(room[0].checkoutDate).format("DD/MM/YYYY")}</h3>
+              {room.length>0 && <h3 className="text-22 fw-500">Availablile Rooms From {dayjs(room[0].checkinDate).format("DD/MM/YYYY")} to {dayjs(room[0].checkoutDate).format("DD/MM/YYYY")}</h3>}
             </div>
           </div>
           {/* End .row */}

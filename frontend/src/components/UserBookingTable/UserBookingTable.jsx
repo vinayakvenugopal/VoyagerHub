@@ -19,8 +19,8 @@ const { data, isError, isLoading,refetch } = useGetUserBookingsQuery({ id: id })
 
   const tabItems = [
     "All Booking",
-    "Completed",
     "Confirmed",
+    "Cancelled",
   ];
 
   const handleCancel = (id) =>{
@@ -54,7 +54,7 @@ const { data, isError, isLoading,refetch } = useGetUserBookingsQuery({ id: id })
         </div>
         {/* End tabs */}
 
-        <div className="tabs__content pt-30 js-tabs-content">
+       <div className="tabs__content pt-30 js-tabs-content">
           <div className="tabs__pane -tab-item-1 is-tab-el-active">
             <div className="overflow-scroll scroll-bar-1">
               <table className="table-3 -border-bottom col-12">
@@ -70,7 +70,7 @@ const { data, isError, isLoading,refetch } = useGetUserBookingsQuery({ id: id })
                   </tr>
                   
                 </thead>
-                <tbody>
+              {activeTab===0 &&  <tbody>
                 {data.map((item,index)=>(           
                   <tr>
                     <td>{item.hotelInfo.name}</td>
@@ -99,7 +99,72 @@ const { data, isError, isLoading,refetch } = useGetUserBookingsQuery({ id: id })
 
                   
           
-                </tbody>
+                </tbody>}
+
+
+
+                {activeTab===1 &&  <tbody>
+                {data.filter((item) => item.bookingStatus === 'Confirmed').map((item,index)=>(           
+                  <tr>
+                    <td>{item.hotelInfo.name}</td>
+                    <td>{item.roomInfo.type}</td>
+                    <td>{dayjs(item.bookingDate).format("DD/MM/YYYY")}</td>
+                    <td className="lh-16">
+                      Check in : {dayjs(item.checkInDate).format("DD/MM/YYYY")}
+                      <br />
+                      Check out : {dayjs(item.checkOutDate).format("DD/MM/YYYY")}
+                    </td>
+                    <td className="fw-500">₹ {item.totalAmount}</td>
+                    <td>
+                      <span className="rounded-100 py-4 px-10 text-center text-14 fw-500 bg-yellow-4 text-yellow-3">
+                      {item.bookingStatus}
+                      </span>
+                    </td>
+                    <td>
+                      {/* <ActionsButton /> */}
+                      {item.bookingStatus=='Confirmed'?
+                      <button className="rounded-100 py-4 px-10 text-center text-14 fw-500 bg-dark text-white" onClick={()=>handleCancel(item._id)}>Cancel</button>:
+                      null
+                      }
+                    </td>
+                  </tr>
+                  ))}
+
+                  
+          
+                </tbody>}
+
+
+                {activeTab===2 &&  <tbody>
+                {data.filter((item) => item.bookingStatus === 'Cancelled').map((item,index)=>(           
+                  <tr>
+                    <td>{item.hotelInfo.name}</td>
+                    <td>{item.roomInfo.type}</td>
+                    <td>{dayjs(item.bookingDate).format("DD/MM/YYYY")}</td>
+                    <td className="lh-16">
+                      Check in : {dayjs(item.checkInDate).format("DD/MM/YYYY")}
+                      <br />
+                      Check out : {dayjs(item.checkOutDate).format("DD/MM/YYYY")}
+                    </td>
+                    <td className="fw-500">₹ {item.totalAmount}</td>
+                    <td>
+                      <span className="rounded-100 py-4 px-10 text-center text-14 fw-500 bg-yellow-4 text-yellow-3">
+                      {item.bookingStatus}
+                      </span>
+                    </td>
+                    <td>
+                      {/* <ActionsButton /> */}
+                      {item.bookingStatus=='Confirmed'?
+                      <button className="rounded-100 py-4 px-10 text-center text-14 fw-500 bg-dark text-white" onClick={()=>handleCancel(item._id)}>Cancel</button>:
+                      null
+                      }
+                    </td>
+                  </tr>
+                  ))}
+
+                  
+          
+                </tbody>}
               </table>
             </div>
           </div>
