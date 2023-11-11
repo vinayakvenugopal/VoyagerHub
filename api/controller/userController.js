@@ -30,7 +30,6 @@ const getHotels = async (req, res, next) => {
     const searchName = req.query.name;
     const checkIn = req.query.checkinDate;
     const checkOut = req.query.checkoutDate;
-
     let checkinDate = checkIn ? new Date(checkIn) : new Date();
     checkinDate.setHours(0, 0, 0, 0);
     let checkoutDate = checkOut ? new Date(checkOut) : new Date();
@@ -44,19 +43,32 @@ const getHotels = async (req, res, next) => {
     }
     const hotelList = await HotelDetails.find(query);
     const availableHotels = [];
+
     for (const hotel of hotelList) {
-      const availability = await RoomAvailability.find({
-        hotelId: hotel._id,
-        date: { $gte: checkinDate, $lte: checkoutDate },
-        numberOfAvailableRooms: { $gt: 0 },
-      });
-      console.log(availability.length,'a');
-      if (availability.length === Math.ceil((new Date(checkoutDate) - new Date(checkinDate)) / (1000 * 60 * 60 * 24))) {
+      const rooms = await Rooms.find({ hotelId: hotel._id });
+
+      let atLeastOneRoomAvailable = false;
+
+      for (const room of rooms) {
+        const availability = await RoomAvailability.find({
+          hotelId: hotel._id,
+          roomId: room._id,
+          date: { $gte: checkinDate, $lte: checkoutDate },
+          numberOfAvailableRooms: { $gt: 0 },
+        });
+        if (availability.length === Math.ceil((new Date(checkoutDate) - new Date(checkinDate)) / (1000 * 60 * 60 * 24))) {
+          atLeastOneRoomAvailable = true;
+          break; 
+        }
+      }
+      if (atLeastOneRoomAvailable) {
         availableHotels.push(hotel);
       }
-
     }
-    res.status(200).json(availableHotels);              
+    res.status(200).json(availableHotels);
+
+
+            
   } catch (err) {
     next(err);
   }     
@@ -297,7 +309,7 @@ const getHotels = async (req, res, next) => {
       name,
       email,
       subject,
-      message
+      message 
    })
    res.status(201).json(complaint)
     } catch (error) {

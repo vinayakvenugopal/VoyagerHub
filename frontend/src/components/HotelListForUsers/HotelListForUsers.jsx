@@ -27,7 +27,7 @@ function HotelListForUsers() {
       toast.error(error);
       console.error("Error fetching users:", error);
     }
-  }, []);
+  }, [queryString]);
 
   return (
     <>

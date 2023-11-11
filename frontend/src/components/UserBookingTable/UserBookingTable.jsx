@@ -4,10 +4,13 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useGetUserBookingsQuery,useUserCancelBookingMutation } from "../../slices/userApiSlice";
 import dayjs from "dayjs";
+import { useNavigate } from "react-router-dom";
+
+
 const UserBookingTable = () => {
+const navigate = useNavigate()
 const { userInfo } = useSelector((state) => state.auth);
 const id = userInfo._id
-console.log(id);
 const [cancelBooking] = useUserCancelBookingMutation()
 const { data, isError, isLoading,refetch } = useGetUserBookingsQuery({ id: id });
 
@@ -66,6 +69,7 @@ const { data, isError, isLoading,refetch } = useGetUserBookingsQuery({ id: id })
                     <th>Date</th>
                     <th>Total</th>
                     <th>Status</th>
+                    <th>Invoice</th>
                     <th>Action</th>
                   </tr>
                   
@@ -86,6 +90,9 @@ const { data, isError, isLoading,refetch } = useGetUserBookingsQuery({ id: id })
                       <span className="rounded-100 py-4 px-10 text-center text-14 fw-500 bg-yellow-4 text-yellow-3">
                       {item.bookingStatus}
                       </span>
+                    </td>
+                    <td>
+                    {item.bookingStatus=='Confirmed' && <button className="btn btn-secondary" onClick={()=>navigate(`/invoice?bookingId=${item._id}`)}>View</button>}
                     </td>
                     <td>
                       {/* <ActionsButton /> */}
@@ -119,6 +126,9 @@ const { data, isError, isLoading,refetch } = useGetUserBookingsQuery({ id: id })
                       <span className="rounded-100 py-4 px-10 text-center text-14 fw-500 bg-yellow-4 text-yellow-3">
                       {item.bookingStatus}
                       </span>
+                    </td>
+                    <td>
+                    {item.bookingStatus=='Confirmed' && <button className="btn btn-secondary" onClick={()=>navigate(`/invoice?bookingId=${item._id}`)}>View</button>}
                     </td>
                     <td>
                       {/* <ActionsButton /> */}

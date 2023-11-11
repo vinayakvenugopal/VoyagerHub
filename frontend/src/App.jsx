@@ -26,6 +26,8 @@ import { UserBookingList } from "./screens/userScreens/UserBookingList.jsx";
 import HotelBookingList from "./screens/hotelScreens/HotelBookingList.jsx";
 import ComplaintScreen from "./screens/adminScreens/ComplaintScreen.jsx";
 import { HomeScreen } from "./screens/userScreens/HomeScreen.jsx";
+import { InvoiceUserPage } from "./screens/userScreens/InvoiceUserPage.jsx";
+
 
 const HotelList  = lazy(()=>import ("./screens/userScreens/HotelList.jsx"));
 const HotelSinglePage  = lazy(()=>import ("./screens/userScreens/HotelSinglePage.jsx"));
@@ -66,6 +68,11 @@ const router = createBrowserRouter([
   {
     path: "/return",
     element: <UserPrivateRoute><ReturnPage/></UserPrivateRoute>, 
+    errorElement:<ErrorPage/>
+  },
+  {
+    path: "/invoice",
+    element: <UserPrivateRoute><InvoiceUserPage/></UserPrivateRoute>, 
     errorElement:<ErrorPage/>
   },
   {
