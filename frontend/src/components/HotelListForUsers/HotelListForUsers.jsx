@@ -5,29 +5,8 @@ import { toast } from "react-toastify";
 import ImageSlider from "../ImageSlider/ImageSlider";
 import { useNavigate } from "react-router-dom";
 
-function HotelListForUsers() {
-  const [hotelsData, setHotelsData] = useState([]);
-  const [hotelDataFromApi] = useGetHotelsForUserMutation();
-  const navigate = useNavigate();
-  const queryString = window.location.search;
-  const urlParams = new URLSearchParams(queryString);
-  const name = urlParams.get("name");
-  const checkinDate = urlParams.get("checkinDate");
-  const checkoutDate = urlParams.get("checkoutDate");
-  useEffect(() => {
-    try {
-      const fetchData = async () => {
-        const responseFromApiCall = await hotelDataFromApi({name:name,checkinDate:checkinDate,checkoutDate:checkoutDate});
-        const hotelsArray = responseFromApiCall.data;
-        setHotelsData(hotelsArray);
-      };
+function HotelListForUsers({hotelsData}) {
 
-      fetchData();
-    } catch (error) {
-      toast.error(error);
-      console.error("Error fetching users:", error);
-    }
-  }, [queryString]);
 
   return (
     <>
@@ -66,13 +45,14 @@ function HotelListForUsers() {
                 <h3 className="text-14 lh-16 fw-500">
                   {item?.name}
                   <br className="lg:d-none" /> {item?.address}
-                  <div className="d-inline-block ml-10">
-                    <i className="icon-star text-10 text-yellow-2"></i>
-                    <i className="icon-star text-10 text-yellow-2"></i>
-                    <i className="icon-star text-10 text-yellow-2"></i>
-                    <i className="icon-star text-10 text-yellow-2"></i>
-                    <i className="icon-star text-10 text-yellow-2"></i>
-                  </div>
+                  <div className="d-flex x-gap-5 items-center pt-10">
+                    {Array.from({ length: item.starRating }).map((_, index) => (
+                      <i
+                        key={index}
+                        className="icon-star text-10 text-yellow-2"
+                      ></i>
+                    ))}
+                  </div> 
                 </h3>
 
                 <div className="row x-gap-10 y-gap-10 items-center pt-10">
@@ -138,9 +118,8 @@ function HotelListForUsers() {
               <div className="col-md-auto text-right md:text-left">
                 <div className="row x-gap-10 y-gap-10 justify-end items-center md:justify-start">
                   <div className="col-auto">
-                    <div className="text-14 lh-14 fw-500">Exceptional</div>
+                    <div className="text-14 lh-14 fw-500"></div>
                     <div className="text-14 lh-14 text-light-1">
-                      3,014 reviews
                     </div>
                   </div>
                   <div className="col-auto">
@@ -152,11 +131,11 @@ function HotelListForUsers() {
 
                 <div className="">
                   <div className="text-14 text-light-1 mt-50 md:mt-20">
-                    1 nights, 3 adult
+                    1 night from
                   </div>
-                  <div className="text-22 lh-12 fw-600 mt-5"></div>
+                  <div className="text-22 lh-12 fw-600 mt-5">₹ {item.minPrice}</div>
                   <div className="text-14 text-light-1 mt-5">
-                    taxes and charges
+                    upto ₹ {item.maxPrice}
                   </div>
 
                   <Link

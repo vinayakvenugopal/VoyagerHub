@@ -43,10 +43,8 @@ const getHotels = async (req, res, next) => {
     }
     const hotelList = await HotelDetails.find(query);
     const availableHotels = [];
-
     for (const hotel of hotelList) {
       const rooms = await Rooms.find({ hotelId: hotel._id });
-
       let atLeastOneRoomAvailable = false;
 
       for (const room of rooms) {
@@ -65,7 +63,20 @@ const getHotels = async (req, res, next) => {
         availableHotels.push(hotel);
       }
     }
-    res.status(200).json(availableHotels);
+
+    const hotelsWithMinMaxPrice = availableHotels.map(async (hotel) => {
+      const rooms = await Rooms.find({ hotelId: hotel._id });
+      const minPrice = Math.min(...rooms.map((room) => room.price));
+      const maxPrice = Math.max(...rooms.map((room) => room.price));
+      return {
+        ...hotel.toObject(),
+        minPrice,
+        maxPrice,
+      };
+    });
+
+    const hotelsWithMinMaxPriceResults = await Promise.all(hotelsWithMinMaxPrice);
+    res.status(200).json(hotelsWithMinMaxPriceResults);
 
 
             

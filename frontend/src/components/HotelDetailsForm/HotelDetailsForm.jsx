@@ -18,10 +18,11 @@ export const HotelDetailsForm = () => {
   // ];
   const navigate = useNavigate()
   const [name,setName] = useState("")
+  const [starRating,setStarRating] = useState("")
+
   const [desc,setDesc] = useState("")
   const [address,setAddress] = useState("")
   const [images, setImages] = useState([]);
-  console.log(images);
   const { hotelInfo } = useSelector( (state) => state.hotelAuth );
 
   const {data,error:facilitiesError,isLoading,refetch} = useGetFacilitiesQuery({})
@@ -74,6 +75,7 @@ if (!isValid) {
     formData.append('desc', desc);
     formData.append('address', address);
     formData.append('hotelierId', hotelInfo._id);
+    formData.append('starRating', starRating);
 
     for (let i = 0; i < images.length; i++) {
       formData.append('images', images[i]);
@@ -114,6 +116,16 @@ if (!isValid) {
         onChange={(e) => setName(e.target.value)}
          />
         <label className="lh-1 text-16 text-light-1">Hotel Name</label>
+      </div>
+    </div>
+
+    <div className="col-12">
+      <div className="form-input ">
+        <input type="text" 
+        value={starRating}
+        onChange={(e) => setStarRating(e.target.value)}
+         />
+        <label className="lh-1 text-16 text-light-1">Star Rating(1-5)</label>
       </div>
     </div>
 

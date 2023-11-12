@@ -75,7 +75,7 @@ const logoutHotelier = async (req,res) =>{
 
 const createHotel = async (req, res) => {
       
-    const {name,city,address,desc,aminities,hotelierId} = req.body
+    const {name,city,address,desc,aminities,hotelierId,starRating} = req.body
     let images = []
     if(req.files){
       req.files.map((files)=>{
@@ -96,7 +96,8 @@ const createHotel = async (req, res) => {
             desc,
             aminities:aminitiesArray,
             images,
-            hotelierId
+            hotelierId,
+            starRating
         })
         res.status(201).json({message:'Hotel Created'})
     } catch (err) {

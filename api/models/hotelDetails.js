@@ -13,6 +13,10 @@ const hotelDetailsSchema = mongoose.Schema({
         type: String,
         required: true,
       },
+      starRating: {
+        type: Number,
+        required: true,
+      },
       address: {
         type: String,
         required: true,

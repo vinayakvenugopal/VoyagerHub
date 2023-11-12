@@ -61,11 +61,12 @@ const [unBlockHotelMutation] = useUnBlockHotelMutation()
             <div className="col-md">
               <h3 className="text-18 lh-14 fw-500">{item?.name}</h3>
               <div className="d-flex x-gap-5 items-center pt-10">
-                <i className="icon-star text-10 text-yellow-1" />
-                <i className="icon-star text-10 text-yellow-1" />
-                <i className="icon-star text-10 text-yellow-1" />
-                <i className="icon-star text-10 text-yellow-1" />
-                <i className="icon-star text-10 text-yellow-1" />
+              {Array.from({ length: item.starRating }).map((_, index) => (
+                      <i
+                        key={index}
+                        className="icon-star text-10 text-yellow-2"
+                      ></i>
+                    ))}
               </div>
 
               <div className="row x-gap-10 y-gap-10 items-center pt-20">

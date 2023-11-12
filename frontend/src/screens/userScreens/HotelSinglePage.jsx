@@ -80,12 +80,14 @@ function HotelSinglePage() {
                 <h1 className="text-30 sm:text-25 fw-600">{hotel?.name}</h1>
               </div>
               {/* End .col */}
-              <div className="col-auto">
-                <i className="icon-star text-10 text-yellow-1" />
-                <i className="icon-star text-10 text-yellow-1" />
-                <i className="icon-star text-10 text-yellow-1" />
-                <i className="icon-star text-10 text-yellow-1" />
-                <i className="icon-star text-10 text-yellow-1" />
+              <div className="d-flex x-gap-5 items-center pt-10">
+              {Array.from({ length: hotel.starRating }).map((_, index) => (
+                      <i
+                        key={index}
+                        className="icon-star text-10 text-yellow-2"
+                      ></i>
+                      
+                    ))}
               </div>
             </div>
             {/* End .row */}
