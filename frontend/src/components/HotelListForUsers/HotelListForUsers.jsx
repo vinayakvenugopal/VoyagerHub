@@ -5,12 +5,12 @@ import { toast } from "react-toastify";
 import ImageSlider from "../ImageSlider/ImageSlider";
 import { useNavigate } from "react-router-dom";
 
-function HotelListForUsers({hotelsData}) {
+function HotelListForUsers({hotelsData,startIndex,endIndex}) {
 
 
   return (
     <>
-      {hotelsData.slice(0, 7).map((item) => (
+      {hotelsData.slice(startIndex,endIndex).map((item) => (
         <div className="col-12" key={item._id}>
           <div className="border-top-light pt-30">
             <div className="row x-gap-20 y-gap-20">

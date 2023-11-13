@@ -39,7 +39,11 @@ const getHotels = async (req, res, next) => {
     }
     let query = { isListed: true };
     if (searchName) {
-      query.name = { $regex: new RegExp(searchName, 'i') };
+      query.$or = [
+        { name: { $regex: new RegExp(searchName, 'i') } },
+        { city: { $regex: new RegExp(searchName, 'i') } },
+        { address: { $regex: new RegExp(searchName, 'i') } }
+      ];
     }
     const hotelList = await HotelDetails.find(query);
     const availableHotels = [];

@@ -1,7 +1,7 @@
-import React from 'react'
+import {useState} from 'react'
 const ROOM_IMAGE_DIR_PATH = 'http://localhost:5000/RoomImages/'
 import { useDelteRoomMutation } from '../../slices/hotelApiSlice'
-
+import Pagination from '../Pagination/Pagination'
 
 
 function RoomListHotel({room,refetchData}) {
@@ -11,7 +11,20 @@ function RoomListHotel({room,refetchData}) {
     const response = await deleteRoom({id:id})
     refetchData()
   }
+
+  const [currentPage, setCurrentPage] = useState(1);
+  console.log(currentPage);
+  const handlePageClick = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+  const itemsPerPage = 3;
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+
+  
+
   return (
+    <>
     <div>
         <div className="tabs__content pt-30 js-tabs-content">
           <div className="tabs__pane -tab-item-1 is-tab-el-active">
@@ -33,7 +46,7 @@ function RoomListHotel({room,refetchData}) {
                
             
 
-            {room.map((item)=>
+            {room.slice(startIndex,endIndex).map((item)=>
         
                   <tr key={item._id}>
                     <td className="text-blue-1 fw-500">{item.type}</td>
@@ -80,6 +93,13 @@ function RoomListHotel({room,refetchData}) {
           </div>
         </div>
     </div>
+    <Pagination
+      currentPage={currentPage}
+      handlePageClick={handlePageClick}
+      totalPages={Math.ceil(room.length / itemsPerPage)}
+      setCurrentPage={setCurrentPage}
+       />
+       </>
   )
 }
 

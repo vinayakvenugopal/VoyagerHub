@@ -5,6 +5,8 @@ import { useGetBookingsForHotelQuery,useChangeBookingStatusMutation } from "../.
 import ActionsButton from "../ActionsButton/ActionButton";
 import dayjs from "dayjs";
 import { Button } from "bootstrap";
+import Pagination from '../Pagination/Pagination'
+
 const HotelBookingTable = () => {
 const id = location.pathname.split("/")[3];
 const { data, isError, isLoading,refetch } = useGetBookingsForHotelQuery({ id: id });
@@ -27,12 +29,32 @@ const [changeStatus] = useChangeBookingStatusMutation()
     const response = await changeStatus({id:id,status:status})
     refetch()
   }
- 
+  const [currentPage, setCurrentPage] = useState(1);
+  const handlePageClick = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+  const itemsPerPage = 3;
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+
+  
+
 
   if(isLoading){
     return(
         <h1>Loading...</h1>
     )
+  }
+
+  let length;
+  if(activeTab===0){
+    length = data.length
+  }else if(activeTab===1){
+    length = data.filter((item) => item.bookingStatus === 'Confirmed').length
+
+  }else if(activeTab===2){
+    length = data.filter((item) => item.bookingStatus === 'Cancelled').length
+
   }
   const filters = [
     { label: "Details", value: "details" },
@@ -74,7 +96,7 @@ const [changeStatus] = useChangeBookingStatusMutation()
                   
                 </thead>
                 <tbody>
-                {activeTab===0 && data.map((item,index)=>(           
+                {activeTab===0 && data.slice(startIndex,endIndex).map((item,index)=>(           
                   <tr>
                     <td>{item.userInfo.name}</td>
                     <td>{item.roomInfo.type}</td>
@@ -105,7 +127,7 @@ const [changeStatus] = useChangeBookingStatusMutation()
 
 
               {activeTab===1 &&  <tbody>
-                {data.filter((item) => item.bookingStatus === 'Confirmed').map((item,index)=>(           
+                {data.filter((item) => item.bookingStatus === 'Confirmed').slice(startIndex,endIndex).map((item,index)=>(           
                   <tr>
                     <td>{item.userInfo.name}</td>
                     <td>{item.roomInfo.type}</td>
@@ -136,7 +158,7 @@ const [changeStatus] = useChangeBookingStatusMutation()
                           }
 
                           {activeTab===2 &&  <tbody>
-                {data.filter((item) => item.bookingStatus === 'Cancelled').map((item,index)=>(           
+                {data.filter((item) => item.bookingStatus === 'Cancelled').slice(startIndex,endIndex).map((item,index)=>(           
                   <tr>
                     <td>{item.userInfo.name}</td>
                     <td>{item.roomInfo.type}</td>
@@ -172,7 +194,12 @@ const [changeStatus] = useChangeBookingStatusMutation()
           </div>
         </div>
       </div>
-      {/* <Pagination /> */}
+      <Pagination
+      currentPage={currentPage}
+      handlePageClick={handlePageClick}
+      totalPages={Math.ceil(length / itemsPerPage)}
+      setCurrentPage={setCurrentPage}
+       />
     </>
   );
 };

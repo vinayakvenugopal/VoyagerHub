@@ -28,6 +28,13 @@ const HotelSidebar = () => {
   }
   const sidebarData = [
     {
+      icon: "/img/dashboard/sidebar/compass.svg",
+      title: "Dashboard",
+      links: [
+        { title: "View", href: "/Hotel/Dashboard" },
+      ],
+    },
+    {
       icon: "/img/dashboard/sidebar/booking.svg",
       title: "Manage Hotel",
       links: [
@@ -35,6 +42,7 @@ const HotelSidebar = () => {
         { title: "View Hotels", href: "/Hotel/HotelList" },
       ],
     }
+    
   ];
 
   // Function to toggle the active submenu

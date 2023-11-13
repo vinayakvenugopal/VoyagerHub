@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import { useGetHotelsForUserMutation } from "../../slices/userApiSlice";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import Pagination from "../../components/Pagination/Pagination.jsX";
 
 function HotelList() {
   const [hotelsData, setHotelsData] = useState([]);
@@ -22,6 +23,12 @@ function HotelList() {
   const [checkedAmenities, setCheckedAmenities] = useState([]);
   const [price, setPrice] = useState([0, 5000]);
   const [sortOrder, setSortOrder] = useState('asc')
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const handlePageClick = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
 
   useEffect(() => {
     try {
@@ -75,6 +82,10 @@ function HotelList() {
     hotelsData,
     sortOrder
   ]);
+
+  const itemsPerPage = 1;
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
 
   return (
     <>
@@ -182,9 +193,14 @@ function HotelList() {
               </div>
               <div className="mt-30"></div>
               <div className="row y-gap-30">
-                <HotelListForUsers hotelsData={filteredhotelsData} />
+                <HotelListForUsers hotelsData={filteredhotelsData} startIndex={startIndex} endIndex={endIndex} />
               </div>
-              {/* <Pagination /> */}
+              <Pagination
+              currentPage={currentPage}
+              handlePageClick={handlePageClick}
+              totalPages={Math.ceil(filteredhotelsData.length / itemsPerPage)}
+              setCurrentPage={setCurrentPage}
+               />
             </div>
           </div>
         </div>

@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { useGetUserBookingsQuery,useUserCancelBookingMutation } from "../../slices/userApiSlice";
 import dayjs from "dayjs";
 import { useNavigate } from "react-router-dom";
+import Pagination from "../Pagination/Pagination.jsX";
 
 
 const UserBookingTable = () => {
@@ -30,13 +31,35 @@ const { data, isError, isLoading,refetch } = useGetUserBookingsQuery({ id: id })
     const response = cancelBooking({id})
     refetch()
   }
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const handlePageClick = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+  const itemsPerPage = 3;
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+
+  
+
   if(isLoading){
     return(
         <h1>Loading...</h1>
     )
   }
 
-  console.log(data);
+  let length;
+  if(activeTab===0){
+    length = data.length
+  }else if(activeTab===1){
+    length = data.filter((item) => item.bookingStatus === 'Confirmed').length
+
+  }else if(activeTab===2){
+    length = data.filter((item) => item.bookingStatus === 'Cancelled').length
+    console.log('length',length);
+
+  }
+
 
   return (
     <>
@@ -75,7 +98,7 @@ const { data, isError, isLoading,refetch } = useGetUserBookingsQuery({ id: id })
                   
                 </thead>
               {activeTab===0 &&  <tbody>
-                {data.map((item,index)=>(           
+                {data.slice(startIndex,endIndex).map((item,index)=>(           
                   <tr>
                     <td>{item.hotelInfo.name}</td>
                     <td>{item.roomInfo.type}</td>
@@ -111,7 +134,7 @@ const { data, isError, isLoading,refetch } = useGetUserBookingsQuery({ id: id })
 
 
                 {activeTab===1 &&  <tbody>
-                {data.filter((item) => item.bookingStatus === 'Confirmed').map((item,index)=>(           
+                {data.filter((item) => item.bookingStatus === 'Confirmed').slice(startIndex,endIndex).map((item,index)=>(           
                   <tr>
                     <td>{item.hotelInfo.name}</td>
                     <td>{item.roomInfo.type}</td>
@@ -121,7 +144,7 @@ const { data, isError, isLoading,refetch } = useGetUserBookingsQuery({ id: id })
                       <br />
                       Check out : {dayjs(item.checkOutDate).format("DD/MM/YYYY")}
                     </td>
-                    <td className="fw-500">₹ {item.totalAmount}</td>
+                    <td className="fw-500">₹ {item.totalAmount}</td> 
                     <td>
                       <span className="rounded-100 py-4 px-10 text-center text-14 fw-500 bg-yellow-4 text-yellow-3">
                       {item.bookingStatus}
@@ -146,7 +169,7 @@ const { data, isError, isLoading,refetch } = useGetUserBookingsQuery({ id: id })
 
 
                 {activeTab===2 &&  <tbody>
-                {data.filter((item) => item.bookingStatus === 'Cancelled').map((item,index)=>(           
+                {data.filter((item) => item.bookingStatus === 'Cancelled').slice(startIndex,endIndex).map((item,index)=>(           
                   <tr>
                     <td>{item.hotelInfo.name}</td>
                     <td>{item.roomInfo.type}</td>
@@ -180,7 +203,12 @@ const { data, isError, isLoading,refetch } = useGetUserBookingsQuery({ id: id })
           </div>
         </div>
       </div>
-      {/* <Pagination /> */}
+      <Pagination
+      currentPage={currentPage}
+      handlePageClick={handlePageClick}
+      totalPages={Math.ceil(length / itemsPerPage)}
+      setCurrentPage={setCurrentPage}
+       />
     </>
   );
 };
