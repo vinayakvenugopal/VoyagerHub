@@ -26,6 +26,13 @@ const HotelSidebar = () => {
   }
   const sidebarData = [
     {
+      icon: "/img/dashboard/sidebar/compass.svg",
+      title: "Dashboard",
+      links: [
+        { title: "View", href: "/Admin/Dashboard" },
+      ],
+    },
+    {
       icon: "/img/dashboard/sidebar/booking.svg",
       title: "Manage Hotels",
       links: [

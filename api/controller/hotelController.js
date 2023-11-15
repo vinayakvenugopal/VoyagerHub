@@ -103,7 +103,39 @@ const createHotel = async (req, res) => {
     } catch (err) {
       console.log(err.message);
     }
-  };
+  }; 
+
+  const updateHotel = async(req,res,next)=>{
+    console.log('updated');
+    console.log(req.files);
+    let images = [] 
+    if(req.files.length > 0){
+      req.files.map((files)=>{
+        images.push(files.filename)
+      })
+    }
+    const {name,city,address,desc,aminities,hotelierId,starRating,id} = req.body
+    try {
+      const hotelData = await HotelDetails.findOne({_id:id})
+      if(hotelData){
+        hotelData.name = name ||  hotelData.name
+        hotelData.city = city ||  hotelData.city
+        hotelData.address = address ||  hotelData.address
+        hotelData.desc = desc ||  hotelData.desc
+        hotelData.aminities = aminities ||  hotelData.aminities
+        hotelData.starRating = starRating ||  hotelData.starRating
+      }
+      if(req.files.length > 0){
+        hotelData.images = images || hotelData.images
+      }
+
+      await hotelData.save()
+      res.status(201).json({message:'Updated Succesfully'})
+    } catch (error) {
+      next(error)
+    }
+
+  }
 
   const getHotels = async (req, res,next) => {
     try {
@@ -262,6 +294,70 @@ const createHotel = async (req, res) => {
 
   }
 
+  const hotelDashboard = async (req, res, next) => {
+    const { hotelierId } = req.query;
+  
+    try {
+      const bookingInfo = await Bookings.aggregate([
+        {
+          $match: {
+            'hotelInfo.hotelierId': hotelierId,
+          },
+        },
+        {
+          $group: {
+            _id: '$hotelInfo.hotelierId',
+            totalBookingAmount: { $sum: '$totalAmount' },
+            totalBookings: { $sum: 1 },   
+
+          },
+        },
+      ]);
+
+      const bookingByDate = await Bookings.aggregate([
+        {
+          $match: {
+            'hotelInfo.hotelierId': hotelierId,
+          },
+        },
+        {
+          $group: {
+            _id: {
+              year: { $year: '$bookingDate' },
+              month: { $month: '$bookingDate' },
+              day: { $dayOfMonth: '$bookingDate' },
+            },
+            totalBookingAmount: { $sum: '$totalAmount' },
+          },
+        },
+        {
+          $sort: {
+            '_id.year': 1,
+            '_id.month': 1,
+            '_id.day': 1,
+          },
+        },
+      ]);
+  
+      res.status(201).json({bookingInfo,bookingByDate});
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  const getBookingsForHotelier = async(req,res,next)=>{
+    const id = req.query.id
+    try {
+      const booking = await Bookings.find({'hotelInfo.hotelierId':id})
+      res.json(booking)
+    } catch (error) {
+      next(error)
+    }
+
+  }
+  
+
+
   
   
 
@@ -279,5 +375,8 @@ export{
     deleteRoom,
     getFacilities,
     getBookings,
-    changeBookingStatus
+    changeBookingStatus,
+    hotelDashboard,
+    getBookingsForHotelier,
+    updateHotel
 }

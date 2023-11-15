@@ -1,7 +1,7 @@
 import { apiSlice } from "./apiSlice";
 import { HOTEL_REGISTER,HOTEL_LOGIN ,GET_HOTEL_LIST,CREATE_HOTEL,
-    GET_SINGLE_HOTEL,GET_ROOM_DATA_FOR_HOTELS,ADD_ROOM_DATA,HOTEL_LOGOUT,CHANGE_BOOKING_STATUS,
-    SEND_OTP_FOR_HOTEL,VERIFY_OTP_FOR_HOTEL,DELETE_ROOM,GET_FACILITIES,GET_BOOKINGS_FOR_HOTEL} from "../config/api";
+    GET_SINGLE_HOTEL,GET_ROOM_DATA_FOR_HOTELS,ADD_ROOM_DATA,HOTEL_LOGOUT,CHANGE_BOOKING_STATUS,EDIT_HOTEL,
+    SEND_OTP_FOR_HOTEL,VERIFY_OTP_FOR_HOTEL,DELETE_ROOM,GET_FACILITIES,GET_BOOKINGS_FOR_HOTEL,GET_HOTEL_DASHBOARD,GET_BOOKING_FOR_HOTELIER} from "../config/api";
 
 
 export const userApiSlice = apiSlice.injectEndpoints({
@@ -107,12 +107,36 @@ export const userApiSlice = apiSlice.injectEndpoints({
                method:'GET'
 
             })
+        }),
+        getHotelDashboard:builder.query({
+            query:(params)=>({
+               url:`${GET_HOTEL_DASHBOARD}?hotelierId=${params.hotelierId}` ,
+               method:'GET'
+
+            })
+        }),
+        getBookingsForHotelier:builder.query({
+            query:(params)=>({
+               url:`${GET_BOOKING_FOR_HOTELIER}?id=${params.id}` ,
+               method:'GET'
+
+            })
+        }),
+        editHotel:builder.mutation({
+            query:(formData)=>({
+               url:`${EDIT_HOTEL}` ,
+               method:'POST',
+               body:formData,
+               headers: {
+                
+              }
+            })
         }) 
 
 
     })
 })
 export const {useHotelRegisterMutation,useHotelLoginMutation,useChangeBookingStatusMutation,
-    useHotelLogoutMutation,useGetHotelListForHotelierMutation,useCreateHotelMutation,
+    useHotelLogoutMutation,useGetHotelListForHotelierMutation,useCreateHotelMutation,useEditHotelMutation,
     useGetSingleHotelDataMutation,useDelteRoomMutation,useGetFacilitiesQuery,useGetBookingsForHotelQuery,
-    useAddRoomMutation,useSendOtpForHotelMutation,useVerifyOtpForHotelMutation,useGetRoomDataForHotelQuery} =userApiSlice
+    useAddRoomMutation,useSendOtpForHotelMutation,useVerifyOtpForHotelMutation,useGetRoomDataForHotelQuery,useGetHotelDashboardQuery,useGetBookingsForHotelierQuery} =userApiSlice

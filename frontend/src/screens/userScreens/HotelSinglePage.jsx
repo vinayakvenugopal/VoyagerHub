@@ -118,7 +118,6 @@ function HotelSinglePage() {
                 <div className="text-14">
                   From{" "}
                   <span className="text-22 text-dark-1 fw-500">
-                    US${hotel?.price}
                   </span>
                 </div>
               </div>
@@ -319,7 +318,7 @@ function HotelSinglePage() {
             {/* End .col-xl-8 */}
 
             <div className="col-xl-4">
-              <SidebarDateFilter setCheckIn={setCheckIn} setCheckOut={setCheckOut} checkAvailability={checkAvailability} />
+              <SidebarDateFilter setCheckIn={setCheckIn} setCheckOut={setCheckOut} checkAvailability={checkAvailability} hotel={hotel} />
             </div>
             {/* End .col-xl-4 */}
           </div>

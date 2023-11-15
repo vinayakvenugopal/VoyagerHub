@@ -58,6 +58,8 @@ const HotelDetailsScreen = () => {
                    <Link to={`/Hotel/booking-list/${id}`}><div style={{width:"100%"}} className="d-flex justify-content">
                     <div className="btn btn-warning">Bookings</div>
                    </div></Link>
+                   <br />
+                  
                      <br />
                     <HotelDetailsForHotelier hotel={hotel}/>
                     </div>

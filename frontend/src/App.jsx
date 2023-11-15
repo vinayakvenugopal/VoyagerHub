@@ -27,11 +27,15 @@ import HotelBookingList from "./screens/hotelScreens/HotelBookingList.jsx";
 import ComplaintScreen from "./screens/adminScreens/ComplaintScreen.jsx";
 import { HomeScreen } from "./screens/userScreens/HomeScreen.jsx";
 import { InvoiceUserPage } from "./screens/userScreens/InvoiceUserPage.jsx";
-import HotelDashboard from "./screens/hotelScreens/HotelDashboard.jsx";
+import AdminDashboard from "./screens/adminScreens/AdminDashboard.jsx";
+import UserListScreen from "./screens/adminScreens/UserListScreen.jsx";
+import UpdateHotelDetailsScreen from "./screens/hotelScreens/UpdateHotelDetailsScreen.jsx";
+
 
 const HotelList  = lazy(()=>import ("./screens/userScreens/HotelList.jsx"));
 const HotelSinglePage  = lazy(()=>import ("./screens/userScreens/HotelSinglePage.jsx"));
 const HotelListScreen  = lazy(()=>import ("./screens/hotelScreens/HotelListScreen.jsx"));
+const HotelDashboard  = lazy(()=>import ("./screens/hotelScreens/HotelDashboard.jsx"));
 
  
 const router = createBrowserRouter([
@@ -107,6 +111,12 @@ const router = createBrowserRouter([
 
   },
   {
+    path: "/Hotel/UpdateDetails/:id",
+    element: <HotelPrivateRoute><UpdateHotelDetailsScreen /></HotelPrivateRoute>,
+    errorElement:<ErrorPage/>
+
+  },
+  {
     path: "/Hotel/HotelList",
     element: <HotelPrivateRoute><HotelListScreen /></HotelPrivateRoute>,
     errorElement:<ErrorPage/>
@@ -120,10 +130,10 @@ const router = createBrowserRouter([
   },
   {
     path: "/Hotel/Dashboard",
-    element: <HotelPrivateRoute><HotelDashboard/></HotelPrivateRoute>, 
+    element:<Suspense fallback={<div>Loading...</div>}><HotelPrivateRoute><HotelDashboard/></HotelPrivateRoute></Suspense>, 
     errorElement:<ErrorPage/>
 
-  },
+  },                                       
   {
     path: "/Admin/Login",
     element: <AdminLogin />,
@@ -143,6 +153,18 @@ const router = createBrowserRouter([
   {
     path: "/Admin/Complaints",
     element: <AdminPrivateRoute><ComplaintScreen/></AdminPrivateRoute>,
+    errorElement:<ErrorPage/>
+
+  },
+  {
+    path: "/Admin/Dashboard",
+    element: <AdminPrivateRoute><AdminDashboard/></AdminPrivateRoute>,
+    errorElement:<ErrorPage/>
+
+  },
+  {
+    path: "/Admin/Users",
+    element: <AdminPrivateRoute><UserListScreen/></AdminPrivateRoute>,
     errorElement:<ErrorPage/>
 
   },

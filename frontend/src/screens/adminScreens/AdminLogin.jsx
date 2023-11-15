@@ -25,7 +25,7 @@ function AdminLogin() {
     try {
       const responseFromApiCall = await login( {username, password} ).unwrap();
       dispatch(setAdminCredentials( { ...responseFromApiCall } ) );
-      navigate('/Admin/Hotels');
+      navigate('/Admin/Dashboard');
 
       } catch (err) {
         toast.error( err?.data?.message || err?.error );

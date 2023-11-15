@@ -1,5 +1,6 @@
 import { apiSlice } from "./apiSlice";
-import {ADMIN_LOGIN,ADMIN_LOGOUT,ADMIN_GET_HOTELS ,BLOCK_HOTEL,UNBLOCK_HOTEL,GET_FACILITIES_FOR_ADMIN,ADD_FACILITIES,DELETE_FACILITIES,GET_COMPLAINTS} from "../config/api";
+import {GET_ADMIN_DASHBOARD,GET_BOOKING_FOR_ADMIN,ADMIN_LOGIN,ADMIN_LOGOUT,ADMIN_GET_HOTELS ,BLOCK_HOTEL,
+    UNBLOCK_HOTEL,GET_FACILITIES_FOR_ADMIN,ADD_FACILITIES,DELETE_FACILITIES,GET_COMPLAINTS,GET_USERS,BLOCK_USERS,UNBLOCK_USERS} from "../config/api";
 
 
 export const adminApiSlice = apiSlice.injectEndpoints({
@@ -65,9 +66,44 @@ export const adminApiSlice = apiSlice.injectEndpoints({
                url:`${GET_COMPLAINTS}` ,
                method:'GET',
             })
-        })
+        }),
+        getAdminDashboard:builder.query({
+            query:()=>({
+               url:`${GET_ADMIN_DASHBOARD}` ,
+               method:'GET'
+
+            })
+        }),
+        getBookingsForAdmin:builder.query({
+            query:()=>({
+               url:`${GET_BOOKING_FOR_ADMIN}` ,
+               method:'GET'
+
+            })
+        }) ,
+        getUsers:builder.query({
+            query:()=>({
+               url:`${GET_USERS}` ,
+               method:'GET'
+
+            })
+        }),
+        blockUser:builder.mutation({
+            query:(params)=>({
+               url:`${BLOCK_USERS}?id=${params.id}` ,
+               method:'GET'
+
+            })
+        }),
+        unBlockUser:builder.mutation({
+            query:(params)=>({
+               url:`${UNBLOCK_USERS}?id=${params.id}` ,
+               method:'GET'
+
+            })
+        })  
     })
 })
 
-export const {useAdminLoginMutation ,useAdminLogoutMutation,useAdminGetHotelsMutation,useBlockHotelMutation,
-    useUnBlockHotelMutation,useGetFacilitiesForAdminQuery,useAddFacilitiesMutation,useDelteFacilitiesMutation,useGetComplaintsQuery} = adminApiSlice
+export const {useAdminLoginMutation ,useAdminLogoutMutation,useAdminGetHotelsMutation,useBlockHotelMutation,useGetAdminDashboardQuery,useGetBookingsForAdminQuery,
+    useUnBlockHotelMutation,useGetFacilitiesForAdminQuery,useAddFacilitiesMutation,useDelteFacilitiesMutation,useGetComplaintsQuery,useGetUsersQuery,useBlockUserMutation,useUnBlockUserMutation} = adminApiSlice

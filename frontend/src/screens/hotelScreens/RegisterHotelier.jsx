@@ -84,7 +84,7 @@ function RegisterHotelier() {
         password,
       }).unwrap();
       dispatch(setHotelCredentials({ ...responseFromApiCall }));
-      navigate("/Hotel/Details");
+      navigate("/Hotel/Dashboard");
     } catch (err) {
       toast.error(err?.data?.message || err?.error);
     }

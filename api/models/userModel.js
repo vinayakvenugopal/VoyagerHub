@@ -16,6 +16,10 @@ const userSchema = mongoose.Schema({
     },
     password:{
         type:String,
+    },
+    isBlocked:{
+        type:Boolean,
+        default:false
     }
 },{
     timestamps : true

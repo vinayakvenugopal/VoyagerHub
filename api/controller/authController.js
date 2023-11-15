@@ -27,7 +27,7 @@ const registerUser = asyncHandler(async(req,res) =>{
         generateToken(res,user._id)
         res.status(201).json({
             _id:user._id,
-            name:user.name,
+            name:user.name, 
             email:user.email,
         })
     }else{
@@ -43,6 +43,8 @@ const registerUser = asyncHandler(async(req,res) =>{
 const loginUser = asyncHandler(async(req,res) =>{
     const {email,password} = req.body
     const user = await User.findOne({email})
+    if(user.isBlocked===false){
+
     if(user&&(await user.matchPassword(password))){
         generateToken(res,user._id)
         res.status(201).json({
@@ -54,6 +56,11 @@ const loginUser = asyncHandler(async(req,res) =>{
         res.status(401)
         throw new Error('Invalid Email or Password')
     }
+}else{
+    res.status(401)
+    throw new Error('You are blocked')
+}
+
 
 })
 
@@ -76,6 +83,7 @@ const googleLogin = async(req,res)=>{
     const name = req.body.googleName
     const email = req.body.googleEmail
     const user = await User.findOne({email})
+    if(user.isBlocked===false){
     if(user){
         generateToken(res,user._id)
         res.status(201).json({
@@ -97,6 +105,10 @@ const googleLogin = async(req,res)=>{
             })
         }
 
+    }
+    }else{
+        res.status(401)
+        throw new Error('You are blocked')
     }
 
 

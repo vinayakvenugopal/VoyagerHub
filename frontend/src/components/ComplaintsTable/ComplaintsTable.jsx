@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useGetComplaintsQuery } from "../../slices/adminApiSlice";
-
+import Pagination from "../Pagination/Pagination";
 
 const ComplaintsTable = () => {
   const [activeTab, setActiveTab] = useState(0);
@@ -15,11 +15,20 @@ const ComplaintsTable = () => {
   ];
   const {data,isLoading,refetch,isError} = useGetComplaintsQuery()
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const handlePageClick = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+  const itemsPerPage = 3;
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+
   if(isLoading){
     return(
         <h1>Loading.....</h1>
     )
   }
+
 
   return (
     <>
@@ -53,7 +62,7 @@ const ComplaintsTable = () => {
                   </tr>
                 </thead>
                 <tbody>
-                {data.map((item,index)=>(
+                {data.slice(startIndex,endIndex).map((item,index)=>(
                   <tr>
                     <td>{item.name}</td>
                     <td>{item.email}</td>
@@ -76,7 +85,12 @@ const ComplaintsTable = () => {
           </div>
         </div>
       </div>
-      {/* <Pagination /> */}
+      <Pagination
+      currentPage={currentPage}
+      handlePageClick={handlePageClick}
+      totalPages={Math.ceil(data.length / itemsPerPage)}
+      setCurrentPage={setCurrentPage}
+       />
     </>
   );
 };

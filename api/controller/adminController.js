@@ -3,6 +3,8 @@ import generateAdminToken from "../utils/generateAdminToken.js";
 import HotelDetails from "../models/hotelDetails.js";
 import Facilities from "../models/facilitiesModal.js";
 import Complaint from "../models/complaintModel.js";
+import Bookings from "../models/bookingModel.js";
+import User from '../models/userModel.js'
 
 
 const adminLogin = async(req,res,next)=>{
@@ -106,6 +108,85 @@ const getHotels = async (req, res,next) => {
         next(error)
     }
   }
+
+  const adminDashboard = async (req, res, next) => {
+  
+    try {
+      const bookingInfo = await Bookings.aggregate([
+        {
+          $group: {
+            _id: '$hotelInfo.hotelierId',
+            totalBookingAmount: { $sum: '$totalAmount' },
+            totalBookings: { $sum: 1 },   
+
+          },
+        },
+      ]);
+
+      const bookingByDate = await Bookings.aggregate([
+        {
+          $group: {
+            _id: {
+              year: { $year: '$bookingDate' },
+              month: { $month: '$bookingDate' },
+              day: { $dayOfMonth: '$bookingDate' },
+            },
+            totalBookingAmount: { $sum: '$totalAmount' },
+          },
+        },
+        {
+          $sort: {
+            '_id.year': 1,
+            '_id.month': 1,
+            '_id.day': 1,
+          },
+        },
+      ]);
+  
+      res.status(201).json({bookingInfo,bookingByDate});
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  const getBookingsForAdmin = async(req,res,next)=>{
+    try {
+      const booking = await Bookings.find({}).sort({bookingDate:-1})
+      res.json(booking)
+    } catch (error) {
+      next(error)
+    }
+
+  }
+
+  const getUsers = async(req,res,next)=>{
+    try {
+    const users = await User.find({})
+    res.status(201).json(users)
+  } catch (error) {
+      next(error)
+  }
+  }
+
+  const blockUser = async(req,res,next)=>{
+    const {id} = req.query
+    try {
+    const users = await User.updateOne({_id:id},{isBlocked:true})
+    res.status(201).json({message:'User Blocked'})
+  } catch (error) {
+      next(error)
+  }
+  }
+
+  const unBlockUser = async(req,res,next)=>{
+    const {id} = req.query
+    try {
+    const users = await User.updateOne({_id:id},{isBlocked:false})
+    res.status(201).json({message:'User UnBlocked'})
+  } catch (error) {
+      next(error)
+  }
+  }
   
 
 
@@ -118,5 +199,10 @@ export {
     addFacilities,
     getFacilities,
     deleteFacilities,
-    getComplaints
+    getComplaints,
+    adminDashboard,
+    getBookingsForAdmin,
+    getUsers,
+    blockUser,
+    unBlockUser
 }

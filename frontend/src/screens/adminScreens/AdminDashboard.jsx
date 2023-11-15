@@ -1,19 +1,20 @@
-import HotelDashboardHeader from "../../components/HotelDasboardHeader/HotelDashboardHeader";
-import HotelSidebar from "../../components/HotelSidebar/HotelSidebar";
-import HotelFooter from "../../components/HotelFooter/HotelFooter";
+import AdminSidebar from "../../components/AdminSidebar/AdminSidebar.jsx";
 import { Link } from "react-router-dom";
 import DashboardCard from "../../components/DashboardCard/DashboardCard";
 import Seo from "../../components/Seo/Seo";
 import ChartMain from "../../components/ChartMain/ChartMain.jsx";
-import { useGetHotelDashboardQuery ,useGetBookingsForHotelierQuery} from "../../slices/hotelApiSlice.js";
 import { useSelector } from "react-redux";
 import RecentBooking from "../../components/RecentBookings/RecentBookings.jsx";
-const HotelDashboard = () => {
-  const { hotelInfo } = useSelector( (state) => state.hotelAuth );
+import { useGetAdminDashboardQuery,useGetBookingsForAdminQuery } from "../../slices/adminApiSlice.js";
 
-  const {data,isLoading,isError,refetch} = useGetHotelDashboardQuery({hotelierId:hotelInfo._id})
 
-  const {data:hotelData,isLoading:isHotelDataLoading} = useGetBookingsForHotelierQuery({id:hotelInfo._id})
+
+const AdminDashboard = () => {
+
+  const {data,isLoading,isError,refetch} = useGetAdminDashboardQuery({})
+
+  const {data:hotelData,isLoading:isHotelDataLoading} = useGetBookingsForAdminQuery({})
+
 
   if(isLoading||isHotelDataLoading){
     return(
@@ -29,11 +30,10 @@ const HotelDashboard = () => {
     <Seo pageTitle={'Dashboard'}/>
       <div className="header-margin"></div>
 
-      <HotelDashboardHeader />
 
       <div className="dashboard">
         <div className="dashboard__sidebar bg-white scroll-bar-1">
-          <HotelSidebar />
+          <AdminSidebar />
         </div>
         <div className="dashboard__main">
           <div className="dashboard__content bg-light-2">
@@ -74,7 +74,6 @@ const HotelDashboard = () => {
                 </div>
               </div>
             </div>
-            <HotelFooter />
           </div>
         </div>
       </div>
@@ -82,4 +81,4 @@ const HotelDashboard = () => {
   );
 };
 
-export default HotelDashboard;
+export default AdminDashboard;

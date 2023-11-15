@@ -1,6 +1,7 @@
 import React from "react";
 import { Gallery, Item } from "react-photoswipe-gallery";
 const HOTEL_IMAGE_DIR_PATH = "http://localhost:5000/HotelImages/";
+import { Link } from "react-router-dom";
 
 function HotelDetailsForHotelier({ hotel }) {
   return (
@@ -117,11 +118,19 @@ function HotelDetailsForHotelier({ hotel }) {
         >
           <h1 className="text-30 sm:text-25 fw-600">{hotel?.name}</h1>
         </span>
+        
       </div>
       <div className="d-flex items-center text-15 text-light-1">
         <i className="icon-location-2 text-16 mr-5" />
         {hotel?.address}
+        <br />
+        
       </div>
+      <br />
+      <Link to={`/Hotel/updateDetails/${hotel._id}`}><div style={{width:"100%"}} className="d-flex justify-content">
+                    <div className="btn btn-warning">Edit Details</div>
+                   </div></Link>
+                   <br />
       <div id="overview" className="col-12">
         <h3 className="text-22 fw-500 pt-40 border-top-light">Description</h3>
         <span

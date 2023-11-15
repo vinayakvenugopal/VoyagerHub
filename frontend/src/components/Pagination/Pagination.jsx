@@ -53,7 +53,7 @@ const Pagination = ({currentPage, handlePageClick, totalPages,setCurrentPage}) =
 
           <div className="text-center mt-30 md:mt-10">
             <div className="text-14 text-light-1">
-              1 – 20 of 300+ properties found
+            {/* {currentPage} – {totalPages}  */}
             </div>
           </div>
         </div>
