@@ -1,5 +1,6 @@
 import express from "express"
-import { getHotels,getRoom,hotelSingle,getProfile ,addAddress, getUserAddress, getDetailsForBooking, stripePayment, paymentStatus, createBooking, getSingleBooking, getBookings, cancelBooking, submitComplaint} from "../controller/userController.js"
+import { getHotels,getRoom,hotelSingle,getProfile ,addAddress, getUserAddress, getDetailsForBooking, stripePayment, 
+    paymentStatus, createBooking, getSingleBooking, getBookings, cancelBooking, submitComplaint, walletPayment} from "../controller/userController.js"
 import { protect } from "../middleware/userAuthMiddleware.js"
 
 const router = express.Router()
@@ -20,6 +21,6 @@ router.get('/getSingleBooking',getSingleBooking)
 router.get('/getBookings',getBookings)
 router.get('/cancelBooking',cancelBooking)
 router.post('/submitComplaint',submitComplaint)
-
+router.post('/walletPayment',walletPayment)
 
 export default router

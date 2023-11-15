@@ -35,6 +35,9 @@ const bookingSchema = mongoose.Schema({
     bookingDate:{
         type:Date
     },
+    paymentMethod:{
+        type:String
+    }
 })
 
 

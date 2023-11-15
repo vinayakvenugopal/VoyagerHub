@@ -7,6 +7,7 @@ import {sendOtp,verifyCode} from '../utils/twilio.js'
 import RoomAvailability from '../models/roomAvailability.js';
 import Facilities from '../models/facilitiesModal.js';
 import Bookings from "../models/bookingModel.js";
+import User from "../models/userModel.js";
 
 //@desc Register a new User
 //route POST /api/auth/register
@@ -275,7 +276,7 @@ const createHotel = async (req, res) => {
   const getBookings = async(req,res,next)=>{
     const id = req.query.id
     try {
-      const booking = await Bookings.find({'hotelInfo._id':id})
+      const booking = await Bookings.find({'hotelInfo._id':id}).sort({bookingDate:-1})
       res.json(booking)
     } catch (error) {
       next(error)
@@ -284,9 +285,24 @@ const createHotel = async (req, res) => {
   }
 
   const changeBookingStatus = async(req,res,next)=>{
-    const {id,status} = req.query
+    const {id,status,userId} = req.query
     try {
-      const booking = await Bookings.updateOne({_id:id},{bookingStatus:status})
+      const booking = await Bookings.findOne({_id:id})
+      if(booking){
+        booking.bookingStatus=status
+      }
+      const user = await User.findOne({_id:userId})
+      console.log(user);
+      if(status==='Cancelled'){
+        if(user){
+          user.wallet+=booking.totalAmount
+          console.log(user.wallet);
+        }
+
+      }
+      
+      await booking.save()
+      await user.save()
       res.json(booking)
     } catch (error) {
       next(error)

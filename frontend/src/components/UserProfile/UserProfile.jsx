@@ -55,6 +55,17 @@ export const UserProfile = ({userData,addressData,setShowModal,setShowComplaintM
                   </div>
                 </div>
                 <hr />
+
+                <hr />
+                <div className="row">
+                  <div className="col-sm-3">
+                    <h6 className="mb-0">Wallet</h6>
+                  </div>
+                  <div className="col-sm-9 text-secondary">
+                  ₹ {userData?.wallet}
+                  </div>
+                </div>
+                <hr />
                 <div className="row">
                   <div className="col-sm-3">
                     <h6 className="mb-0">Address</h6>

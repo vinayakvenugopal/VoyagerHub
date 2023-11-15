@@ -35,6 +35,8 @@ export const PAYMENT= '/api/user/payment'
 export const PAYMENT_STATUS= '/api/user/payment-status'
 
 export const CREATE_BOOKING= '/api/user/createBooking'
+export const WALLET_PAYMENT= '/api/user/walletPayment'
+
 export const SUBMIT_COMPLAINT= '/api/user/submitComplaint'
 
 export const CREATE_HOTEL = '/api/hotel/createHotel'

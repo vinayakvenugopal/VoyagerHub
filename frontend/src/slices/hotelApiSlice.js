@@ -103,7 +103,7 @@ export const userApiSlice = apiSlice.injectEndpoints({
         }),
         changeBookingStatus:builder.mutation({
             query:(params)=>({
-               url:`${CHANGE_BOOKING_STATUS}?id=${params.id}&status=${params.status}` ,
+               url:`${CHANGE_BOOKING_STATUS}?id=${params.id}&status=${params.status}&userId=${params.userId}` ,
                method:'GET'
 
             })

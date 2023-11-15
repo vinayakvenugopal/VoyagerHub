@@ -1,24 +1,30 @@
 import { useState } from "react";
 import { Tabs, TabPanel } from "react-tabs";
+import { unwrapResult } from '@reduxjs/toolkit';
 
 import PricingSummary from "../PricingSummary/PricingSummary";
-import { usePaymentMutation } from "../../slices/userApiSlice";
+import { usePaymentMutation,useWalletPaymentMutation } from "../../slices/userApiSlice";
 import { loadStripe } from "@stripe/stripe-js";
 import {
   EmbeddedCheckoutProvider,
   EmbeddedCheckout,
 } from "@stripe/react-stripe-js";
 import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 const stripePromise = loadStripe(
   "pk_test_51O7dS4SHIO1unxwgswuNYztYDMSlYi3ZxhATV33YO0LiI6YXpYDgP4JkTaX4WRzU3NoH3eV2RdXR1ivZWDPTFKwB00kjXHNNVc"
 );
+import { useNavigate } from "react-router-dom";
 
 const PaymentInfo = ({previousStep}) => {
+  const navigate = useNavigate()
   const bookingInfo = useSelector((state) => state.booking);
   const user = bookingInfo.userInfo;
   const room = bookingInfo.roomDetails
   console.log(room);
   const [payment] = usePaymentMutation();
+  const [walletPayment] = useWalletPaymentMutation();
+
   const [clientSecret, setClientSecret] = useState("");
 
   const handlePayment = async () => {
@@ -28,6 +34,28 @@ const PaymentInfo = ({previousStep}) => {
     });
     setClientSecret(response.data.clientSecret);
   };
+
+
+  const handleWalletPayment = async () => {
+      const response =  walletPayment({
+        userInfo: bookingInfo.userInfo,
+        roomInfo: bookingInfo.roomDetails.room,
+        hotelInfo: bookingInfo.hotelDetails,
+        checkInDate: bookingInfo.roomDetails.checkinDate,
+        checkOutDate: bookingInfo.roomDetails.checkoutDate,
+        paymentStatus: 'complete',
+        bookingStatus: 'Confirmed',
+        totalAmount: bookingInfo.roomDetails.totalPrice,
+      }).unwrap().then((data)=>{
+        const id = data.id
+        navigate(`/invoice?bookingId=${id}`)
+      }).catch((error)=>{
+        toast.error(error.data.message)
+      })
+
+    
+  };
+
 
   const handleSubmit = ()=>{
     previousStep()
@@ -194,6 +222,8 @@ const PaymentInfo = ({previousStep}) => {
               <PricingSummary room={room} />
               <br />
               <button className="button h-60 px-24 -dark-1 bg-blue-1 text-white" onClick={() => handlePayment()}>Pay Now <div className="icon-arrow-top-right ml-15" /></button>
+                      <br />
+                      <button className="button h-60 px-24 -dark-1 bg-blue-1 text-white" onClick={() => handleWalletPayment()}>Pay Using Wallet <div className="icon-arrow-top-right ml-15" /></button>
 
               {/* <PaymentSchedule />
           <PromoCode />  */}

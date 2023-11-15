@@ -236,6 +236,49 @@ const getHotels = async (req, res, next) => {
     res.json(session);
   }
 
+  const walletPayment = async(req,res,next)=>{
+    const {userInfo,roomInfo,hotelInfo,checkInDate,checkOutDate,paymentStatus,bookingStatus,totalAmount} = req.body
+    try {
+      const user = await User.findOne({_id:userInfo.id})
+
+      if(user.wallet>=totalAmount){
+        let currentDate = new Date(checkInDate);
+        currentDate.setHours(0, 0, 0, 0);
+        while (currentDate <= new Date(checkOutDate)) {
+          const updated = await RoomAvailability.updateOne(
+            { roomId: roomInfo._id,date: currentDate,
+          },
+            { $inc: { numberOfAvailableRooms: -1 } }
+          );
+          currentDate.setDate(currentDate.getDate() + 1);
+        }
+        const booking = await Bookings.create({
+          userInfo,
+          roomInfo,
+          hotelInfo,
+          checkInDate,
+          checkOutDate,
+          paymentStatus,
+          bookingStatus,
+          totalAmount,
+          bookingDate:new Date(),
+          paymentMethod:'Wallet'
+        })
+        user.wallet -= totalAmount
+        await user.save()
+        res.status(200).json({id:booking._id})
+
+      }else{
+        res.status(401).json({message:'Insufficient Balance'})
+        return
+      }
+    } catch (error) {
+      
+    }
+
+
+  }
+
   const createBooking = async(req,res,next)=>{
     console.log('createBooking');
     const {userInfo,roomInfo,hotelInfo,checkInDate,checkOutDate,paymentStatus,bookingStatus,totalAmount,paymentId} = req.body
@@ -253,9 +296,6 @@ const getHotels = async (req, res, next) => {
         },
           { $inc: { numberOfAvailableRooms: -1 } }
         );
-        console.log(currentDate);
-        console.log(updated);
-        console.log(roomInfo._id);
         currentDate.setDate(currentDate.getDate() + 1);
       }
       const booking = await Bookings.create({
@@ -269,6 +309,7 @@ const getHotels = async (req, res, next) => {
         totalAmount,
         paymentId,
         bookingDate:new Date(),
+        paymentMethod:'Stripe'
       })
 
      
@@ -349,5 +390,6 @@ const getHotels = async (req, res, next) => {
     getSingleBooking,
     getBookings,
     cancelBooking,
-    submitComplaint
+    submitComplaint,
+    walletPayment
   }

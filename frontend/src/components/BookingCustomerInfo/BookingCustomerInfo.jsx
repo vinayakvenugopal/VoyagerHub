@@ -39,39 +39,39 @@ const BookingCustomerInfo = ({nextStep}) => {
 
     // const {data,error,isLoading,refetch} = useGetDetailsForBookingQuery({hotelId:reservation.hotelId,availabilityId:reservation.availabilityId})
     const handleSubmit = ()=>{
-      if(name.trim()==0){
-        toast.error("Name Must be filled")
-        return
-      }
-      if(email.trim()==0){
-        toast.error("Email Must be filled")
-        return
-      }
-      if(mobile.trim()==0){
-        toast.error("Mobile Must be filled")
-        return
-      }
-      if(address.trim()==0){
-        toast.error("Address Must be filled")
-        return
-      }
-      if(locality.trim()==0){
-        toast.error("Locality Must be filled")
-        return
-      }
+      // if(name.trim()==0){
+      //   toast.error("Name Must be filled")
+      //   return
+      // }
+      // if(email.trim()==0){
+      //   toast.error("Email Must be filled")
+      //   return
+      // }
+      // if(mobile.trim()==0){
+      //   toast.error("Mobile Must be filled")
+      //   return
+      // }
+      // if(address.trim()==0){
+      //   toast.error("Address Must be filled")
+      //   return
+      // }
+      // if(locality.trim()==0){
+      //   toast.error("Locality Must be filled")
+      //   return
+      // }
 
-      if(state.trim()==0){
-        toast.error("State Must be filled")
-        return
-      }
-      if(pincode.trim()==0){
-        toast.error("Pincode Must be filled")
-        return
-      }
-      if(country.trim()==0){
-        toast.error("Country Must be filled")
-        return
-      }
+      // if(state.trim()==0){
+      //   toast.error("State Must be filled")
+      //   return
+      // }
+      // if(pincode.trim()==0){
+      //   toast.error("Pincode Must be filled")
+      //   return
+      // }
+      // if(country.trim()==0){
+      //   toast.error("Country Must be filled")
+      //   return
+      // }
       
       
       const payload = {

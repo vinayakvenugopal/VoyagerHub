@@ -25,8 +25,8 @@ const [changeStatus] = useChangeBookingStatusMutation()
 
   const [activeFilter, setActiveFilter] = useState("");
 
-  const handleStatusChange = async(id,status)=>{
-    const response = await changeStatus({id:id,status:status})
+  const handleStatusChange = async(id,status,userId)=>{
+    const response = await changeStatus({id:id,status:status,userId:userId})
     refetch()
   }
   const [currentPage, setCurrentPage] = useState(1);
@@ -112,9 +112,9 @@ const [changeStatus] = useChangeBookingStatusMutation()
                       {item.bookingStatus}
                       </span>
                     </td>
-                    {item.bookingStatus=='Confirmed'&& <button className="rounded-100 py-4 px-10 text-center text-14 fw-500 bg-yellow-4 text-yellow-3" onClick={()=>handleStatusChange(item._id,'Cancelled')}>Cancel</button>}
-                    {item.bookingStatus=='Cancel Requested'&& <><button className="rounded-100 py-4 px-10 text-center text-14 fw-500 bg-yellow-4 text-yellow-3" onClick={()=>handleStatusChange(item._id,'Cancelled')}>Accept</button> 
-                                                              <button className="rounded-100 py-4 px-10 text-center text-14 fw-500 bg-yellow-4 text-yellow-3" onClick={()=>handleStatusChange(item._id,'Cancel Rejected')}>Reject</button></>}
+                    {item.bookingStatus=='Confirmed'&& <button className="rounded-100 py-4 px-10 text-center text-14 fw-500 bg-yellow-4 text-yellow-3" onClick={()=>handleStatusChange(item._id,'Cancelled',item.userInfo.id)}>Cancel</button>}
+                    {item.bookingStatus=='Cancel Requested'&& <><button className="rounded-100 py-4 px-10 text-center text-14 fw-500 bg-yellow-4 text-yellow-3" onClick={()=>handleStatusChange(item._id,'Cancelled',item.userInfo.id)}>Accept</button> 
+                                                              <button className="rounded-100 py-4 px-10 text-center text-14 fw-500 bg-yellow-4 text-yellow-3" onClick={()=>handleStatusChange(item._id,'Cancel Rejected',item.userInfo.id)}>Reject</button></>}
                     {item.bookingStatus=='Cancelled' || 'Cancel Rejected' && null}                                          
 
                     <td>
@@ -143,9 +143,9 @@ const [changeStatus] = useChangeBookingStatusMutation()
                       {item.bookingStatus}
                       </span>
                     </td>
-                    {item.bookingStatus=='Confirmed'&& <button className="rounded-100 py-4 px-10 text-center text-14 fw-500 bg-yellow-4 text-yellow-3" onClick={()=>handleStatusChange(item._id,'Cancelled')}>Cancel</button>}
-                    {item.bookingStatus=='Cancel Requested'&& <><button className="rounded-100 py-4 px-10 text-center text-14 fw-500 bg-yellow-4 text-yellow-3" onClick={()=>handleStatusChange(item._id,'Cancelled')}>Accept</button> 
-                                                              <button className="rounded-100 py-4 px-10 text-center text-14 fw-500 bg-yellow-4 text-yellow-3" onClick={()=>handleStatusChange(item._id,'Cancel Rejected')}>Reject</button></>}
+                    {item.bookingStatus=='Confirmed'&& <button className="rounded-100 py-4 px-10 text-center text-14 fw-500 bg-yellow-4 text-yellow-3" onClick={()=>handleStatusChange(item._id,'Cancelled',item.userInfo.id)}>Cancel</button>}
+                    {item.bookingStatus=='Cancel Requested'&& <><button className="rounded-100 py-4 px-10 text-center text-14 fw-500 bg-yellow-4 text-yellow-3" onClick={()=>handleStatusChange(item._id,'Cancelled',item.userInfo.id)}>Accept</button> 
+                                                              <button className="rounded-100 py-4 px-10 text-center text-14 fw-500 bg-yellow-4 text-yellow-3" onClick={()=>handleStatusChange(item._id,'Cancel Rejected',item.userInfo.id)}>Reject</button></>}
                     {item.bookingStatus=='Cancelled' || 'Cancel Rejected' && null}                                          
 
                     <td>

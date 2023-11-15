@@ -95,7 +95,9 @@ const Header1 = () => {
                       <nav className="menu js-navList">
                         <ul className="menu__nav text-white -is-active">
                           <li className={`menu-item-has-children`}></li>
-                            <Link to="/profile"><span className="mr-10">Hi ! {userInfo.name}</span></Link>
+                          {/* <img src="https://bootdey.com/img/Content/avatar/avatar7.png" 
+                          alt="Admin" className="rounded-circle" width="35" /> */}
+                           <Link to="/profile"><span className="mr-10">{userInfo.name}</span></Link>
                         </ul>
                       </nav>
 
