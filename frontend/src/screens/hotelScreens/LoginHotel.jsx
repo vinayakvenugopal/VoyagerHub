@@ -25,7 +25,7 @@ function LoginHotel() {
     try {
       const responseFromApiCall = await register( {email, password} ).unwrap();
       dispatch(setHotelCredentials( { ...responseFromApiCall } ) );
-      navigate('/Hotel/Dashboard');
+      navigate('/Hotel/HotelList');
 
       } catch (err) {
         toast.error( err?.data?.message || err?.error );

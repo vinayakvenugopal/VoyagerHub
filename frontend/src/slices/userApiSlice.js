@@ -2,7 +2,7 @@ import { apiSlice } from "./apiSlice";
 import { REGISTER_URL,LOGIN_URL,GET_HOTEL_LIST_FOR_USER,
     GET_ROOM_DATA_FOR_USER,GET_SINGLE_HOTEL_FOR_USER,VERIFY_OTP,GET_SINGLE_BOOKING,GET_USER_BOOKINGS
 ,SEND_OTP,USER_PROFILE,USER_ADDRESS,ADD_USER_ADDRESS,GET_DETAILS_FOR_BOOKING,PAYMENT,
-PAYMENT_STATUS,CREATE_BOOKING,USER_CANCEL_BOOKING,SUBMIT_COMPLAINT,WALLET_PAYMENT
+PAYMENT_STATUS,CREATE_BOOKING,USER_CANCEL_BOOKING,SUBMIT_COMPLAINT,WALLET_PAYMENT,HOTEL_WISE_REVIEW,ADD_REVIEW
 } from "../config/api";
 
 
@@ -150,13 +150,27 @@ export const userApiSlice = apiSlice.injectEndpoints({
                method:'POST',
                body:data
             })
-        })
+        }),
+        getHotelWiseReview:builder.query({
+            query:(params)=>({
+               url:`${HOTEL_WISE_REVIEW}?id=${params.id}` ,
+               method:'GET'
+
+            })
+        }),
+        addReview:builder.mutation({
+            query:(data)=>({
+               url:`${ADD_REVIEW}` ,
+               method:'POST',
+               body:data
+            })
+        }) 
 
 
     })
 })
-export const {useRegisterMutation,useLoginMutation,useGoogleLoginMutation,
+export const {useRegisterMutation,useLoginMutation,useGoogleLoginMutation,useGetHotelWiseReviewQuery,
     useLogoutMutation,useGetHotelsForUserMutation,useGetRoomDataForUserMutation,
     useGetSingleHotelDataForUserMutation,useSendOtpMutation,useCreateBookingMutation,useSubmitComplaintMutation,
-    useVerifyOtpMutation,useGetProfileQuery,useGetUserAdressQuery,useAddAddressMutation,useWalletPaymentMutation,
+    useVerifyOtpMutation,useGetProfileQuery,useGetUserAdressQuery,useAddAddressMutation,useWalletPaymentMutation,useAddReviewMutation,
     useGetDetailsForBookingQuery,usePaymentMutation,usePaymentStatusMutation,useGetSingleBookingQuery,useGetUserBookingsQuery,useUserCancelBookingMutation}=userApiSlice

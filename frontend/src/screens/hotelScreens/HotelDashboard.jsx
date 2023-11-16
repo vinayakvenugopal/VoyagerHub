@@ -22,6 +22,7 @@ const HotelDashboard = () => {
   }
   const bookingInfo = data.bookingInfo
   const bookingByDate = data.bookingByDate
+  console.log(bookingInfo);
 
 
   return (
@@ -45,7 +46,7 @@ const HotelDashboard = () => {
               </div>
             </div>
 
-            <DashboardCard data={bookingInfo} />
+            {bookingInfo.length > 0 && <DashboardCard data={bookingInfo} />}
 
             <div className="row y-gap-30 pt-20 chart_responsive">
               <div className="col-xl-7 col-md-6">
@@ -56,7 +57,7 @@ const HotelDashboard = () => {
                   </div>
 
                   <div className="pt-30">
-                    <ChartMain datas={bookingByDate} />
+                    {bookingByDate && <ChartMain datas={bookingByDate} />}
                   </div>
                 </div>
               </div>
@@ -70,7 +71,7 @@ const HotelDashboard = () => {
                     </div>
                   </div>
 
-                  <RecentBooking data={hotelData} />
+                  {hotelData && <RecentBooking data={hotelData} />}
                 </div>
               </div>
             </div>

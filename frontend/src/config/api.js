@@ -30,6 +30,8 @@ export const ADD_USER_ADDRESS= '/api/user/addAddress'
 export const GET_SINGLE_BOOKING= '/api/user/getSingleBooking'
 export const GET_USER_BOOKINGS= '/api/user/getBookings'
 export const USER_CANCEL_BOOKING= '/api/user/cancelBooking'
+export const HOTEL_WISE_REVIEW= '/api/user/getHotelWiseReview'
+export const ADD_REVIEW= '/api/user/addReview'
 
 export const PAYMENT= '/api/user/payment'
 export const PAYMENT_STATUS= '/api/user/payment-status'

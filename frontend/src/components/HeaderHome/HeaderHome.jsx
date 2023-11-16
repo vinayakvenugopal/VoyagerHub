@@ -57,9 +57,6 @@ const HeaderHome = () => {
                             Home
                           </span>
                         </Link>
-                        <Link to="#">
-                          <span className="mr-10">Hotels</span>
-                        </Link>
                         <Link to="/booking-list">
                           <span className="mr-10">Bookings</span>
                         </Link>

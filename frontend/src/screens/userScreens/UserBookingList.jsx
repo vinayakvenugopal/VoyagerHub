@@ -18,7 +18,7 @@ export const UserBookingList = () => {
             </div>
 
             <div className="py-30 px-30 rounded-4 bg-white shadow-3">
-              <UserBookingTable />
+              <UserBookingTable />                          
             </div>
 
           </div>

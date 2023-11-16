@@ -9,7 +9,7 @@ const stripe = new Stripe('sk_test_51O7dS4SHIO1unxwgQgkt80Tlj3oRPvrHskSU8NlGDRBR
 const clienturl = 'http://localhost:3000'
 import Bookings from "../models/bookingModel.js";
 import Complaint from "../models/complaintModel.js"; 
-
+import Review from "../models/reviewModel.js";
 // const getHotels = async (req, res, next) => {
 //   try {
 //     const searchName = req.query.name
@@ -374,6 +374,36 @@ const getHotels = async (req, res, next) => {
  
    }
 
+   const addReview = async(req,res,next)=>{
+    const{name,userId,hotelId,title,desc,star} = req.body
+    try {
+      const review = await Review.create({
+        name,
+        userId,
+        hotelId,
+        title,
+        desc,
+        star, 
+     })
+     res.status(201).json(review)
+    } catch (error) {
+      next(error) 
+    }
+   }
+
+   const getHotelWiseReview = async(req,res,next)=>{
+    const {id} = req.query
+    console.log(id);
+    try {
+      const reviews = await Review.find({hotelId:id}).sort({createdAt:-1})
+      res.status(201).json(reviews)
+    } catch (error) {
+      next(error)
+    }
+   }
+
+
+
 
 
   export{
@@ -391,5 +421,7 @@ const getHotels = async (req, res, next) => {
     getBookings,
     cancelBooking,
     submitComplaint,
-    walletPayment
+    walletPayment,
+    addReview,
+    getHotelWiseReview
   }

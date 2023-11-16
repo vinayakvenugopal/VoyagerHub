@@ -65,21 +65,18 @@ function HotelListForUsers({hotelsData,startIndex,endIndex}) {
                       data-x-click="mapFilter"
                       className="d-block text-14 text-blue-1 underline"
                     >
-                      Show on map
                     </button>
                   </div>
 
-                  <div className="col-auto">
-                    <div className="size-3 rounded-full bg-light-1"></div>
-                  </div>
+                  
 
                   <div className="col-auto">
-                    <p className="text-14">2 km to city center</p>
+                    <p className="text-14"></p>
                   </div>
                 </div>
 
                 <div className="text-14 lh-15 mt-20">
-                  <div className="fw-500">King Room</div>
+                  <div className="fw-500"></div>
                   <div className="text-light-1">
                     <span
                       title={item.desc}

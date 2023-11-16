@@ -9,12 +9,16 @@ import { useLocation } from "react-router-dom";
 import { useGetRoomDataForUserMutation,useGetSingleHotelDataForUserMutation } from "../../slices/userApiSlice";
 import AvailableRooms from "../../components/AvailableRoom/AvailableRoom";
 import SidebarDateFilter from "../../components/SidebarDateFilter/SidebarDateFilter";
-
+import ReviewForUser from "../../components/ReviewForUser/ReviewForUser";
+import ReviewForm from "../../components/ReviewForm/ReviewForm";
+import { useGetHotelWiseReviewQuery } from "../../slices/userApiSlice";
+import { useSelector } from "react-redux";
 
 const HOTEL_IMAGE_DIR_PATH = 'http://localhost:5000/HotelImages/'
 import HeaderBodySeperator from "../../components/HeaderBodySeperator/HeaderBodySeperator";
 
 function HotelSinglePage() {
+  const { userInfo } = useSelector((state) => state.auth);
   const [singleHotelData] = useGetSingleHotelDataForUserMutation()
   const [getRoomData] = useGetRoomDataForUserMutation()
   const [checkIn,setCheckIn] = useState(new DateObject().toDate())
@@ -62,10 +66,18 @@ function HotelSinglePage() {
         setLoading(false)
 
       }
- if (loading) {
+      const {data:reviewData,isLoading,isError,refetch:reviewRefetch} = useGetHotelWiseReviewQuery({id:id})
+
+ if (loading||isLoading) {
     // Render a loading indicator while data is being fetched
     return <div>Loading...</div>;
   }
+  const alreadyReviewed = reviewData.some(review => {
+    console.log(review.userId);
+    console.log(userInfo._id);
+    return review.userId === userInfo._id});
+  console.log(alreadyReviewed);
+
   return (
    <>
       <div className="header-margin"></div>
@@ -104,7 +116,6 @@ function HotelSinglePage() {
                   data-x-click="mapFilter"
                   className="text-blue-1 text-15 underline"
                 >
-                  Show on map
                 </button>
               </div>
             </div>
@@ -341,6 +352,44 @@ function HotelSinglePage() {
         </div>
         {/* End .container */}
       </section>
+
+      <section className="pt-40" id="reviews">
+        <div className="container">
+          <div className="row">
+            <div className="col-12">
+              <h3 className="text-22 fw-500">Guest reviews</h3>
+            </div>
+          </div>
+
+          {/* <ReviewProgress /> */}
+
+          <div className="pt-40">
+            <ReviewForUser data={reviewData} />
+          </div>
+
+          <div className="row pt-30">
+          </div>
+        </div>
+      </section>
+
+      {alreadyReviewed || <section className="pt-40">
+        <div className="container">
+          <div className="row">
+            <div className="col-xl-8 col-lg-10">
+              <div className="row">
+                <div className="col-auto">
+                  <h3 className="text-22 fw-500">Leave a Review</h3>
+                  <p className="text-15 text-dark-1 mt-5">
+                    Your email address will not be published.
+                  </p>
+                </div>
+              </div>
+              <ReviewForm hotelId={id} refetch={reviewRefetch}/>
+            </div>
+          </div>
+        </div>
+      </section>}
+
    </>
   )
 }

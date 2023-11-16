@@ -84,7 +84,7 @@ function RegisterHotelier() {
         password,
       }).unwrap();
       dispatch(setHotelCredentials({ ...responseFromApiCall }));
-      navigate("/Hotel/Dashboard");
+      navigate("/Hotel/HotelList");
     } catch (err) {
       toast.error(err?.data?.message || err?.error);
     }
@@ -92,7 +92,7 @@ function RegisterHotelier() {
 
   useEffect(() => {
     if (hotelInfo) {
-      navigate("/Hotel/Details");
+      navigate("/Hotel/HotelList");
     }
   }, [navigate, hotelInfo]);
   return (

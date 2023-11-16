@@ -39,39 +39,39 @@ const BookingCustomerInfo = ({nextStep}) => {
 
     // const {data,error,isLoading,refetch} = useGetDetailsForBookingQuery({hotelId:reservation.hotelId,availabilityId:reservation.availabilityId})
     const handleSubmit = ()=>{
-      // if(name.trim()==0){
-      //   toast.error("Name Must be filled")
-      //   return
-      // }
-      // if(email.trim()==0){
-      //   toast.error("Email Must be filled")
-      //   return
-      // }
-      // if(mobile.trim()==0){
-      //   toast.error("Mobile Must be filled")
-      //   return
-      // }
-      // if(address.trim()==0){
-      //   toast.error("Address Must be filled")
-      //   return
-      // }
-      // if(locality.trim()==0){
-      //   toast.error("Locality Must be filled")
-      //   return
-      // }
+      if(name.trim()==''){
+        toast.error("Name Must be filled")
+        return
+      }
+      if(email.trim()==''){
+        toast.error("Email Must be filled")
+        return
+      }
+      if(mobile.trim()==''){
+        toast.error("Mobile Must be filled")
+        return
+      }
+      if(address.trim()==''){
+        toast.error("Address Must be filled")
+        return
+      }
+      if(locality.trim()==''){
+        toast.error("Locality Must be filled")
+        return
+      }
 
-      // if(state.trim()==0){
-      //   toast.error("State Must be filled")
-      //   return
-      // }
-      // if(pincode.trim()==0){
-      //   toast.error("Pincode Must be filled")
-      //   return
-      // }
-      // if(country.trim()==0){
-      //   toast.error("Country Must be filled")
-      //   return
-      // }
+      if(state.trim()==''){
+        toast.error("State Must be filled")
+        return
+      }
+      if(pincode.trim()==''){
+        toast.error("Pincode Must be filled")
+        return
+      }
+      if(country.trim()==''){
+        toast.error("Country Must be filled")
+        return
+      }
       
       
       const payload = {
@@ -103,13 +103,13 @@ const BookingCustomerInfo = ({nextStep}) => {
     <>
     
       <div className="col-xl-7 col-lg-8 mt-30">
-        <div className="py-15 px-20 rounded-4 text-15 bg-blue-1-05">
+        {/* <div className="py-15 px-20 rounded-4 text-15 bg-blue-1-05">
           Sign in to book with your saved details or{" "}
           <Link to="/others-pages/signup" className="text-blue-1 fw-500">
             register
           </Link>{" "}
           to manage your bookings on the go!
-        </div>
+        </div> */}
         {/* End register notify */}
         <h2 className="text-22 fw-500 mt-40 md:mt-24">
           Let us know who you are

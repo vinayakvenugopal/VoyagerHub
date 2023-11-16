@@ -83,7 +83,7 @@ function HotelList() {
     sortOrder
   ]);
 
-  const itemsPerPage = 1;
+  const itemsPerPage = 2;
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
 

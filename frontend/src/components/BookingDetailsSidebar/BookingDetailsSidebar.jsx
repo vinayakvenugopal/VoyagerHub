@@ -30,7 +30,7 @@ const BookingDetailsSidebar = ({roomDetails,hotelDetails}) => {
             {hotelDetails.name}
           </div>
           <div className="text-14 lh-15 mt-5">{hotelDetails.address}</div>
-          <div className="row x-gap-10 y-gap-10 items-center pt-10">
+          {/* <div className="row x-gap-10 y-gap-10 items-center pt-10">
             <div className="col-auto">
               <div className="d-flex items-center">
                 <div className="size-30 flex-center bg-blue-1 rounded-4">
@@ -42,7 +42,7 @@ const BookingDetailsSidebar = ({roomDetails,hotelDetails}) => {
             <div className="col-auto">
               <div className="text-14">3,014 reviews</div>
             </div>
-          </div>
+          </div> */}
         </div>
         {/* End .col */}
       </div>
