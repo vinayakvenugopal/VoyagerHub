@@ -5,6 +5,7 @@ import Facilities from "../models/facilitiesModal.js";
 import Complaint from "../models/complaintModel.js";
 import Bookings from "../models/bookingModel.js";
 import User from '../models/userModel.js'
+import Review from "../models/reviewModel.js";
 
 
 const adminLogin = async(req,res,next)=>{
@@ -187,6 +188,34 @@ const getHotels = async (req, res,next) => {
       next(error)
   }
   }
+
+  const getReviewsForAdmin = async(req,res,next)=>{
+    try {
+      const reviews = await Review.find({})
+      res.status(201).json(reviews)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  const hideReview = async(req,res,next) =>{
+    const id = req.query.id
+    try {
+      const review = await Review.updateOne({_id:id},{isHidden:true})
+      res.status(201).json({message:'Review Hidden'})
+    } catch (error) {
+      next(error)
+    }
+  }
+  const unHideReview = async (req,res,next) =>{
+    const id = req.query.id
+    try {
+      const review = await Review.updateOne({_id:id},{isHidden:false})
+      res.status(201).json({message:'Review UnHidden'})
+    } catch (error) {
+      next(error)
+    }
+  }
   
 
 
@@ -204,5 +233,8 @@ export {
     getBookingsForAdmin,
     getUsers,
     blockUser,
-    unBlockUser
+    unBlockUser,
+    getReviewsForAdmin,
+    hideReview,
+    unHideReview
 }

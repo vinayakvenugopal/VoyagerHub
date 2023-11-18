@@ -69,5 +69,8 @@ export const GET_USERS = '/api/admin/getUsers'
 export const BLOCK_USERS = '/api/admin/blockUser'
 export const UNBLOCK_USERS = '/api/admin/unBlockUser'
 
+export const GET_REVIEWS_FOR_ADMIN= '/api/admin/getReviewsForAdmin'
+export const HIDE_REVIEW= '/api/admin/hideReview'
+export const UNHIDE_REVIEW= '/api/admin/unHideReview'
 
 export const GET_DETAILS_FOR_BOOKING = '/api/user/getDetailsForBooking'

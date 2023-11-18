@@ -76,7 +76,7 @@ const logoutHotelier = async (req,res) =>{
 
 const createHotel = async (req, res) => {
       
-    const {name,city,address,desc,aminities,hotelierId,starRating} = req.body
+    const {name,city,address,desc,aminities,hotelierId,starRating,videoUrl} = req.body
     let images = []
     if(req.files){
       req.files.map((files)=>{
@@ -98,7 +98,8 @@ const createHotel = async (req, res) => {
             aminities:aminitiesArray,
             images,
             hotelierId,
-            starRating
+            starRating,
+            videoUrl
         })
         res.status(201).json({message:'Hotel Created'})
     } catch (err) {
@@ -114,8 +115,8 @@ const createHotel = async (req, res) => {
       req.files.map((files)=>{
         images.push(files.filename)
       })
-    }
-    const {name,city,address,desc,aminities,hotelierId,starRating,id} = req.body
+    } 
+    const {name,city,address,desc,aminities,hotelierId,starRating,id,videoUrl} = req.body
     try {
       const hotelData = await HotelDetails.findOne({_id:id})
       if(hotelData){
@@ -125,6 +126,8 @@ const createHotel = async (req, res) => {
         hotelData.desc = desc ||  hotelData.desc
         hotelData.aminities = aminities ||  hotelData.aminities
         hotelData.starRating = starRating ||  hotelData.starRating
+        hotelData.videoUrl = videoUrl ||  hotelData.videoUrl
+
       }
       if(req.files.length > 0){
         hotelData.images = images || hotelData.images

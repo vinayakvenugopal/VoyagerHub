@@ -28,6 +28,9 @@ const hotelDetailsSchema = mongoose.Schema({
         type: String,
         required: true,
       },
+      videoUrl: {
+        type: String,
+      },
       aminities:{
         type: [String],
       },

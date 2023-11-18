@@ -30,7 +30,7 @@ import { InvoiceUserPage } from "./screens/userScreens/InvoiceUserPage.jsx";
 import AdminDashboard from "./screens/adminScreens/AdminDashboard.jsx";
 import UserListScreen from "./screens/adminScreens/UserListScreen.jsx";
 import UpdateHotelDetailsScreen from "./screens/hotelScreens/UpdateHotelDetailsScreen.jsx";
-
+import { ReviewManagement } from "./screens/adminScreens/ReviewManagement.jsx";
 
 const HotelList  = lazy(()=>import ("./screens/userScreens/HotelList.jsx"));
 const HotelSinglePage  = lazy(()=>import ("./screens/userScreens/HotelSinglePage.jsx"));
@@ -165,6 +165,12 @@ const router = createBrowserRouter([
   {
     path: "/Admin/Users",
     element: <AdminPrivateRoute><UserListScreen/></AdminPrivateRoute>,
+    errorElement:<ErrorPage/>
+
+  },
+  {
+    path: "/Admin/Reviews",
+    element: <AdminPrivateRoute><ReviewManagement/></AdminPrivateRoute>,
     errorElement:<ErrorPage/>
 
   },

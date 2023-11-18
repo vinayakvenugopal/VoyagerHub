@@ -11,6 +11,7 @@ export const UpdateHotelDetailsForm = ({hotel}) => {
   const navigate = useNavigate()
   const [name,setName] = useState(hotel.name)
   const [starRating,setStarRating] = useState(hotel.starRating)
+  const [videoUrl,setVideoUrl] = useState(hotel.videoUrl)
   const [desc,setDesc] = useState(hotel.desc)
   const [address,setAddress] = useState(hotel.address)
   const [images, setImages] = useState([]);
@@ -68,6 +69,9 @@ if (!isValid) {
     formData.append('hotelierId', hotelInfo._id);
     formData.append('starRating', starRating);
     formData.append('id', hotel._id);
+    formData.append('videoUrl', videoUrl);
+
+
 
     for (let i = 0; i < images.length; i++) {
       formData.append('images', images[i]);
@@ -117,6 +121,16 @@ if (!isValid) {
         onChange={(e) => setStarRating(e.target.value)}
          />
         <label className="lh-1 text-16 text-light-1">Star Rating(1-5)</label>
+      </div>
+    </div>
+
+    <div className="col-12">
+      <div className="form-input ">
+        <input type="text" 
+        value={videoUrl}
+        onChange={(e) => setVideoUrl(e.target.value)}
+         />
+        <label className="lh-1 text-16 text-light-1">Video Url(Youtube)</label>
       </div>
     </div>
 

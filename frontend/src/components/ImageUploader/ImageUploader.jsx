@@ -12,7 +12,7 @@ const ImageUploader= ({
   const handleFileUpload = (event) => {
     const fileList = event.target.files;
     const newImages = [];
-    const maxSize = 2000; // in pixels
+    const maxSize = 2000; 
 
     for (let i = 0; i < fileList.length; i++) {
       const file = fileList[i];
@@ -56,7 +56,6 @@ const ImageUploader= ({
   };
 
   useEffect(() => {
-    // Notify the parent component (HotelDetailsForm) about changes in images or errors
     onImageUpload(images, error);
   }, [images, error, onImageUpload]);
 

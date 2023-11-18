@@ -395,7 +395,7 @@ const getHotels = async (req, res, next) => {
     const {id} = req.query
     console.log(id);
     try {
-      const reviews = await Review.find({hotelId:id}).sort({createdAt:-1})
+      const reviews = await Review.find({hotelId:id,isHidden:false}).sort({createdAt:-1}) 
       res.status(201).json(reviews)
     } catch (error) {
       next(error)

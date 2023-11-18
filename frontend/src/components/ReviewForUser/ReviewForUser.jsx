@@ -31,6 +31,7 @@ const ReviewForUser = ({data}) => {
           <div className="col-auto">
             <div className="fw-500 lh-15">{item.name}</div>
             <div className="text-14 text-light-1 lh-15">{dayjs(item.createdAt).format("DD/MM/YYYY")}</div>
+            
           </div>
 
           <div className="d-flex x-gap-5 items-center pt-10">

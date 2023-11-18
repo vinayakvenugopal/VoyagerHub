@@ -1,5 +1,5 @@
 import express from "express"
-import { adminLogin,logoutAdmin,getHotels, blockHotel,unBlockHotel, addFacilities, getFacilities, deleteFacilities, getComplaints, adminDashboard, getBookingsForAdmin, getUsers, blockUser, unBlockUser } from "../controller/adminController.js"
+import { adminLogin,logoutAdmin,getHotels, blockHotel,unBlockHotel, addFacilities, getFacilities, deleteFacilities, getComplaints, adminDashboard, getBookingsForAdmin, getUsers, blockUser, unBlockUser, getReviewsForAdmin, hideReview, unHideReview } from "../controller/adminController.js"
 import { protectAdmin } from "../middleware/adminAuth.js"
 const router = express.Router()
 
@@ -18,8 +18,11 @@ router.get('/getComplaints',getComplaints)
 router.get('/adminDashbaord',adminDashboard)
 router.get('/getBookingsForAdmin',getBookingsForAdmin)
 router.get('/getUsers',getUsers)
-
 router.get('/blockUser',blockUser)
 router.get('/unBlockUser',unBlockUser)
+router.get('/getReviewsForAdmin',getReviewsForAdmin)
+
+router.get('/hideReview',hideReview)
+router.get('/unHideReview',unHideReview)
 
 export default router 
