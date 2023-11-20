@@ -1,7 +1,7 @@
 import { apiSlice } from "./apiSlice";
 import { HOTEL_REGISTER,HOTEL_LOGIN ,GET_HOTEL_LIST,CREATE_HOTEL,
-    GET_SINGLE_HOTEL,GET_ROOM_DATA_FOR_HOTELS,ADD_ROOM_DATA,HOTEL_LOGOUT,CHANGE_BOOKING_STATUS,EDIT_HOTEL,
-    SEND_OTP_FOR_HOTEL,VERIFY_OTP_FOR_HOTEL,DELETE_ROOM,GET_FACILITIES,GET_BOOKINGS_FOR_HOTEL,GET_HOTEL_DASHBOARD,GET_BOOKING_FOR_HOTELIER} from "../config/api";
+    GET_SINGLE_HOTEL,GET_ROOM_DATA_FOR_HOTELS,ADD_ROOM_DATA,HOTEL_LOGOUT,CHANGE_BOOKING_STATUS,EDIT_HOTEL,GET_MESSAGE_FOR_HOTEL,SEND_CHAT_FOR_HOTEL,
+    SEND_OTP_FOR_HOTEL,VERIFY_OTP_FOR_HOTEL,DELETE_ROOM,GET_FACILITIES,GET_BOOKINGS_FOR_HOTEL,GET_HOTEL_DASHBOARD,GET_BOOKING_FOR_HOTELIER,GET_CHATROOM} from "../config/api";
 
 
 export const userApiSlice = apiSlice.injectEndpoints({
@@ -131,12 +131,32 @@ export const userApiSlice = apiSlice.injectEndpoints({
                 
               }
             })
+        }),
+        getChatRoom:builder.query({
+            query:(params)=>({
+               url:`${GET_CHATROOM}/${params.hotelier}` ,
+               method:'GET'
+
+            })
+        }),
+        getMessageForHotelier:builder.mutation({
+            query:(params)=>({
+                url: `${GET_MESSAGE_FOR_HOTEL}/${params.roomId}`, 
+                method:'GET',
+            })
+        }),
+        sendChatForHotel:builder.mutation({
+            query:(data)=>({
+                url: `${SEND_CHAT_FOR_HOTEL}`, 
+                method:'POST',
+                body:data
+            })
         }) 
 
 
     })
 })
 export const {useHotelRegisterMutation,useHotelLoginMutation,useChangeBookingStatusMutation,
-    useHotelLogoutMutation,useGetHotelListForHotelierMutation,useCreateHotelMutation,useEditHotelMutation,
-    useGetSingleHotelDataMutation,useDelteRoomMutation,useGetFacilitiesQuery,useGetBookingsForHotelQuery,
+    useHotelLogoutMutation,useGetHotelListForHotelierMutation,useCreateHotelMutation,useEditHotelMutation,useSendChatForHotelMutation,
+    useGetSingleHotelDataMutation,useDelteRoomMutation,useGetFacilitiesQuery,useGetBookingsForHotelQuery,useGetChatRoomQuery,useGetMessageForHotelierMutation,
     useAddRoomMutation,useSendOtpForHotelMutation,useVerifyOtpForHotelMutation,useGetRoomDataForHotelQuery,useGetHotelDashboardQuery,useGetBookingsForHotelierQuery} =userApiSlice

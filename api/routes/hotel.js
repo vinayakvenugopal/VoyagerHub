@@ -4,6 +4,7 @@ import {registerHotelier,loginHotelier,logoutHotelier,createHotel, getHotels, ho
      addRoom, getRoomForHotelier, sendOtpCode, verifyOtp, deleteRoom,getFacilities, getBookings, changeBookingStatus,getBookingsForHotelier, hotelDashboard, updateHotel} from '../controller/hotelController.js'
 import { multerUploadHotelImages,multerUploadRoomImages} from "../config/multer.js"
 import { protectHotel } from "../middleware/hotelAuth.js";
+import { getChatRooms, getMessages, sendChat } from "../controller/chatController.js";
 
 router.post('/register',registerHotelier)
 router.post('/login',loginHotelier )
@@ -22,5 +23,7 @@ router.get('/changeBookingStatus',changeBookingStatus)
 router.get('/hotelDashbaord',hotelDashboard)
 router.get('/getBookingsForHotelier',getBookingsForHotelier)
 router.post('/updateHotel',multerUploadHotelImages.array("images",10),updateHotel)
-
+router.get('/getChatRooms/:hotelier',getChatRooms)
+router.post('/sendChat',sendChat)
+router.get('/getMessages/:roomId',getMessages)
 export default router 

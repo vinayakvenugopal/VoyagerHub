@@ -31,6 +31,7 @@ import AdminDashboard from "./screens/adminScreens/AdminDashboard.jsx";
 import UserListScreen from "./screens/adminScreens/UserListScreen.jsx";
 import UpdateHotelDetailsScreen from "./screens/hotelScreens/UpdateHotelDetailsScreen.jsx";
 import { ReviewManagement } from "./screens/adminScreens/ReviewManagement.jsx";
+import HotelierChatScreen from "./screens/hotelScreens/HotelierChatScreen.jsX";
 
 const HotelList  = lazy(()=>import ("./screens/userScreens/HotelList.jsx"));
 const HotelSinglePage  = lazy(()=>import ("./screens/userScreens/HotelSinglePage.jsx"));
@@ -125,6 +126,12 @@ const router = createBrowserRouter([
   {
     path: "/Hotel/booking-list/:id",
     element: <HotelPrivateRoute><HotelBookingList/></HotelPrivateRoute>,
+    errorElement:<ErrorPage/>
+
+  },
+  {
+    path: "/Hotel/chat",
+    element: <HotelPrivateRoute><HotelierChatScreen/></HotelPrivateRoute>,
     errorElement:<ErrorPage/>
 
   },

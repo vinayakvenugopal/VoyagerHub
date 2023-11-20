@@ -1,8 +1,8 @@
 import { apiSlice } from "./apiSlice";
 import { REGISTER_URL,LOGIN_URL,GET_HOTEL_LIST_FOR_USER,
     GET_ROOM_DATA_FOR_USER,GET_SINGLE_HOTEL_FOR_USER,VERIFY_OTP,GET_SINGLE_BOOKING,GET_USER_BOOKINGS
-,SEND_OTP,USER_PROFILE,USER_ADDRESS,ADD_USER_ADDRESS,GET_DETAILS_FOR_BOOKING,PAYMENT,
-PAYMENT_STATUS,CREATE_BOOKING,USER_CANCEL_BOOKING,SUBMIT_COMPLAINT,WALLET_PAYMENT,HOTEL_WISE_REVIEW,ADD_REVIEW
+,SEND_OTP,USER_PROFILE,USER_ADDRESS,ADD_USER_ADDRESS,GET_DETAILS_FOR_BOOKING,PAYMENT,SEND_CHAT,GET_MESSAGE,
+PAYMENT_STATUS,CREATE_BOOKING,USER_CANCEL_BOOKING,SUBMIT_COMPLAINT,WALLET_PAYMENT,HOTEL_WISE_REVIEW,ADD_REVIEW,CREATE_CHATROOM
 } from "../config/api";
 
 
@@ -164,13 +164,33 @@ export const userApiSlice = apiSlice.injectEndpoints({
                method:'POST',
                body:data
             })
+        }),
+        createChatRoom:builder.mutation({
+            query:(params)=>({
+                url: `${CREATE_CHATROOM}/${params.user}/${params.hotelier}`, 
+                method:'GET',
+            })
+        }),
+        sendChat:builder.mutation({
+            query:(data)=>({
+                url: `api/user/sendChat`, 
+                method:'POST',
+                body:data
+            })
+        }),
+        getMessage:builder.mutation({
+            query:(params)=>({
+                url: `${GET_MESSAGE}/${params.roomId}`, 
+                method:'GET',
+            })
         }) 
 
 
     })
 })
 export const {useRegisterMutation,useLoginMutation,useGoogleLoginMutation,useGetHotelWiseReviewQuery,
-    useLogoutMutation,useGetHotelsForUserMutation,useGetRoomDataForUserMutation,
+    useLogoutMutation,useGetHotelsForUserMutation,useGetRoomDataForUserMutation,useCreateChatRoomMutation,
     useGetSingleHotelDataForUserMutation,useSendOtpMutation,useCreateBookingMutation,useSubmitComplaintMutation,
     useVerifyOtpMutation,useGetProfileQuery,useGetUserAdressQuery,useAddAddressMutation,useWalletPaymentMutation,useAddReviewMutation,
-    useGetDetailsForBookingQuery,usePaymentMutation,usePaymentStatusMutation,useGetSingleBookingQuery,useGetUserBookingsQuery,useUserCancelBookingMutation}=userApiSlice
+    useGetDetailsForBookingQuery,usePaymentMutation,usePaymentStatusMutation,useGetSingleBookingQuery,useGetUserBookingsQuery,
+    useUserCancelBookingMutation,useGetMessageMutation,useSendChatMutation}=userApiSlice

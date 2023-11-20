@@ -2,6 +2,7 @@ import express from "express"
 import { getHotels,getRoom,hotelSingle,getProfile ,addAddress, getUserAddress, getDetailsForBooking, stripePayment, 
     paymentStatus, createBooking, getSingleBooking, getBookings, cancelBooking, submitComplaint, walletPayment, addReview, getHotelWiseReview} from "../controller/userController.js"
 import { protect } from "../middleware/userAuthMiddleware.js"
+import { createChatRoom, getMessages, sendChat } from "../controller/chatController.js"
 
 const router = express.Router()
 
@@ -24,4 +25,9 @@ router.post('/submitComplaint',submitComplaint)
 router.post('/walletPayment',walletPayment)
 router.post('/addReview',addReview)
 router.get('/getHotelWiseReview',getHotelWiseReview)
-export default router
+
+router.get('/createChatRoom/:user/:hotelier',createChatRoom)
+router.post('/sendChat',sendChat)
+router.get('/getMessages/:roomId',getMessages)
+
+export default router 

@@ -27,17 +27,46 @@ app.use('/api/admin',adminRoute)
 app.use(notFound) 
 app.use(errorHandler)
 
-// app.use((err,req,res,next)=>{
-//     const errorStatus = err.status || 500
-//     const errorMessage = err.message || "Something went wrong"
-//     return res.status(errorStatus).json({
-//         success:false,
-//         status:errorStatus,
-//         message:errorMessage,
-//         stack:err.stack
-//     })
-// })
 
-app.listen(port,()=>{
+
+const server =  app.listen(port,()=>{
     console.log(`backend connected @ ${port}`);
+})
+
+import { Server } from 'socket.io'
+
+const io = new Server(server, {
+    pingTimeout: 60000,
+    cors: {
+      origin: ["http://localhost:3000"],
+    },
+  }); 
+
+  io.on("connection",(socket)=>{
+    console.log("connected with socket io");
+  
+    socket.on("setup",(userData)=>{
+      socket.join(userData._id);
+      socket.emit("connected");
+    });
+
+    socket.on('join chat',(room)=>{
+        socket.join(room);
+        console.log("User Joined room:"+room);
+      })
+
+      socket.on('new message',(newMessageReceived)=>{
+        var chat = newMessageReceived.room;
+        if(!chat.user || !chat.hotelier){
+          return console.log('chat.users not defined')
+        }
+        
+        if(chat.user._id === newMessageReceived.sender._id){
+          socket.to(chat.hotelier._id).emit("message received",newMessageReceived)
+        }
+    
+        if(chat.hotelier._id === newMessageReceived.sender._id){
+          socket.to(chat.user._id).emit("message received",newMessageReceived)
+        }
+      })  
 })

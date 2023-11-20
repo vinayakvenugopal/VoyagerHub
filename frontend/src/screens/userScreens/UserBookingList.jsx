@@ -1,9 +1,27 @@
 import React from 'react'
 import UserBookingTable from '../../components/UserBookingTable/UserBookingTable'
 import Header1 from '../../components/UserNavbar/Header1'
+import UserChat from '../../components/UserChatModal/UserChatModal'
+import { useState } from 'react'
+import { useCreateChatRoomMutation } from "../../slices/userApiSlice";
+
 export const UserBookingList = () => {
+  const [createChatRoom] = useCreateChatRoomMutation();
+  const [loading,setLoading] = useState(true)
+  const [modalOpen, setModalOpen] = useState(false);
+  const [chatRoom,setChatRoom] = useState('')
+  const handleChat = async (userId,hotelierId) => {
+    const res = await createChatRoom({user:userId,hotelier:hotelierId})
+    setChatRoom(res.data)
+    console.log(res);
+    setModalOpen(true);
+    setLoading(false)
+  };
+
+ 
   return (
    <>
+   <UserChat modalOpen={modalOpen} setModalOpen={setModalOpen} chatRoom={chatRoom} loading={loading} roomId={chatRoom._id}/>
    <Header1/>
    <div style={{marginTop:"90px"}}>
 
@@ -18,7 +36,7 @@ export const UserBookingList = () => {
             </div>
 
             <div className="py-30 px-30 rounded-4 bg-white shadow-3">
-              <UserBookingTable />                          
+              <UserBookingTable modalOpen={modalOpen} setModalOpen={setModalOpen} handleChat={handleChat} />                          
             </div>
 
           </div>
