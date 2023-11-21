@@ -4,7 +4,7 @@ dotenv.config()
 
 const generateHotelToken = (res,userId) =>{
     const token = jwt.sign({userId},
-        'newHotelSecret',{expiresIn:'3d'})
+        process.env.JWT_HOTEL_SECRET,{expiresIn:'3d'})
 
         res.cookie('jwtHotel',token,{
             httpOnly:true,

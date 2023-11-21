@@ -41,6 +41,13 @@ const HotelSidebar = () => {
         { title: "Add Hotel", href: "/Hotel/AddDetails" },
         { title: "View Hotels", href: "/Hotel/HotelList" },
       ],
+    },
+    {
+      icon: "/img/dashboard/sidebar/booking.svg",
+      title: "Chat",
+      links: [
+        { title: "chat", href: "/Hotel/chat" },
+      ],
     }
     
   ];

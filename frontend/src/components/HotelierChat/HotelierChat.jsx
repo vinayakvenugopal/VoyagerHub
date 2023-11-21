@@ -70,14 +70,15 @@ useEffect(()=>{
 
   useEffect(() => {
     socket.on('message received',(newMessageReceived)=>{
+
       if(!selectedChatCompare || currentRoomId!==newMessageReceived.room._id){
-        console.log('not workoing');
+      
       
       }else{
         setMessage([...message,newMessageReceived])
       }
 
-    })
+    },[message])
 })
 
 
@@ -107,7 +108,7 @@ if(isRoomLoading){
                   <a href="#!" className="d-flex justify-content-between">
                     <div className="d-flex flex-row">
                       <img
-                        src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-8.webp"
+                        src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3-bg.webp"
                         alt="avatar"
                         className="rounded-circle d-flex align-self-center me-3 shadow-1-strong"
                         width="60"
@@ -136,7 +137,7 @@ if(isRoomLoading){
             <li className="d-flex justify-content-between mb-4">
               
               <img
-                src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-6.webp"
+                src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3-bg.webp"
                 alt="avatar"
                 className="rounded-circle d-flex align-self-start me-3 shadow-1-strong"
                 width="60"
@@ -168,7 +169,7 @@ if(isRoomLoading){
                 </MDBCardBody>
               </MDBCard>
               <img
-                src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-5.webp"
+                src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava4-bg.webp"
                 alt="avatar"
                 className="rounded-circle d-flex align-self-start ms-3 shadow-1-strong"
                 width="60"
@@ -176,7 +177,8 @@ if(isRoomLoading){
             </li>
             }
             </>
-            ))}   
+            ))}  
+            <div style={{ position: 'sticky', bottom: 65, background: '#fff' }}>
             <li className="bg-white mb-3">
               <textarea id="textAreaExample" 
               value={content}
@@ -186,6 +188,7 @@ if(isRoomLoading){
             <button rounded className="float-end button h-50 px-24 -dark-1 bg-blue-1 text-white" onClick={()=>sendMessage()}>
               Send
             </button>
+            </div> 
           </MDBTypography>
     </div>
   </MDBRow>
