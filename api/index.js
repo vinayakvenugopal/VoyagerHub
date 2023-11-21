@@ -1,5 +1,6 @@
 import express from "express"
 import dotenv from "dotenv"
+import path from 'path';
 import connectDB from "./config/db.js"
 import authRoute from './routes/auth.js'
 import userRoute from './routes/users.js'
@@ -23,6 +24,19 @@ app.use('/api/auth',authRoute)
 app.use('/api/user',userRoute)
 app.use('/api/hotel',hotelRoute)
 app.use('/api/admin',adminRoute)
+console.log(process.env.NODE_ENV ,'env')
+if (process.env.NODE_ENV === 'production') {
+  const __dirname = path.resolve();
+  app.use(express.static(path.join(__dirname, '/frontend/dist')));
+
+  app.get('*', (req, res) =>
+    res.sendFile(path.resolve(__dirname, 'frontend', 'dist', 'index.html'))
+  );
+} else {
+  app.get('/', (req, res) => {  
+    res.send('API is running....');
+  });
+}
 
 app.use(notFound) 
 app.use(errorHandler)
@@ -38,7 +52,7 @@ import { Server } from 'socket.io'
 const io = new Server(server, {
     pingTimeout: 60000,
     cors: {
-      origin: ["http://localhost:3000"],
+      origin: ["http://localhost:5000","http://localhost:3000"],
     },
   }); 
 
@@ -61,12 +75,8 @@ const io = new Server(server, {
           return console.log('chat.users not defined')
         }
         
-        if(chat.user._id === newMessageReceived.sender._id){
-          socket.to(chat.hotelier._id).emit("message received",newMessageReceived)
-        }
+        socket.to(chat._id).emit("message received",newMessageReceived)
     
-        if(chat.hotelier._id === newMessageReceived.sender._id){
-          socket.to(chat.user._id).emit("message received",newMessageReceived)
-        }
+      
       })  
 })
