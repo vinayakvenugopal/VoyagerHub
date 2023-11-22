@@ -6,7 +6,7 @@ import User from "../models/userModel.js";
 import UserAddress from "../models/userAdressModel.js";
 import { Stripe } from "stripe";
 const stripe = new Stripe('sk_test_51O7dS4SHIO1unxwgQgkt80Tlj3oRPvrHskSU8NlGDRBR3M2AJzMUr88C5q3TaIaYHTk4nIAhJnRvgDFTugo85HHr005ho3q9Lw')
-const clienturl = 'http://localhost:5000'
+const clienturl = 'https://www.voyagerhub.vinayakvenugopal.com'
 import Bookings from "../models/bookingModel.js";
 import Complaint from "../models/complaintModel.js"; 
 import Review from "../models/reviewModel.js";
