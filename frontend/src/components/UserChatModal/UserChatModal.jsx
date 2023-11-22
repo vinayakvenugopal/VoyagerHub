@@ -4,7 +4,7 @@ import {MDBIcon} from "mdb-react-ui-kit";
 import { useSendChatMutation,useGetMessageMutation } from "../../slices/userApiSlice";
 import { useSelector } from "react-redux";
 import io from 'socket.io-client'
-const ENDPOINT = 'http://localhost:5000';
+const ENDPOINT = 'https://voyagerhub.vinayakvenugopal.com/';
 var socket,selectedChatCompare;
 
 const UserChat = ({modalOpen, setModalOpen,chatRoom,loading,roomId}) => {

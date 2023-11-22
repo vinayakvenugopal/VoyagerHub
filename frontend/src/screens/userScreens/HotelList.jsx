@@ -6,7 +6,7 @@ import { useState, useEffect } from "react";
 import { useGetHotelsForUserMutation } from "../../slices/userApiSlice";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import Pagination from "../../components/Pagination/Pagination.jsX";
+import Pagination from "../../components/Pagination/Pagination.jsx";
 
 function HotelList() {
   const [hotelsData, setHotelsData] = useState([]);

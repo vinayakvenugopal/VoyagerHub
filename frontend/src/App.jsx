@@ -20,7 +20,7 @@ import FacilitiesManagementScreen from "./screens/adminScreens/FacilitiesManagem
 import AdminPrivateRoute from "./components/AdminPrivateRoute/AdminPrivateRoute.jsx";
 import UserPrivateRoute from "./components/UserPrivateRoute/UserPrivateRoute.jsx";
 import ErrorPage from "./components/ErrorComponent/ErrorComponent.jsx";
-import BookingPage from "./screens/userScreens/bookingPage.jsx";
+import BookingPage from "./screens/userScreens/BookingPage.jsx";
 import ReturnPage from "./screens/userScreens/ReturnPage.jsx";
 import { UserBookingList } from "./screens/userScreens/UserBookingList.jsx";
 import HotelBookingList from "./screens/hotelScreens/HotelBookingList.jsx";
@@ -31,7 +31,7 @@ import AdminDashboard from "./screens/adminScreens/AdminDashboard.jsx";
 import UserListScreen from "./screens/adminScreens/UserListScreen.jsx";
 import UpdateHotelDetailsScreen from "./screens/hotelScreens/UpdateHotelDetailsScreen.jsx";
 import { ReviewManagement } from "./screens/adminScreens/ReviewManagement.jsx";
-import HotelierChatScreen from "./screens/hotelScreens/HotelierChatScreen.jsX";
+import HotelierChatScreen from "./screens/hotelScreens/HotelierChatScreen.jsx";
 
 const HotelList  = lazy(()=>import ("./screens/userScreens/HotelList.jsx"));
 const HotelSinglePage  = lazy(()=>import ("./screens/userScreens/HotelSinglePage.jsx"));

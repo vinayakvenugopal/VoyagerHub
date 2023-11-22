@@ -19,7 +19,7 @@ import {
 } from "../../slices/hotelApiSlice";
 import { useEffect } from "react";
 import io from "socket.io-client";
-const ENDPOINT = "http://localhost:5000";
+const ENDPOINT = "https://voyagerhub.vinayakvenugopal.com";
 var socket, selectedChatCompare;
 
 export default function HotelierChat() {

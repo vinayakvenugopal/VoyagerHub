@@ -7,10 +7,11 @@ import userRoute from './routes/users.js'
 import cookieParser from 'cookie-parser'
 import hotelRoute from './routes/hotel.js'
 import adminRoute from './routes/admin.js'
+import cors from 'cors'
 import { notFound,errorHandler } from "./middleware/errorMiddleware.js"
 dotenv.config()
 
-const port = process.env.PORT
+const port = 5000
 const app = express() 
 connectDB()
 app.use(express.json())
@@ -24,24 +25,30 @@ app.use('/api/auth',authRoute)
 app.use('/api/user',userRoute)
 app.use('/api/hotel',hotelRoute)
 app.use('/api/admin',adminRoute)
-console.log(process.env.NODE_ENV ,'env')
-if (process.env.NODE_ENV === 'production') {
-  const __dirname = path.resolve();
-  app.use(express.static(path.join(__dirname, '/frontend/dist')));
+const currentWorkingDir = path.resolve();
+const parentDir = path.dirname(currentWorkingDir);
+const enviornment = 'production'
+if (enviornment === 'production') {
+    const __dirname = path.resolve();
+    app.use(express.static(path.join(parentDir, '/frontend/dist')));
+  
+    app.get('*', (req, res) =>
+      res.sendFile(path.resolve(parentDir, 'frontend', 'dist', 'index.html'))
+    );
+  } else {
+    app.get('/', (req, res) => {
+      res.send('API is running....');
+    });
+  }
 
-  app.get('*', (req, res) =>
-    res.sendFile(path.resolve(__dirname, 'frontend', 'dist', 'index.html'))
-  );
-} else {
-  app.get('/', (req, res) => {  
-    res.send('API is running....');
-  });
-}
 
 app.use(notFound) 
 app.use(errorHandler)
 
-
+app.use(cors({
+    origin: ["https://voyagerhub.vinayakvenugopal.com/","https://www.voyagerhub.vinayakvenugopal.com/"],
+    credentials: true
+  }));
 
 const server =  app.listen(port,()=>{
     console.log(`backend connected @ ${port}`);
@@ -52,7 +59,7 @@ import { Server } from 'socket.io'
 const io = new Server(server, {
     pingTimeout: 60000,
     cors: {
-      origin: ["http://localhost:5000","http://localhost:3000"],
+      origin: ["https://voyagerhub.vinayakvenugopal.com/","https://www.voyagerhub.vinayakvenugopal.com/"],
     },
   }); 
 

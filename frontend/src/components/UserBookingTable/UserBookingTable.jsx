@@ -8,7 +8,7 @@ import {
 } from "../../slices/userApiSlice";
 import dayjs from "dayjs";
 import { useNavigate } from "react-router-dom";
-import Pagination from "../Pagination/Pagination.jsX";
+import Pagination from "../Pagination/Pagination.jsx";
 import { FaRocketchat } from "react-icons/fa";
 
 const UserBookingTable = ({handleChat }) => {
