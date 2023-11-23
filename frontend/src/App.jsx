@@ -58,7 +58,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/hotel-single/:id",
-    element: <Suspense fallback={<div>Loading...</div>}> <HotelSinglePage /> </Suspense>,
+    element: <Suspense fallback={<div>Loading...</div>}> <UserPrivateRoute><HotelSinglePage /></UserPrivateRoute></Suspense>,
   },
   {
     path: "/profile",
