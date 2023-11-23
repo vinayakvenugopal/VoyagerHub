@@ -1,5 +1,5 @@
 import React,{useEffect, useState} from 'react'
-const HOTEL_IMAGE_DIR_PATH = 'http://localhost:5000/HotelImages/'
+const HOTEL_IMAGE_DIR_PATH = 'https://www.voyagerhub.vinayakvenugopal.com/HotelImages/'
 import { toast } from 'react-toastify';
 import { Tooltip } from 'react-tooltip'
 import { Link } from 'react-router-dom';

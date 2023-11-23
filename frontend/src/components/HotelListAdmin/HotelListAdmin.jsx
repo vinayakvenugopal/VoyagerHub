@@ -1,5 +1,5 @@
 import React,{useEffect, useState} from 'react'
-const HOTEL_IMAGE_DIR_PATH = 'http://localhost:5000/HotelImages/'
+const HOTEL_IMAGE_DIR_PATH = 'https://www.voyagerhub.vinayakvenugopal.com/HotelImages/'
 import { FaBan,FaLockOpen } from "react-icons/fa6";
 import { useBlockHotelMutation,useUnBlockHotelMutation } from '../../slices/adminApiSlice';
 import { toast } from 'react-toastify';
