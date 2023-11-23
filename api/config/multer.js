@@ -13,7 +13,7 @@ const ensureDirectoryExists = (directory) => {
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    const destinationPath = path.join(parentDir,"Public", "HotelImages");
+    const destinationPath = path.join(parentDir,"api","Public", "HotelImages");
     ensureDirectoryExists(destinationPath);
     cb(null, destinationPath);
   },
@@ -29,7 +29,7 @@ const storage = multer.diskStorage({
 
 const storageForRoom = multer.diskStorage({
   destination: (req, file, cb) => {
-    const destinationPath = path.join(parentDir, "Public", "RoomImages");
+    const destinationPath = path.join(parentDir, "api","Public", "RoomImages");
     ensureDirectoryExists(destinationPath);
     cb(null, destinationPath);
   },
