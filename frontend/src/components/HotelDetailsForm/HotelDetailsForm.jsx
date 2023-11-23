@@ -94,7 +94,7 @@ if (!isValid) {
     toast.success('Details Added Succesfully')
     navigate('/Hotel/HotelList')
   } catch (error) {
-      throw new Error('Error Submitting form')
+      throw new Error('Error Submitting form',error.message)
   }
 
   }
