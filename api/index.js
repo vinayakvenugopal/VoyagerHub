@@ -19,7 +19,7 @@ app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 app.use(cookieParser())
 // ===================== Setting Static Folder =====================
-app.use(express.static(path.join(parentDir,'api/Public')));
+app.use(express.static(path.join(parentDir,'/api/Public')));
 
 
 app.use('/api/auth',authRoute)
