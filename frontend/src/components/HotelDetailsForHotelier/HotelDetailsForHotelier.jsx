@@ -1,6 +1,6 @@
 import React from "react";
 import { Gallery, Item } from "react-photoswipe-gallery";
-const HOTEL_IMAGE_DIR_PATH = "http://localhost:5000/HotelImages/";
+const HOTEL_IMAGE_DIR_PATH = "https://www.voyagerhub.vinayakvenugopal.com/HotelImages/";
 import { Link } from "react-router-dom";
 
 function HotelDetailsForHotelier({ hotel }) {

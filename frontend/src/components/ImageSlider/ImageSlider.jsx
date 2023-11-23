@@ -1,5 +1,5 @@
 import Slider from "react-slick";
-const HOTEL_IMAGE_DIR_PATH = 'http://localhost:5000/HotelImages/'
+const HOTEL_IMAGE_DIR_PATH = 'https://www.voyagerhub.vinayakvenugopal.com/HotelImages/'
 
 
 function ImageSlider({ images }) {

@@ -18,7 +18,7 @@ import { useGetHotelWiseReviewQuery } from "../../slices/userApiSlice";
 import { useSelector } from "react-redux";
 import ModalVideo from "react-modal-video";
 
-const HOTEL_IMAGE_DIR_PATH = "http://localhost:5000/HotelImages/";
+const HOTEL_IMAGE_DIR_PATH = "https://www.voyagerhub.vinayakvenugopal.com/HotelImages/";
 import HeaderBodySeperator from "../../components/HeaderBodySeperator/HeaderBodySeperator";
 
 function HotelSinglePage() {

@@ -1,5 +1,5 @@
 import {useState} from 'react'
-const ROOM_IMAGE_DIR_PATH = 'http://localhost:5000/RoomImages/'
+const ROOM_IMAGE_DIR_PATH = 'https://www.voyagerhub.vinayakvenugopal.com/RoomImages/'
 import { useDelteRoomMutation } from '../../slices/hotelApiSlice'
 import Pagination from '../Pagination/Pagination'
 

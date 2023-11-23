@@ -1,4 +1,4 @@
-const ROOM_IMAGE_DIR_PATH = "http://localhost:5000/RoomImages/";
+const ROOM_IMAGE_DIR_PATH = "https://www.voyagerhub.vinayakvenugopal.com/RoomImages/";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setUserInfo,setHotelDetails,setRoomDetails } from "../../slices/bookingSlice";
