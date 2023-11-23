@@ -22,7 +22,7 @@ app.use(cookieParser())
 app.use(express.static(path.join(parentDir, '/api/Public')));
 
 app.use(cors({
-  origin: ["https://voyagerhub.vinayakvenugopal.com/","https://www.voyagerhub.vinayakvenugopal.com/"],
+  origin: ["https://voyagerhub.vinayakvenugopal.com","https://www.voyagerhub.vinayakvenugopal.com"],
   credentials: true
 }));
 
@@ -60,7 +60,7 @@ import { Server } from 'socket.io'
 const io = new Server(server, {
     pingTimeout: 60000,
     cors: {
-      origin: ["https://voyagerhub.vinayakvenugopal.com/","https://www.voyagerhub.vinayakvenugopal.com/"],
+      origin: ["https://voyagerhub.vinayakvenugopal.com","https://www.voyagerhub.vinayakvenugopal.com"],
     },
   }); 
 
