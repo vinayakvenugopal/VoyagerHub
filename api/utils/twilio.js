@@ -1,6 +1,8 @@
 // twilioService.mjs
 // twilioService.mjs
 import  Twilio  from 'twilio';
+import dotenv from "dotenv"
+dotenv.config()
 
 const client = new Twilio(process.env.TWILIO_SID, process.env.TWILIO_AUTH_TOKEN);
 const verifyServiceSid = process.env.TWILIO_VERIFY;
