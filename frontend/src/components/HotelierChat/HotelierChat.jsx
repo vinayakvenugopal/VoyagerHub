@@ -192,7 +192,7 @@ export default function HotelierChat() {
                   )}
                 </>
               ))}
-            <li className="bg-white mb-3">
+          {currentRoomId &&  <> <li className="bg-white mb-3">
               <textarea
                 id="textAreaExample"
                 value={content}
@@ -207,6 +207,7 @@ export default function HotelierChat() {
             >
               Send
             </button>
+            </> }
           </MDBTypography>
         </div>
       </MDBRow>
