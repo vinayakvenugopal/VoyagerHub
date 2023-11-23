@@ -2,8 +2,8 @@
 // twilioService.mjs
 import  Twilio  from 'twilio';
 
-const client = new Twilio('ACed4175b83602429cfcf29f2f468ac634', '6998260d08ad737e662942acd9a6d827');
-const verifyServiceSid = 'VAe8ed2dab6bfcfcec6f5af138dea578c9';
+const client = new Twilio(process.env.TWILIO_SID, process.env.TWILIO_AUTH_TOKEN);
+const verifyServiceSid = process.env.TWILIO_VERIFY;
 
 const sendOtp = async (mobileNumber) => {
   try {
