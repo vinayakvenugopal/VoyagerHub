@@ -21,6 +21,10 @@ app.use(cookieParser())
 // ===================== Setting Static Folder =====================
 app.use(express.static(path.join(parentDir, '/api/Public')));
 
+app.use(cors({
+  origin: ["https://voyagerhub.vinayakvenugopal.com/","https://www.voyagerhub.vinayakvenugopal.com/"],
+  credentials: true
+}));
 
 app.use('/api/auth',authRoute)
 app.use('/api/user',userRoute)
@@ -45,10 +49,7 @@ if (enviornment === 'production') {
 app.use(notFound) 
 app.use(errorHandler)
 
-app.use(cors({
-    origin: ["https://voyagerhub.vinayakvenugopal.com/","https://www.voyagerhub.vinayakvenugopal.com/"],
-    credentials: true
-  }));
+
 
 const server =  app.listen(port,()=>{
     console.log(`backend connected @ ${port}`);
