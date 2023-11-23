@@ -1,9 +1,11 @@
 import multer from "multer";
 import path from "path";
+const currentWorkingDir = path.resolve();
+const parentDir = path.dirname(currentWorkingDir);
 
 const storage = multer.diskStorage({
 
-    destination: (req, file, cb) => { cb(null, "api/Public/HotelImages") },
+    destination: (req, file, cb) => { cb(null, path.join(parentDir, '/Public/HotelImages')) },
   
     filename: (req, file, cb) => { cb( null, file.fieldname + "_" + Date.now() + path.extname(file.originalname) ) }
     
@@ -11,7 +13,7 @@ const storage = multer.diskStorage({
   });
   const storageForRoom = multer.diskStorage({
 
-    destination: (req, file, cb) => { cb(null, "api/Public/RoomImages") },
+    destination: (req, file, cb) => { cb(null, path.join(parentDir, '/Public/RoomImages')) },
   
     filename: (req, file, cb) => { cb( null, file.fieldname + "_" + Date.now() + path.extname(file.originalname) ) }
     
