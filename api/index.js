@@ -10,8 +10,7 @@ import adminRoute from './routes/admin.js'
 import cors from 'cors'
 import { notFound,errorHandler } from "./middleware/errorMiddleware.js"
 dotenv.config()
-const currentWorkingDir = path.resolve();
-const parentDir = path.dirname(currentWorkingDir);
+
 const port = 5000
 const app = express() 
 connectDB()
@@ -19,13 +18,15 @@ app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 app.use(cookieParser())
 // ===================== Setting Static Folder =====================
-app.use(express.static(path.join(parentDir,'/api/Public')));
+app.use(express.static('api/Public'));
 
 
 app.use('/api/auth',authRoute)
 app.use('/api/user',userRoute)
 app.use('/api/hotel',hotelRoute)
 app.use('/api/admin',adminRoute)
+const currentWorkingDir = path.resolve();
+const parentDir = path.dirname(currentWorkingDir);
 const enviornment = 'production'
 if (enviornment === 'production') {
     const __dirname = path.resolve();
