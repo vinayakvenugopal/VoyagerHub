@@ -1,5 +1,3 @@
-// twilioService.mjs
-// twilioService.mjs
 import  Twilio  from 'twilio';
 import dotenv from "dotenv"
 dotenv.config()
