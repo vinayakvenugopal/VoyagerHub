@@ -7,7 +7,7 @@ import Pagination from '../Pagination/Pagination'
 function RoomListHotel({room,refetchData}) {
   const [deleteRoom] = useDelteRoomMutation()
 
-  const handleDeleteRoom = async (id)=>{
+  const handleDeleteRoom = async (id)=>{ 
     const response = await deleteRoom({id:id})
     refetchData()
   }

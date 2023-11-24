@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { useLogoutMutation } from "../../slices/userApiSlice";
 import { logout } from "../../slices/userAuthSlice";
-
 const Header1 = () => {
   const navigate = useNavigate();
   const [navbar, setNavbar] = useState(false);
@@ -95,8 +94,6 @@ const Header1 = () => {
                       <nav className="menu js-navList">
                         <ul className="menu__nav text-white -is-active">
                           <li className={`menu-item-has-children`}></li>
-                          {/* <img src="https://bootdey.com/img/Content/avatar/avatar7.png" 
-                          alt="Admin" className="rounded-circle" width="35" /> */}
                            <Link to="/profile"><span className="mr-10">{userInfo.name}</span></Link>
                         </ul>
                       </nav>
@@ -117,9 +114,7 @@ const Header1 = () => {
                     </Link>
                   )}
                 </div>
-                {/* End btn-group */}
 
-                {/* Start mobile menu icon */}
                 <div className="d-none xl:d-flex x-gap-20 items-center pl-30 text-white">
                   <div>
                     <Link
@@ -142,19 +137,14 @@ const Header1 = () => {
                       aria-labelledby="offcanvasMenuLabel"
                       data-bs-scroll="true"
                     >
-                      {/* <MobileMenu /> */}
-                      {/* End MobileMenu */}
+           
                     </div>
                   </div>
                 </div>
-                {/* End mobile menu icon */}
               </div>
             </div>
-            {/* End col-auto */}
           </div>
-          {/* End .row */}
         </div>
-        {/* End header_container */}
       </header>
     </>
   );

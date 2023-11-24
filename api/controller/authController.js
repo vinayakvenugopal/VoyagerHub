@@ -7,7 +7,7 @@ import HotelDetails from '../models/hotelDetails.js';
 
 //@desc Register a new User
 //route POST /api/auth/register
-//@access Public
+//@access Public 
 
 const registerUser = asyncHandler(async(req,res) =>{
     console.log(req.body);

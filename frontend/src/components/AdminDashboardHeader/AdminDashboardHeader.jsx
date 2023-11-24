@@ -2,7 +2,7 @@ import {Link} from "react-router-dom";
 import { useEffect, useState } from "react";
 
 
-const HotelDashboardHeader = () => {
+const AdminDashboardHeader = () => {
   const [navbar, setNavbar] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -128,4 +128,4 @@ const HotelDashboardHeader = () => {
   );
 };
 
-export default HotelDashboardHeader;
+export default AdminDashboardHeader;

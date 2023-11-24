@@ -42,34 +42,7 @@ export const HomeScreen = () => {
         </div>
       </div>
     </section>
-      {/* <section className="layout-pt-lg layout-pb-md" data-aos="fade-up">
-        <div className="container">
-          <div className="row y-gap-20 justify-between items-end">
-            <div className="col-auto">
-              <div className="sectionTitle -md">
-                <h2 className="sectionTitle__title">Popular Destinations</h2>
-                <p className=" sectionTitle__text mt-5 sm:mt-0">
-                  These popular destinations have a lot to offer
-                </p>
-              </div>
-            </div>
-
-            <div className="col-auto md:d-none">
-              <a
-                href="#"
-                className="button -md -blue-1 bg-blue-1-05 text-blue-1"
-              >
-                View All Destinations
-                <div className="icon-arrow-top-right ml-15" />
-              </a>
-            </div>
-          </div>
-
-          <div className="relative pt-40 sm:pt-20">
-            <PopularDestinations />
-          </div>
-        </div>
-      </section> */}
+    
     </>
   )
 }
