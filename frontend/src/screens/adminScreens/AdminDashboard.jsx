@@ -6,7 +6,7 @@ import ChartMain from "../../components/ChartMain/ChartMain.jsx";
 import { useSelector } from "react-redux";
 import RecentBooking from "../../components/RecentBookings/RecentBookings.jsx";
 import { useGetAdminDashboardQuery,useGetBookingsForAdminQuery } from "../../slices/adminApiSlice.js";
-
+import AdminDashboardHeader from "../../components/AdminDashboardHeader/AdminDashboardHeader.jsx";
 
 
 const AdminDashboard = () => {
@@ -29,6 +29,7 @@ const AdminDashboard = () => {
     <>
     <Seo pageTitle={'Dashboard'}/>
       <div className="header-margin"></div>
+      <AdminDashboardHeader/>
 
 
       <div className="dashboard">

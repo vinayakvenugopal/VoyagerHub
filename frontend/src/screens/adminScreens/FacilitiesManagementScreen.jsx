@@ -2,7 +2,7 @@ import HotelFooter from "../../components/HotelFooter/HotelFooter";
 import { useState,useEffect } from "react";
 import AdminSidebar from "../../components/AdminSidebar/AdminSidebar.jsx";
 import { FacilitiesManagement } from "../../components/FacilitiesManagement/FacilitiesManagement";
-
+import AdminDashboardHeader from "../../components/AdminDashboardHeader/AdminDashboardHeader.jsx";
 
 function FacilitiesManagementScreen() {
 
@@ -17,6 +17,8 @@ function FacilitiesManagementScreen() {
   return (
     <>
     <div className="header-margin"></div>
+    <AdminDashboardHeader/>
+
     {/* Header */}
     <div className="dashboard">
       <div className="dashboard__sidebar bg-white scroll-bar-1">

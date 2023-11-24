@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import AddRoomModal from "../../components/AddRoomModal/AddRoomModal";
 import AdminSidebar from "../../components/AdminSidebar/AdminSidebar.jsx";
 import { HotelListAdmin } from "../../components/HotelListAdmin/HotelListAdmin";
-
+import AdminDashboardHeader from "../../components/AdminDashboardHeader/AdminDashboardHeader.jsx";
 function HotelListForAdmin() {
  const [hotelsData,setHotelsData] = useState([])
 const[refetch,setRefetch] = useState(false)
@@ -44,7 +44,7 @@ const[refetch,setRefetch] = useState(false)
   return (
     <>
     <div className="header-margin"></div>
-    {/* <HotelDashboardHeader/> */}
+    <AdminDashboardHeader/>
     <div className="dashboard">
       <div className="dashboard__sidebar bg-white scroll-bar-1">
       <AdminSidebar/>

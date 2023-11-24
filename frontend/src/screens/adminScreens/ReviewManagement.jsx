@@ -5,7 +5,7 @@ import Pagination from "../../components/Pagination/Pagination.jsx";
 import { useState } from "react";
 import dayjs from "dayjs";
 import { toast } from "react-toastify";
-
+import AdminDashboardHeader from "../../components/AdminDashboardHeader/AdminDashboardHeader.jsx";
 export const ReviewManagement = () => {
   const { data, isLoading, isError, refetch } = useGetReviewsForAdminQuery();
   const [hideReview] = useHideReviewMutation()
@@ -47,6 +47,8 @@ export const ReviewManagement = () => {
   }
   return (
     <>
+     <div className="header-margin"></div>
+    <AdminDashboardHeader/>
       <div className="dashboard">
         <div className="dashboard__sidebar bg-white scroll-bar-1">
           <AdminSidebar />

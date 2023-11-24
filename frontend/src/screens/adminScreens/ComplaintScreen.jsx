@@ -1,14 +1,15 @@
  import HotelFooter from "../../components/HotelFooter/HotelFooter";
 import AdminSidebar from "../../components/AdminSidebar/AdminSidebar.jsx";
 import ComplaintsTable from "../../components/ComplaintsTable/ComplaintsTable.jsx";
-
+import AdminDashboardHeader from "../../components/AdminDashboardHeader/AdminDashboardHeader.jsx";
 function ComplaintScreen() {
 
 
   return (
     <>
     <div className="header-margin"></div>
-    {/* <HotelDashboardHeader/> */}
+    <AdminDashboardHeader/>
+
     <div className="dashboard">
       <div className="dashboard__sidebar bg-white scroll-bar-1">
       <AdminSidebar/>
