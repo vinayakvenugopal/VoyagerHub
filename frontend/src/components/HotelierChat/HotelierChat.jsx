@@ -63,6 +63,9 @@ export default function HotelierChat() {
   }, [currentRoomId, messageSent]);
 
   const sendMessage = async () => {
+    if(content.trim()===''){
+      return toast.error("Message is empty")
+    }
     setMessageSent(false);
     const res = await sendChat({
       roomId: currentRoomId,

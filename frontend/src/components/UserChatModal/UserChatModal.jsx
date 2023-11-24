@@ -44,6 +44,9 @@ const UserChat = ({modalOpen, setModalOpen,chatRoom,loading,roomId}) => {
 }, [roomId,messageSent]);
 
   const sendMessage = async() =>{
+    if(message.trim()===''){
+      return toast.error("Message is empty")
+    }
     const res = await sendChat({roomId:roomId,sender:userInfo._id,type:'User',content:message})
     setMessageSent(true)
     setMessage('')

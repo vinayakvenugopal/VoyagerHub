@@ -42,7 +42,7 @@ const [editHotel] = useEditHotelMutation()
 
   const handleSubmit = async(e)=>{
     e.preventDefault();    
-    const { isValid, errors } = isHotelDetailsFormValid(name, desc, address, city);
+    const { isValid, errors } = isHotelDetailsFormValid(name, desc, address, city,starRating);
 if (!isValid) {
   if (errors.name) {
     toast.error(errors.name);
@@ -58,6 +58,10 @@ if (!isValid) {
   }
   if (errors.city) {
     toast.error(errors.city);
+    return
+  }
+  if (errors.starRating) {
+    toast.error(errors.starRating);
     return
   }
 }
