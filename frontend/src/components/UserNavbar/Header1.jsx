@@ -3,7 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { useLogoutMutation } from "../../slices/userApiSlice";
 import { logout } from "../../slices/userAuthSlice";
-import { Notification } from "../Notification/Notification";
+import Notification from "../Notification/Notification";
+
 const Header1 = () => {
   const navigate = useNavigate();
   const [navbar, setNavbar] = useState(false);
@@ -34,7 +35,6 @@ const Header1 = () => {
 
   return (
     <>
-    <Notification/>
       <header className={`header bg-dark-3 ${navbar ? "is-sticky" : ""}`}>
         <div className="header__container px-30 sm:px-20">
           <div className="row justify-between items-center">
@@ -116,6 +116,8 @@ const Header1 = () => {
                     </Link>
                   )}
                 </div>
+                <Notification />
+
 
                 <div className="d-none xl:d-flex x-gap-20 items-center pl-30 text-white">
                   <div>
