@@ -10,6 +10,7 @@ const clienturl = 'https://www.voyagerhub.vinayakvenugopal.com'
 import Bookings from "../models/bookingModel.js";
 import Complaint from "../models/complaintModel.js"; 
 import Review from "../models/reviewModel.js";
+import Notification from "../models/NotificationModel.js";
 // const getHotels = async (req, res, next) => {
 //   try {
 //     const searchName = req.query.name
@@ -402,6 +403,18 @@ const getHotels = async (req, res, next) => {
     }
    }
 
+   const getNotification = async(req,res,next)=>{
+    const id = req.params.id
+    try {
+      const notification = await Notification.find({recieverId:id})
+      res.status(201).json(notification)
+
+    } catch (error) {
+      next(error)
+      
+    }
+   }
+
 
 
 
@@ -423,5 +436,6 @@ const getHotels = async (req, res, next) => {
     submitComplaint,
     walletPayment,
     addReview,
-    getHotelWiseReview
+    getHotelWiseReview,
+    getNotification
   }

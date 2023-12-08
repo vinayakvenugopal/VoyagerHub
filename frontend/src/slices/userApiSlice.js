@@ -2,7 +2,7 @@ import { apiSlice } from "./apiSlice";
 import { REGISTER_URL,LOGIN_URL,GET_HOTEL_LIST_FOR_USER,
     GET_ROOM_DATA_FOR_USER,GET_SINGLE_HOTEL_FOR_USER,VERIFY_OTP,GET_SINGLE_BOOKING,GET_USER_BOOKINGS
 ,SEND_OTP,USER_PROFILE,USER_ADDRESS,ADD_USER_ADDRESS,GET_DETAILS_FOR_BOOKING,PAYMENT,SEND_CHAT,GET_MESSAGE,
-PAYMENT_STATUS,CREATE_BOOKING,USER_CANCEL_BOOKING,SUBMIT_COMPLAINT,WALLET_PAYMENT,HOTEL_WISE_REVIEW,ADD_REVIEW,CREATE_CHATROOM
+PAYMENT_STATUS,CREATE_BOOKING,USER_CANCEL_BOOKING,SUBMIT_COMPLAINT,WALLET_PAYMENT,HOTEL_WISE_REVIEW,ADD_REVIEW,CREATE_CHATROOM,GET_NOTIFICATION
 } from "../config/api";
 
 
@@ -183,7 +183,13 @@ export const userApiSlice = apiSlice.injectEndpoints({
                 url: `${GET_MESSAGE}/${params.roomId}`, 
                 method:'GET',
             })
-        }) 
+        }),
+        getNotification:builder.mutation({
+            query:(params)=>({
+                url: `${GET_NOTIFICATION}/${params.id}`, 
+                method:'GET',
+            })
+        })  
 
 
     })
@@ -193,4 +199,4 @@ export const {useRegisterMutation,useLoginMutation,useGoogleLoginMutation,useGet
     useGetSingleHotelDataForUserMutation,useSendOtpMutation,useCreateBookingMutation,useSubmitComplaintMutation,
     useVerifyOtpMutation,useGetProfileQuery,useGetUserAdressQuery,useAddAddressMutation,useWalletPaymentMutation,useAddReviewMutation,
     useGetDetailsForBookingQuery,usePaymentMutation,usePaymentStatusMutation,useGetSingleBookingQuery,useGetUserBookingsQuery,
-    useUserCancelBookingMutation,useGetMessageMutation,useSendChatMutation}=userApiSlice
+    useUserCancelBookingMutation,useGetMessageMutation,useSendChatMutation,useGetNotificationMutation}=userApiSlice

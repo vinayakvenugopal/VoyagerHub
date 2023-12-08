@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { useLogoutMutation } from "../../slices/userApiSlice";
 import { logout } from "../../slices/userAuthSlice";
+import Notification from "../Notification/Notification";
+import { IoIosNotifications } from "react-icons/io";
 
 const Header1 = () => {
   const navigate = useNavigate();
@@ -10,6 +12,7 @@ const Header1 = () => {
   const { userInfo } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const [logoutApiCall] = useLogoutMutation();
+  const [showNotification,setShowNotification] = useState(false)
   const logoutHandler = async () => {
     try {
       await logoutApiCall({}).unwrap();
@@ -34,6 +37,7 @@ const Header1 = () => {
 
   return (
     <>
+    {showNotification && <Notification setShowNotification={setShowNotification}  />}
       <header className={`header bg-dark-3 ${navbar ? "is-sticky" : ""}`}>
         <div className="header__container px-30 sm:px-20">
           <div className="row justify-between items-center">
@@ -100,6 +104,9 @@ const Header1 = () => {
                            <Link to="/profile"><span className="mr-10">{userInfo.name}</span></Link>
                         </ul>
                       </nav>
+                      
+
+
 
                       <button
                         onClick={logoutHandler}
@@ -107,6 +114,9 @@ const Header1 = () => {
                       >
                         Logout
                       </button>
+                      <div className="menu js-navList">
+                      <IoIosNotifications style={{color:"white", marginLeft:'15px', fontSize:'25px'}} onClick={()=>setShowNotification(true)} cursor={'pointer'}/>
+                      </div>
                     </>
                   ) : (
                     <Link

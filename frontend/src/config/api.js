@@ -44,6 +44,8 @@ export const CREATE_CHATROOM= '/api/user/createChatRoom'
 
 
 export const GET_MESSAGE= '/api/user/getMessages'
+export const GET_NOTIFICATION= '/api/user/getNotification'
+
 export const GET_MESSAGE_FOR_HOTEL= '/api/hotel/getMessages'
 
 export const SEND_CHAT= '/api/user/sendChat'

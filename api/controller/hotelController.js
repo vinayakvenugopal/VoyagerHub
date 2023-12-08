@@ -8,6 +8,7 @@ import RoomAvailability from '../models/roomAvailability.js';
 import Facilities from '../models/facilitiesModal.js';
 import Bookings from "../models/bookingModel.js";
 import User from "../models/userModel.js";
+import Notification from '../models/NotificationModel.js';
 
 //@desc Register a new User
 //route POST /api/auth/register
@@ -303,7 +304,14 @@ const createHotel = async (req, res) => {
         }
 
       }
-      
+      const notification = await Notification.create({
+        sender:booking.hotelInfo.name,
+        reciever:booking.userInfo.name,
+        senderId:booking.hotelInfo._id,
+        recieverId:booking.userInfo.id,
+        message:`Your booking for ${booking.roomInfo.type} is cancelled`
+      })
+      await notification.save()
       await booking.save()
       await user.save()
       res.json(booking)
