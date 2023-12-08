@@ -10,7 +10,7 @@ const clienturl = 'https://www.voyagerhub.vinayakvenugopal.com'
 import Bookings from "../models/bookingModel.js";
 import Complaint from "../models/complaintModel.js"; 
 import Review from "../models/reviewModel.js";
-import Notification from "../models/NotificationModel.js";
+import Notification from "../models/notificationModel.js";
 // const getHotels = async (req, res, next) => {
 //   try {
 //     const searchName = req.query.name

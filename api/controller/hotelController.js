@@ -8,8 +8,7 @@ import RoomAvailability from '../models/roomAvailability.js';
 import Facilities from '../models/facilitiesModal.js';
 import Bookings from "../models/bookingModel.js";
 import User from "../models/userModel.js";
-import Notification from '../models/NotificationModel.js';
-
+import Notification from '../models/notificationModel.js' 
 //@desc Register a new User
 //route POST /api/auth/register
 //@access Public
