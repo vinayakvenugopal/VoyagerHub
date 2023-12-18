@@ -11,6 +11,8 @@ import Bookings from "../models/bookingModel.js";
 import Complaint from "../models/complaintModel.js"; 
 import Review from "../models/reviewModel.js";
 import Notification from "../models/notificationModel.js";
+import {validationResult } from 'express-validator';
+
 // const getHotels = async (req, res, next) => {
 //   try {
 //     const searchName = req.query.name
@@ -240,6 +242,12 @@ const getHotels = async (req, res, next) => {
   const walletPayment = async(req,res,next)=>{
     const {userInfo,roomInfo,hotelInfo,checkInDate,checkOutDate,paymentStatus,bookingStatus,totalAmount} = req.body
     try {
+
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+      }
+
       const user = await User.findOne({_id:userInfo.id})
 
       if(user.wallet>=totalAmount){
@@ -274,7 +282,7 @@ const getHotels = async (req, res, next) => {
         return
       }
     } catch (error) {
-      
+      next(error) 
     }
 
 
@@ -359,8 +367,8 @@ const getHotels = async (req, res, next) => {
 
   const submitComplaint = async(req,res,next)=>{
     try {
-      console.log('submitcomplaint');
      const {userId,subject,message,name,email} = req.body
+     console.log(req.body);
      const complaint = await Complaint.create({
       userId,
       name,

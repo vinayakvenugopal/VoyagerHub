@@ -3,6 +3,8 @@ import User from '../models/userModel.js'
 import generateToken from '../utils/generateUserToken.js';
 import {sendOtp,verifyCode} from '../utils/twilio.js'
 import HotelDetails from '../models/hotelDetails.js';
+import {validationResult } from 'express-validator';
+
 // import {createError} from '../utils/error.js' 
 
 //@desc Register a new User
@@ -42,6 +44,11 @@ const registerUser = asyncHandler(async(req,res) =>{
 
 const loginUser = asyncHandler(async(req,res) =>{
     const {email,password} = req.body
+    console.log(req.body);
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
     const user = await User.findOne({email})
     if(user.isBlocked===false){
 

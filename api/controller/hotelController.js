@@ -76,7 +76,7 @@ const logoutHotelier = async (req,res) =>{
 
 const createHotel = async (req, res) => {
       
-    const {name,city,address,desc,aminities,hotelierId,starRating,videoUrl} = req.body
+    const {name,city,address,desc,aminities,hotelierId,starRating,videoUrl} = req.body           
     let images = []
     if(req.files){
       req.files.map((files)=>{
